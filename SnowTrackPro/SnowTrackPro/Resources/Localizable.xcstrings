@@ -1,0 +1,294 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "tab.track" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Track" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "計測" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "记录" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "記錄" } }
+      }
+    },
+    "tab.history" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "History" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "履歴" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "历史" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "歷史" } }
+      }
+    },
+    "tab.pro" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Pro" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "Proプラン" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "Pro会员" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "Pro方案" } }
+      }
+    },
+    "resort.detecting" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Detecting Resort..." } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "スキー場を自動判定中..." } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "正在识别滑雪场..." } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "正在識別滑雪場..." } }
+      }
+    },
+    "resort.unknown" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Backcountry / Other Area" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "エリア外 / バックカントリー" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "雪场外 / 野雪区域" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "雪場外 / 野雪區域" } }
+      }
+    },
+    "state.skiing" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "SKIING" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "滑走中" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "滑行中" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "滑行中" } }
+      }
+    },
+    "state.lift" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "ON LIFT" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "リフト乗車中" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "缆车上" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "纜車上" } }
+      }
+    },
+    "state.resting" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "RESTING" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "休憩・待機中" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "休息中" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "休息中" } }
+      }
+    },
+    "metric.currentSpeed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "CURRENT SPEED" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "現在速度" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "当前速度" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "目前速度" } }
+      }
+    },
+    "metric.maxSpeed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "MAX SPEED" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "最高速度" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "最高速度" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "最高速度" } }
+      }
+    },
+    "metric.distance" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "SKI DISTANCE" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "滑走距離" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "滑行距离" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "滑行距離" } }
+      }
+    },
+    "metric.verticalDrop" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "VERTICAL DROP" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "獲得標高差" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "累计落差" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "累計落差" } }
+      }
+    },
+    "metric.runs" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "RUNS" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "滑走本数" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "滑行趟数" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "滑行趟數" } }
+      }
+    },
+    "metric.duration" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "TIME" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "経過時間" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "用时" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "時間" } }
+      }
+    },
+    "action.startTracking" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "START SESSION" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "計測を開始" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "开始记录" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "開始記錄" } }
+      }
+    },
+    "action.slideToStop" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Slide to Finish Session" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "スライドして計測終了" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "滑动结束记录" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "滑動結束記錄" } }
+      }
+    },
+    "action.simulateRun" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Demo Run" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "デモ滑走" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "模拟滑行" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "模擬滑行" } }
+      }
+    },
+    "history.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Session History" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "滑走履歴" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "滑行历史" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "滑行歷史" } }
+      }
+    },
+    "history.empty.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No Sessions Yet" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "滑走記録がありません" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "暂无滑行记录" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "尚無滑行記錄" } }
+      }
+    },
+    "history.empty.description" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Put your iPhone in your pocket and start tracking to record your runs." } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "ポケットにiPhoneを入れて計測を開始すると、滑走ログがここに保存されます。" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "将iPhone放入口袋并开始记录，您的滑行日志将保存在此处。" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "將iPhone放入口袋並開始記錄，您的滑行日誌將保存在此處。" } }
+      }
+    },
+    "history.locked.banner" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Unlock older sessions with SnowTrack Pro" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "過去の履歴をすべて閲覧するには Pro プランにアップグレード" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "升级至 SnowTrack Pro 解锁全部历史记录" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "升級至 SnowTrack Pro 解鎖全部歷史記錄" } }
+      }
+    },
+    "paywall.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "SnowTrack Pro" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "SnowTrack Pro" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "SnowTrack Pro" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "SnowTrack Pro" } }
+      }
+    },
+    "paywall.subtitle" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Analyze every turn, braking distance, and speed line." } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "ターン解析・制動距離・速度ヒートマップで滑りの質を極める。" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "深度分析每一次转弯、制动距离与速度热力图。" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "深度分析每一次轉彎、制動距離與速度熱力圖。" } }
+      }
+    },
+    "paywall.feature.heatmap" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Speed Heatmap on Trail Map" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "速度別カラーヒートマップ表示" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "雪道速度热力图" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "雪道速度熱力圖" } }
+      }
+    },
+    "paywall.feature.turns" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Automatic Turn Count & Carving Analysis" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "ターン数自動カウント・ターン弧分析" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "自动转弯计数与弯弧分析" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "自動轉彎計數與彎弧分析" } }
+      }
+    },
+    "paywall.feature.braking" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Braking Distance & Deceleration G Metrics" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "停止までの制動距離・減速G計測" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "制动距离与减速G值测量" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "制動距離與減速G值測量" } }
+      }
+    },
+    "paywall.feature.history" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Unlimited Session History & Ad-Free" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "無制限の滑走履歴＆広告非表示" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "无限历史记录与无广告体验" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "無限歷史記錄與無廣告體驗" } }
+      }
+    },
+    "paywall.feature.proUpdates" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "All Future Pro Analytics Updates Included" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "今後追加される高度な滑走分析機能も利用可能" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "包含未来所有 Pro 高级分析更新" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "包含未來所有 Pro 進階分析更新" } }
+      }
+    },
+    "paywall.autoRenewNotice" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Payment will be charged to your Apple Account at confirmation of purchase. Subscription automatically renews unless canceled at least 24 hours before the end of the current period. Manage or cancel anytime in App Store Account Settings." } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "お支払いは購入確定時に Apple Account に課金されます。サブスクリプションは期間終了の24時間前までに解約しない限り自動更新されます。管理・解約は App Store のアカウント設定からいつでも行えます。" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "确认购买后将通过您的 Apple 账户扣款。除非在当前订阅期结束前至少 24 小时取消，否则订阅将自动续订。您可随时在 App Store 账户设置中管理或取消。" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "確認購買後將透過您的 Apple 帳號扣款。除非在目前訂閱期結束前至少 24 小時取消，否則訂閱將自動續訂。您可隨時在 App Store 帳號設定中管理或取消。" } }
+      }
+    },
+    "legal.termsOfUse" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Terms of Use (EULA)" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "利用規約（EULA）" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "使用条款 (EULA)" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "使用條款 (EULA)" } }
+      }
+    },
+    "legal.privacyPolicy" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Privacy Policy" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "プライバシーポリシー" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "隐私政策" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "隱私權政策" } }
+      }
+    },
+    "paywall.restore" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Restore Purchases" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "購入を復元" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "恢复购买" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "恢復購買" } }
+      }
+    },
+    "paywall.activeBadge" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Pro Plan Active" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "Pro プラン有効" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "Pro 会员已生效" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "Pro 方案已啟用" } }
+      }
+    },
+    "paywall.productsUnavailable" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Subscription plans will appear once StoreKit products are configured in App Store Connect." } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "App Store Connect でサブスクリプション商品を登録すると、ここにプランが表示されます。" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "在 App Store Connect 配置订阅商品后，此处将显示方案。" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "在 App Store Connect 設定訂閱商品後，此處將顯示方案。" } }
+      }
+    },
+    "error.locationDenied" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Location access is denied. Please enable it in Settings to track your runs." } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "位置情報の利用が拒否されています。設定アプリから許可してください。" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "位置权限被拒绝，请在系统设置中开启以记录滑行。" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "位置權限被拒絕，請在系統設定中開啟以記錄滑行。" } }
+      }
+    },
+    "pro.upsell.heatmap" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Upgrade to Pro for Speed Heatmap" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "Proで速度ヒートマップを解放" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "升级Pro解锁速度热力图" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "升級Pro解鎖速度熱力圖" } }
+      }
+    }
+  },
+  "version" : "1.0"
+}

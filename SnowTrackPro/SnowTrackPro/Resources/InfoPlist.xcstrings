@@ -1,0 +1,90 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "NSLocationAlwaysAndWhenInUseUsageDescription" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Used to record your ski and snowboard runs automatically even while your iPhone is in your jacket pocket."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ウェアのポケットにiPhoneを入れたままでも滑走データを自動記録するために位置情報をバックグラウンドで使用します。"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "即使将iPhone放在雪服口袋中，也用于在后台自动记录您的滑雪与单板滑行数据。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "即使將iPhone放在雪衣口袋中，也用於在背景自動記錄您的滑雪與單板滑行數據。"
+          }
+        }
+      }
+    },
+    "NSLocationWhenInUseUsageDescription" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Used to measure your speed, distance, elevation drop, and detect the ski resort automatically."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "滑走速度・距離・獲得標高差の計測およびスキー場の自動判定のために位置情報を使用します。"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "用于测量滑行速度、距离、落差并自动识别所在滑雪场。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "用於測量滑行速度、距離、落差並自動識別所在滑雪場。"
+          }
+        }
+      }
+    },
+    "NSMotionUsageDescription" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Used to analyze turns, braking distance, and distinguish skiing from lift rides."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ターン数や制動距離の解析、および滑走とリフト乗車の自動判別にモーションセンサーを使用します。"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "用于分析转弯次数、制动距离以及自动区分滑行与缆车乘坐。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "用於分析轉彎次數、制動距離以及自動區分滑行與纜車乘坐。"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

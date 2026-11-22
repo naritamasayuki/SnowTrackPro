@@ -1,0 +1,182 @@
+[
+  {
+    "id": "sapporo-teine",
+    "names": {
+      "ja": "サッポロテイネ",
+      "en": "Sapporo Teine",
+      "zh-Hans": "札幌手稻滑雪场",
+      "zh-Hant": "札幌手稻滑雪場"
+    },
+    "countryCode": "JP",
+    "latitude": 43.0764,
+    "longitude": 141.1997,
+    "radiusMeters": 4500,
+    "baseElevationMeters": 340,
+    "summitElevationMeters": 1023
+  },
+  {
+    "id": "rusutsu-resort",
+    "names": {
+      "ja": "ルスツリゾート",
+      "en": "Rusutsu Resort",
+      "zh-Hans": "留寿都度假村",
+      "zh-Hant": "留壽都渡假村"
+    },
+    "countryCode": "JP",
+    "latitude": 42.7527,
+    "longitude": 140.9022,
+    "radiusMeters": 6000,
+    "baseElevationMeters": 400,
+    "summitElevationMeters": 994
+  },
+  {
+    "id": "niseko-grand-hirafu",
+    "names": {
+      "ja": "ニセコ東急 グラン・ヒラフ",
+      "en": "Niseko Tokyu Grand Hirafu",
+      "zh-Hans": "二世古东急大比罗夫",
+      "zh-Hant": "二世古東急大比羅夫"
+    },
+    "countryCode": "JP",
+    "latitude": 42.8628,
+    "longitude": 140.6997,
+    "radiusMeters": 6500,
+    "baseElevationMeters": 260,
+    "summitElevationMeters": 1200
+  },
+  {
+    "id": "kiroro-resort",
+    "names": {
+      "ja": "キロロスノーワールド",
+      "en": "Kiroro Snow World",
+      "zh-Hans": "喜乐乐雪世界",
+      "zh-Hant": "喜樂樂雪世界"
+    },
+    "countryCode": "JP",
+    "latitude": 43.0653,
+    "longitude": 140.9903,
+    "radiusMeters": 5000,
+    "baseElevationMeters": 570,
+    "summitElevationMeters": 1180
+  },
+  {
+    "id": "furano-ski-resort",
+    "names": {
+      "ja": "富良野スキー場",
+      "en": "Furano Ski Resort",
+      "zh-Hans": "富良野滑雪场",
+      "zh-Hant": "富良野滑雪場"
+    },
+    "countryCode": "JP",
+    "latitude": 43.3316,
+    "longitude": 142.3578,
+    "radiusMeters": 5500,
+    "baseElevationMeters": 235,
+    "summitElevationMeters": 1074
+  },
+  {
+    "id": "hakuba-happo-one",
+    "names": {
+      "ja": "白馬八方尾根スキー場",
+      "en": "Hakuba Happo-One",
+      "zh-Hans": "白马八方尾根滑雪场",
+      "zh-Hant": "白馬八方尾根滑雪場"
+    },
+    "countryCode": "JP",
+    "latitude": 36.7019,
+    "longitude": 137.8390,
+    "radiusMeters": 5500,
+    "baseElevationMeters": 760,
+    "summitElevationMeters": 1831
+  },
+  {
+    "id": "nozawa-onsen",
+    "names": {
+      "ja": "野沢温泉スキー場",
+      "en": "Nozawa Onsen Snow Resort",
+      "zh-Hans": "野泽温泉滑雪场",
+      "zh-Hant": "野澤溫泉滑雪場"
+    },
+    "countryCode": "JP",
+    "latitude": 36.9212,
+    "longitude": 138.4517,
+    "radiusMeters": 5500,
+    "baseElevationMeters": 565,
+    "summitElevationMeters": 1650
+  },
+  {
+    "id": "shiga-kogen",
+    "names": {
+      "ja": "志賀高原マウンテンリゾート",
+      "en": "Shiga Kogen Mountain Resort",
+      "zh-Hans": "志贺高原山地度假村",
+      "zh-Hant": "志賀高原山地渡假村"
+    },
+    "countryCode": "JP",
+    "latitude": 36.7317,
+    "longitude": 138.5144,
+    "radiusMeters": 8000,
+    "baseElevationMeters": 1340,
+    "summitElevationMeters": 2307
+  },
+  {
+    "id": "zao-onsen",
+    "names": {
+      "ja": "蔵王温泉スキー場",
+      "en": "Zao Onsen Ski Resort",
+      "zh-Hans": "藏王温泉滑雪场",
+      "zh-Hant": "藏王溫泉滑雪場"
+    },
+    "countryCode": "JP",
+    "latitude": 38.1678,
+    "longitude": 140.3982,
+    "radiusMeters": 6000,
+    "baseElevationMeters": 780,
+    "summitElevationMeters": 1661
+  },
+  {
+    "id": "naeba-ski-resort",
+    "names": {
+      "ja": "苗場スキー場",
+      "en": "Naeba Ski Resort",
+      "zh-Hans": "苗场滑雪场",
+      "zh-Hant": "苗場滑雪場"
+    },
+    "countryCode": "JP",
+    "latitude": 36.7928,
+    "longitude": 138.7878,
+    "radiusMeters": 5000,
+    "baseElevationMeters": 900,
+    "summitElevationMeters": 1789
+  },
+  {
+    "id": "whistler-blackcomb",
+    "names": {
+      "ja": "ウィスラー・ブラッコム",
+      "en": "Whistler Blackcomb",
+      "zh-Hans": "惠斯勒黑梳山",
+      "zh-Hant": "惠斯勒黑梳山"
+    },
+    "countryCode": "CA",
+    "latitude": 50.1163,
+    "longitude": -122.9574,
+    "radiusMeters": 10000,
+    "baseElevationMeters": 652,
+    "summitElevationMeters": 2284
+  },
+  {
+    "id": "zermatt-matterhorn",
+    "names": {
+      "ja": "ツェルマット",
+      "en": "Zermatt Matterhorn",
+      "zh-Hans": "采尔马特",
+      "zh-Hant": "策馬特"
+    },
+    "countryCode": "CH",
+    "latitude": 45.9766,
+    "longitude": 7.7491,
+    "radiusMeters": 10000,
+    "baseElevationMeters": 1620,
+    "summitElevationMeters": 3883
+  }
+]

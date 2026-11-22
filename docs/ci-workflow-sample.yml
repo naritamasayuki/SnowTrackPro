@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  core-tests:
+    name: SnowTrackCore ユニットテスト & SwiftLint
+    runs-on: macos-15
+    steps:
+      - name: リポジトリをチェックアウト
+        uses: actions/checkout@v4
+
+      - name: SwiftLint による静的解析
+        run: |
+          if which swiftlint >/dev/null; then
+            swiftlint lint --strict
+          else
+            brew install swiftlint
+            swiftlint lint --strict
+          fi
+
+      - name: SnowTrackCore テスト実行
+        working-directory: Packages/SnowTrackCore
+        run: swift test --enable-code-coverage
+
+  ios-build:
+    name: SnowTrackPro iOS ビルド確認
+    runs-on: macos-15
+    steps:
+      - name: リポジトリをチェックアウト
+        uses: actions/checkout@v4
+
+      - name: iOS シミュレータ向けビルド
+        run: |
+          xcodebuild build \
+            -project SnowTrackPro/SnowTrackPro.xcodeproj \
+            -scheme SnowTrackPro \
+            -destination 'generic/platform=iOS Simulator' \
+            CODE_SIGNING_ALLOWED=NO

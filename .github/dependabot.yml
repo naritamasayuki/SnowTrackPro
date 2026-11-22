@@ -1,0 +1,19 @@
+version: 2
+updates:
+  # GitHub Actions のバージョン自動更新
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+      - "ci"
+
+  # Swift Package Manager の依存関係自動更新
+  - package-ecosystem: "swift"
+    directory: "/Packages/SnowTrackCore"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+      - "swift"
