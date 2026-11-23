@@ -14,11 +14,6 @@ struct ContentView: View {
                 .tabItem {
                     Label("tab.history", systemImage: "clock.arrow.circlepath")
                 }
-
-            PaywallView()
-                .tabItem {
-                    Label("tab.pro", systemImage: "crown.fill")
-                }
         }
         .tint(Color(red: 0.0, green: 0.88, blue: 0.94))
     }

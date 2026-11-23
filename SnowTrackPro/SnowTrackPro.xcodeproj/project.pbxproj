@@ -12,14 +12,12 @@
 		C10200000000000000000001 /* SkiSessionModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10200000000000000000001 /* SkiSessionModels.swift */; };
 		C10300000000000000000001 /* AppLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10300000000000000000001 /* AppLogger.swift */; };
 		C10400000000000000000001 /* LocationTrackingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10400000000000000000001 /* LocationTrackingService.swift */; };
-		C10500000000000000000001 /* SubscriptionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10500000000000000000001 /* SubscriptionStore.swift */; };
 		C10600000000000000000001 /* TrackingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10600000000000000000001 /* TrackingViewModel.swift */; };
 		C10700000000000000000001 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10700000000000000000001 /* ContentView.swift */; };
 		C10800000000000000000001 /* TrackingDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10800000000000000000001 /* TrackingDashboardView.swift */; };
 		C10900000000000000000001 /* TrackMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10900000000000000000001 /* TrackMapView.swift */; };
 		C10A00000000000000000001 /* SlideToStopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10A00000000000000000001 /* SlideToStopView.swift */; };
 		C10B00000000000000000001 /* SessionHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10B00000000000000000001 /* SessionHistoryView.swift */; };
-		C10C00000000000000000001 /* PaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C00000000000000000001 /* PaywallView.swift */; };
 		C10D00000000000000000001 /* LegalLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10D00000000000000000001 /* LegalLinks.swift */; };
 		C20100000000000000000001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B20100000000000000000001 /* Assets.xcassets */; };
 		C20200000000000000000001 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = B20200000000000000000001 /* Localizable.xcstrings */; };
@@ -33,21 +31,18 @@
 		B10200000000000000000001 /* SkiSessionModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models/SkiSessionModels.swift; sourceTree = "<group>"; };
 		B10300000000000000000001 /* AppLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/AppLogger.swift; sourceTree = "<group>"; };
 		B10400000000000000000001 /* LocationTrackingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/LocationTrackingService.swift; sourceTree = "<group>"; };
-		B10500000000000000000001 /* SubscriptionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/SubscriptionStore.swift; sourceTree = "<group>"; };
 		B10600000000000000000001 /* TrackingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModels/TrackingViewModel.swift; sourceTree = "<group>"; };
 		B10700000000000000000001 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/ContentView.swift; sourceTree = "<group>"; };
 		B10800000000000000000001 /* TrackingDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/TrackingDashboardView.swift; sourceTree = "<group>"; };
 		B10900000000000000000001 /* TrackMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/TrackMapView.swift; sourceTree = "<group>"; };
 		B10A00000000000000000001 /* SlideToStopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/SlideToStopView.swift; sourceTree = "<group>"; };
 		B10B00000000000000000001 /* SessionHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/SessionHistoryView.swift; sourceTree = "<group>"; };
-		B10C00000000000000000001 /* PaywallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/PaywallView.swift; sourceTree = "<group>"; };
 		B10D00000000000000000001 /* LegalLinks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/LegalLinks.swift; sourceTree = "<group>"; };
 		B20100000000000000000001 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Resources/Assets.xcassets; sourceTree = "<group>"; };
 		B20200000000000000000001 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Resources/Localizable.xcstrings; sourceTree = "<group>"; };
 		B20300000000000000000001 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Resources/InfoPlist.xcstrings; sourceTree = "<group>"; };
 		B20400000000000000000001 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Resources/Info.plist; sourceTree = "<group>"; };
 		B20500000000000000000001 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Resources/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		B20600000000000000000001 /* SnowTrackPro.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Resources/SnowTrackPro.storekit; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,21 +80,18 @@
 				B10200000000000000000001 /* SkiSessionModels.swift */,
 				B10300000000000000000001 /* AppLogger.swift */,
 				B10400000000000000000001 /* LocationTrackingService.swift */,
-				B10500000000000000000001 /* SubscriptionStore.swift */,
 				B10600000000000000000001 /* TrackingViewModel.swift */,
 				B10700000000000000000001 /* ContentView.swift */,
 				B10800000000000000000001 /* TrackingDashboardView.swift */,
 				B10900000000000000000001 /* TrackMapView.swift */,
 				B10A00000000000000000001 /* SlideToStopView.swift */,
 				B10B00000000000000000001 /* SessionHistoryView.swift */,
-				B10C00000000000000000001 /* PaywallView.swift */,
 				B10D00000000000000000001 /* LegalLinks.swift */,
 				B20100000000000000000001 /* Assets.xcassets */,
 				B20200000000000000000001 /* Localizable.xcstrings */,
 				B20300000000000000000001 /* InfoPlist.xcstrings */,
 				B20400000000000000000001 /* Info.plist */,
 				B20500000000000000000001 /* PrivacyInfo.xcprivacy */,
-				B20600000000000000000001 /* SnowTrackPro.storekit */,
 			);
 			path = SnowTrackPro;
 			sourceTree = "<group>";
@@ -184,14 +176,12 @@
 				C10200000000000000000001 /* SkiSessionModels.swift in Sources */,
 				C10300000000000000000001 /* AppLogger.swift in Sources */,
 				C10400000000000000000001 /* LocationTrackingService.swift in Sources */,
-				C10500000000000000000001 /* SubscriptionStore.swift in Sources */,
 				C10600000000000000000001 /* TrackingViewModel.swift in Sources */,
 				C10700000000000000000001 /* ContentView.swift in Sources */,
 				C10800000000000000000001 /* TrackingDashboardView.swift in Sources */,
 				C10900000000000000000001 /* TrackMapView.swift in Sources */,
 				C10A00000000000000000001 /* SlideToStopView.swift in Sources */,
 				C10B00000000000000000001 /* SessionHistoryView.swift in Sources */,
-				C10C00000000000000000001 /* PaywallView.swift in Sources */,
 				C10D00000000000000000001 /* LegalLinks.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

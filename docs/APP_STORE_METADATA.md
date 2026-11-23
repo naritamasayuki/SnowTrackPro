@@ -39,7 +39,7 @@
   ・現在速度、最高速度、滑走距離、獲得標高差、滑走本数をリアルタイム表示
   ・雪面でも見やすいハイコントラスト・ダークモードUI
   ・ポケット内での誤操作を防ぐ「スライドして計測終了」ロックUI
-  ・滑走ルートを MapKit 上に描画（Proプランでは速度別カラーヒートマップに対応）
+  ・滑走ルートを MapKit 上に速度別カラーヒートマップで描画
 
   ■ プライバシー重視
   ・滑走ログ・位置情報データはすべて端末内（SwiftData）のみに保存され、外部サーバーへ送信されません。
@@ -65,7 +65,7 @@
   - Background GPS Tracking: Automatically measures current speed, max speed, ski distance, vertical drop, and run count with smart battery optimization on lifts.
   - Offline Resort Detection: Automatically identifies major resorts worldwide without requiring cellular reception.
   - High-Contrast Glare-Proof UI: Large dark-mode telemetry built for bright snowy slopes, with a slide-to-finish lock to prevent accidental pocket taps.
-  - Trail Map & Speed Heatmap: View your recorded route on MapKit, and unlock speed-colored heatmaps and unlimited session history with SnowTrack Pro.
+  - Trail Map & Speed Heatmap: View your recorded route with speed-colored heatmaps on MapKit and unlimited local session history.
   - Private by Design: All session logs and GPS tracks stay locally on your device.
   ```
 
@@ -84,7 +84,4 @@ On the main "Track" tab, reviewers can tap the "Demo Run" button in the top-righ
 
 3. Privacy & Data Storage:
 No account or sign-in is required. All GPS tracks and session histories are stored strictly on-device using SwiftData and are never transmitted to external servers.
-
-4. In-App Purchases (StoreKit 2):
-Auto-renewable subscriptions (`com.snowtrackpro.subscription.pro.monthly`, `com.snowtrackpro.subscription.pro.yearly`) unlock speed-colored heatmaps on the map and unlimited session history.
 ```

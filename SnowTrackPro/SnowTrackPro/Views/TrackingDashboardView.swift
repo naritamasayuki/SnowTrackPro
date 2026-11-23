@@ -6,10 +6,8 @@ import SwiftUI
 struct TrackingDashboardView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.locale) private var locale
-    @Environment(SubscriptionStore.self) private var subscriptionStore
 
     let viewModel: TrackingViewModel
-    @State private var showPaywallSheet = false
 
     private var formatter: MeasurementFormatHelper {
         MeasurementFormatHelper(locale: locale)
@@ -27,9 +25,7 @@ struct TrackingDashboardView: View {
 
                     TrackMapView(
                         samples: viewModel.samples,
-                        speedSegments: viewModel.speedSegments,
-                        showHeatmap: subscriptionStore.canAccess(.speedHeatmap),
-                        onTapUpsell: { showPaywallSheet = true }
+                        speedSegments: viewModel.speedSegments
                     )
                     .frame(height: 220)
 
@@ -56,9 +52,6 @@ struct TrackingDashboardView: View {
                         .font(.caption.bold())
                     }
                 }
-            }
-            .sheet(isPresented: $showPaywallSheet) {
-                PaywallView()
             }
         }
     }
