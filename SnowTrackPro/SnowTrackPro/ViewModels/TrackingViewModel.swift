@@ -119,6 +119,20 @@ final class TrackingViewModel {
         }
     }
 
+    #if DEBUG
+    /// スクリーンショット撮影用にサッポロテイネ滑走途中の状態を即座に再現する
+    func loadScreenshotLiveState() {
+        simulationTask?.cancel()
+        resetMetrics()
+        sessionStartedAt = Date().addingTimeInterval(-120)
+        isTracking = true
+        let demoSamples = Self.buildTeineDemoSamples().dropLast()
+        for sample in demoSamples {
+            handleSample(sample)
+        }
+    }
+    #endif
+
     private func handleSample(_ sample: TrackSample) {
         guard isTracking, sample.isValid() else { return }
 
