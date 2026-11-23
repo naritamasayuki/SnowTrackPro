@@ -22,6 +22,8 @@
 		C10E00000000000000000001 /* ProPurchaseStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10E00000000000000000001 /* ProPurchaseStore.swift */; };
 		C10F00000000000000000001 /* ProUpgradeSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10F00000000000000000001 /* ProUpgradeSheet.swift */; };
 		C11000000000000000000001 /* AdBannerSlotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11000000000000000000001 /* AdBannerSlotView.swift */; };
+		C11100000000000000000001 /* MotionTurnService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11100000000000000000001 /* MotionTurnService.swift */; };
+		C11200000000000000000001 /* SessionDetailCoachingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11200000000000000000001 /* SessionDetailCoachingView.swift */; };
 		C20100000000000000000001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B20100000000000000000001 /* Assets.xcassets */; };
 		C20200000000000000000001 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = B20200000000000000000001 /* Localizable.xcstrings */; };
 		C20300000000000000000001 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = B20300000000000000000001 /* InfoPlist.xcstrings */; };
@@ -44,6 +46,8 @@
 		B10E00000000000000000001 /* ProPurchaseStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/ProPurchaseStore.swift; sourceTree = "<group>"; };
 		B10F00000000000000000001 /* ProUpgradeSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/ProUpgradeSheet.swift; sourceTree = "<group>"; };
 		B11000000000000000000001 /* AdBannerSlotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/AdBannerSlotView.swift; sourceTree = "<group>"; };
+		B11100000000000000000001 /* MotionTurnService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/MotionTurnService.swift; sourceTree = "<group>"; };
+		B11200000000000000000001 /* SessionDetailCoachingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/SessionDetailCoachingView.swift; sourceTree = "<group>"; };
 		B20100000000000000000001 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Resources/Assets.xcassets; sourceTree = "<group>"; };
 		B20200000000000000000001 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Resources/Localizable.xcstrings; sourceTree = "<group>"; };
 		B20300000000000000000001 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Resources/InfoPlist.xcstrings; sourceTree = "<group>"; };
@@ -96,6 +100,8 @@
 				B10E00000000000000000001 /* ProPurchaseStore.swift */,
 				B10F00000000000000000001 /* ProUpgradeSheet.swift */,
 				B11000000000000000000001 /* AdBannerSlotView.swift */,
+				B11100000000000000000001 /* MotionTurnService.swift */,
+				B11200000000000000000001 /* SessionDetailCoachingView.swift */,
 				B20100000000000000000001 /* Assets.xcassets */,
 				B20200000000000000000001 /* Localizable.xcstrings */,
 				B20300000000000000000001 /* InfoPlist.xcstrings */,
@@ -195,6 +201,8 @@
 				C10E00000000000000000001 /* ProPurchaseStore.swift in Sources */,
 				C10F00000000000000000001 /* ProUpgradeSheet.swift in Sources */,
 				C11000000000000000000001 /* AdBannerSlotView.swift in Sources */,
+				C11100000000000000000001 /* MotionTurnService.swift in Sources */,
+				C11200000000000000000001 /* SessionDetailCoachingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -241,7 +249,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 4KR684T6KV;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = SnowTrackPro/Resources/Info.plist;
@@ -266,7 +274,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 4KR684T6KV;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = SnowTrackPro/Resources/Info.plist;

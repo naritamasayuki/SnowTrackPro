@@ -17,6 +17,9 @@ final class SkiSessionRecord {
     var verticalDropMeters: Double
     var runCount: Int
     var elapsedSeconds: TimeInterval
+    var turnCount: Int = 0
+    var turnsPerKilometer: Double = 0
+    var turnConsistencyScore: Double = 0
     @Relationship(deleteRule: .cascade) var trackPoints: [TrackPointRecord]
 
     init(
@@ -32,6 +35,9 @@ final class SkiSessionRecord {
         verticalDropMeters: Double,
         runCount: Int,
         elapsedSeconds: TimeInterval,
+        turnCount: Int = 0,
+        turnsPerKilometer: Double = 0,
+        turnConsistencyScore: Double = 0,
         trackPoints: [TrackPointRecord] = []
     ) {
         self.id = id
@@ -46,7 +52,19 @@ final class SkiSessionRecord {
         self.verticalDropMeters = verticalDropMeters
         self.runCount = runCount
         self.elapsedSeconds = elapsedSeconds
+        self.turnCount = turnCount
+        self.turnsPerKilometer = turnsPerKilometer
+        self.turnConsistencyScore = turnConsistencyScore
         self.trackPoints = trackPoints
+    }
+
+    func toTurnSnapshot() -> SessionTurnSnapshot {
+        SessionTurnSnapshot(
+            turnCount: turnCount,
+            turnsPerKilometer: turnsPerKilometer,
+            consistencyScore: turnConsistencyScore,
+            maxSpeedKilometersPerHour: maxSpeedKilometersPerHour
+        )
     }
 }
 

@@ -22,9 +22,12 @@ final class TrackingViewModel {
     private(set) var hasPendingUnsavedSession: Bool = false
 
     private let locationService: LocationTrackingService
+    private let motionTurnService = MotionTurnService()
     private let resortMatcher: ResortMatcher
     private let calculator = TrackMetricsCalculator()
+    private let turnAnalyzer = TurnAnalyzer()
     private var stateMachine = RunStateMachine()
+    private var gyroSamples: [GyroSample] = []
     private var sessionStartedAt: Date?
     private var sessionEndedAt: Date?
     private var simulationTask: Task<Void, Never>?
@@ -38,6 +41,10 @@ final class TrackingViewModel {
             self.resortMatcher = ResortMatcher(resorts: [])
         }
         bindLocationService()
+        motionTurnService.onGyroSample = { [weak self] sample in
+            guard let self, self.isTracking else { return }
+            self.gyroSamples.append(sample)
+        }
     }
 
     private func bindLocationService() {
@@ -64,6 +71,7 @@ final class TrackingViewModel {
         sessionStartedAt = Date()
         isTracking = true
         locationService.startTracking()
+        motionTurnService.start()
     }
 
     /// 計測を終了し、保存枠に空きがあれば SwiftData へ保存する。
@@ -74,6 +82,7 @@ final class TrackingViewModel {
         simulationTask?.cancel()
         simulationTask = nil
         locationService.stopTracking()
+        motionTurnService.stop()
         isTracking = false
 
         let endedAt = Date()
@@ -109,6 +118,8 @@ final class TrackingViewModel {
         let startedAt = sessionStartedAt ?? endedAt
         let resortName = detectedResort?.localizedName() ?? String(localized: "resort.unknown")
         let pointRecords = samples.map { TrackPointRecord(sample: $0) }
+        let effectiveSkiDistance = pureSkiDistanceMeters > 0 ? pureSkiDistanceMeters : summary.totalDistanceMeters
+        let turnMetrics = turnAnalyzer.analyze(gyroSamples: gyroSamples, skiDistanceMeters: effectiveSkiDistance)
         let record = SkiSessionRecord(
             startedAt: startedAt,
             endedAt: endedAt,
@@ -121,6 +132,9 @@ final class TrackingViewModel {
             verticalDropMeters: summary.verticalDropMeters,
             runCount: max(runCount, 1),
             elapsedSeconds: max(summary.elapsedSeconds, endedAt.timeIntervalSince(startedAt)),
+            turnCount: turnMetrics.turnCount,
+            turnsPerKilometer: turnMetrics.turnsPerKilometer,
+            turnConsistencyScore: turnMetrics.consistencyScore,
             trackPoints: pointRecords
         )
 
@@ -194,7 +208,9 @@ final class TrackingViewModel {
     private func resetMetrics() {
         samples.removeAll()
         speedSegments.removeAll()
+        gyroSamples.removeAll()
         stateMachine.reset()
+        hasPendingUnsavedSession = false
         detectedResort = nil
         activityState = .resting
         currentSpeedKmh = 0

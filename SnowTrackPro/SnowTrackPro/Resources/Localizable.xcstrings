@@ -321,6 +321,206 @@
         "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "全面隱藏應用程式內廣告與橫幅" } }
       }
     },
+    "pro.sheet.benefit.coaching" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Turn trend comparison & one-point coaching advice" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "ターン変化の過去比較＆ワンポイントアドバイス" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "转弯变化历史对比与要点指导建议" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "轉彎變化歷史對比與要點指導建議" } }
+      }
+    },
+    "coaching.turnMetrics.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Turn Telemetry" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "ターン計測データ" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "转弯数据" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "轉彎數據" } }
+      }
+    },
+    "coaching.turnCount" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "TURNS" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "総ターン数" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "总转弯次数" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "總轉彎次數" } }
+      }
+    },
+    "coaching.rhythmScore" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "RHYTHM SCORE" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "リズム安定度" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "节奏稳定度" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "節奏穩定度" } }
+      }
+    },
+    "coaching.section.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Pro Turn Coaching" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "プロ ターン変化＆ワンポイントアドバイス" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "Pro 转弯变化与要点建议" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "Pro 轉彎變化與要點建議" } }
+      }
+    },
+    "coaching.delta.turnDensity" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "vs Past Turn Density" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "過去平均比（ターン密度）" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "较历史均值（转弯密度）" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "較歷史均值（轉彎密度）" } }
+      }
+    },
+    "coaching.delta.rhythm" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "vs Past Rhythm" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "過去平均比（安定度）" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "较历史均值（稳定度）" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "較歷史均值（穩定度）" } }
+      }
+    },
+    "coaching.arc.short" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Short Turns" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "ショートターン寄り" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "偏向小弯" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "偏向小彎" } }
+      }
+    },
+    "coaching.arc.medium" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Medium Turns" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "ミドルターン" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "中弯均衡" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "中彎均衡" } }
+      }
+    },
+    "coaching.arc.long" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Long Turns" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "ロングターン寄り" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "偏向大弯" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "偏向大彎" } }
+      }
+    },
+    "coaching.locked.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Unlock Turn Comparison & One-Point Advice" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "過去比較＆ワンポイントアドバイス（プロ限定）" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "解锁转弯历史对比与要点建议（Pro 专属）" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "解鎖轉彎歷史對比與要點建議（Pro 專屬）" } }
+      }
+    },
+    "coaching.locked.description" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Compare your turn rhythm and arc against previous sessions and get tailored on-slope tips." } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "これまでの滑走データとターン傾向を比較し、変化点と次の一本に活きるワンポイントアドバイスを表示します。" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "将本次转弯节奏与历史滑行对比，发现变化并获取针对性滑行建议。" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "將本次轉彎節奏與歷史滑行對比，發現變化並獲得針對性滑行建議。" } }
+      }
+    },
+    "coaching.locked.button" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Unlock with Pro Plan" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "プロプランで解放する" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "升级 Pro 方案解锁" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "升級 Pro 方案解鎖" } }
+      }
+    },
+    "coaching.advice.initial.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Baseline Recorded!" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "基準データを記録しました" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "已记录基准数据" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "已記錄基準數據" } }
+      }
+    },
+    "coaching.advice.initial.body" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Great first tracked session! Record one more session to unlock automatic comparison of your turn arc and rhythm changes." } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "今回の滑走がベースラインになります。次回以降の滑走ログが溜まると、これまでとのターン変化やリズム向上を自動で比較診断します。" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "本次滑行将作为基准。再记录一次滑行后，即可自动对比您的转弯弧度与节奏变化。" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "本次滑行將作為基準。再記錄一次滑行後，即可自動對比您的轉彎弧度與節奏變化。" } }
+      }
+    },
+    "coaching.advice.short.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sharper Short Turns Detected" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "変化：以前より細かい切り返しが増えています" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "变化：小弯切换频率明显提高" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "變化：小彎切換頻率明顯提高" } }
+      }
+    },
+    "coaching.advice.short.body" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Your turn density increased compared to your average. Tip: Keep your upper body facing down the fall line and focus on light unweighting during transitions." } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "過去平均よりターン密度が上がっており、急斜面やコブでのコントロール力が向上しています。ワンポイント：上体を谷側（フォールライン）に向けたまま切り替え時の抜重を意識するとさらにスムーズになります。" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "您的转弯密度高于历史均值，控速能力有所提升。要点建议：保持上身面向滚落线，在换刃瞬间注重轻盈引身。" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "您的轉彎密度高於歷史均值，控速能力有所提升。要點建議：保持上身面向滾落線，在換刃瞬間注重輕盈引身。" } }
+      }
+    },
+    "coaching.advice.long.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Faster Long-Arc Carving" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "変化：大きくスピードに乗ったロングターン傾向" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "变化：大弯高速滑行趋势增强" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "變化：大彎高速滑行趨勢增強" } }
+      }
+    },
+    "coaching.advice.long.body" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "You are carving wider arcs at higher speeds than usual. Tip: Maintain steady pressure on the outside edge through the finish of each turn for maximum stability." } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "これまでより大きな弧でスピードに乗った滑りに変化しています。ワンポイント：ターン後半まで外脚への荷重を丁寧に残すと、高速域でのエッジの安定感がさらに高まります。" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "您正以更高速度滑出更大的弯弧。要点建议：在出弯阶段保持外侧板刃的稳定承重，高速稳定性会更出色。" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "您正以更高速度滑出更大的彎弧。要點建議：在出彎階段保持外側板刃的穩定承重，高速穩定性會更出色。" } }
+      }
+    },
+    "coaching.advice.improved.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Turn Rhythm Improved!" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "変化：ターンリズムの安定度が大きく向上！" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "变化：转弯节奏稳定性大幅提升！" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "變化：轉彎節奏穩定性大幅提升！" } }
+      }
+    },
+    "coaching.advice.improved.body" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Your turn intervals are much more consistent than your past average. Tip: Try carrying this exact tempo onto slightly steeper slopes next." } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "過去平均と比べて左右の切り返しテンポが非常に安定しています。ワンポイント：この一定のリズムを保ったまま、次は少し斜度の高いバーンにも挑戦してみましょう。" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "与历史均值相比，您的左右换刃节奏更加均匀稳定。要点建议：保持这一节奏尝试稍陡一些的雪道。" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "與歷史均值相比，您的左右換刃節奏更加均勻穩定。要點建議：保持這一節奏嘗試稍陡一些的雪道。" } }
+      }
+    },
+    "coaching.advice.unstable.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Rhythm Variation Detected" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "変化：ターン間隔にややばらつきが出ています" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "变化：转弯节奏出现波动" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "變化：轉彎節奏出現波動" } }
+      }
+    },
+    "coaching.advice.unstable.body" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Your turn timing varied more than usual—possibly due to snow conditions or fatigue. Tip: Look one turn ahead rather than down at your tips to restore smooth rhythm." } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "過去平均よりターン間隔の変動が大きくなっています（雪質変化や疲労のサインかもしれません）。ワンポイント：足元ではなく1ターン先の斜面を見る意識を持つと、リズムが整いやすくなります。" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "您的转弯间隔波动比平时更大，可能受雪质变化或疲劳影响。要点建议：视线放远看下一个弯道而非板头，有助于恢复流畅节奏。" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "您的轉彎間隔波動比平時更大，可能受雪質變化或疲勞影響。要點建議：視線放遠看下一個彎道而非板頭，有助於恢復流暢節奏。" } }
+      }
+    },
+    "coaching.advice.steady.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Consistent Form Maintained" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "安定した滑走フォームを維持しています" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "保持了非常稳定的滑行状态" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "保持了非常穩定的滑行狀態" } }
+      }
+    },
+    "coaching.advice.steady.body" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Your turn arc and rhythm closely match your established baseline. Tip: Mix in a few tighter short turns on your next run to expand your versatility." } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "これまでの滑走傾向とブレのない安定したフォームを維持できています。ワンポイント：次の1本では意図的にいつもより小さめのターンを混ぜると、さらに滑りの幅が広がります。" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "您的弯弧与节奏与过往水平高度一致。要点建议：下一趟可刻意加入几组更紧凑的小弯，进一步拓展滑行变化。" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "您的彎弧與節奏與過往水準高度一致。要點建議：下一趟可刻意加入幾組更緊湊的小彎，進一步拓展滑行變化。" } }
+      }
+    },
     "banner.tip.pocket" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Tip: Keep your iPhone in an inner pocket to protect battery life in cold weather." } },

@@ -36,7 +36,12 @@ struct SessionHistoryView: View {
                 } else {
                     Section {
                         ForEach(sessions, id: \.id) { session in
-                            SessionRow(session: session, formatter: formatter)
+                            let olderSessions = sessions.filter { $0.startedAt < session.startedAt }
+                            NavigationLink {
+                                SessionDetailCoachingView(session: session, previousSessions: olderSessions)
+                            } label: {
+                                SessionRow(session: session, formatter: formatter)
+                            }
                         }
                     }
                 }
