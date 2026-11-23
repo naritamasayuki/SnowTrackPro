@@ -12,9 +12,20 @@ struct SessionDetailCoachingView: View {
     @State private var showProUpgradeSheet = false
 
     private let advisor = TurnCoachingAdvisor()
+    private let calculator = TrackMetricsCalculator()
 
     private var formatter: MeasurementFormatHelper {
         MeasurementFormatHelper(locale: locale)
+    }
+
+    private var trackSamples: [TrackSample] {
+        session.trackPoints
+            .map { $0.toTrackSample() }
+            .sorted { $0.timestamp < $1.timestamp }
+    }
+
+    private var speedSegments: [SpeedSegment] {
+        calculator.buildSpeedSegments(samples: trackSamples)
     }
 
     private var coachingReport: TurnCoachingReport {
@@ -29,6 +40,8 @@ struct SessionDetailCoachingView: View {
             VStack(spacing: 16) {
                 summarySection
 
+                slopeTrackSection
+
                 turnMetricsSection
 
                 proCoachingSection
@@ -40,6 +53,26 @@ struct SessionDetailCoachingView: View {
         .navigationBarTitleDisplayMode(.inline)
         .sheet(isPresented: $showProUpgradeSheet) {
             ProUpgradeSheet()
+        }
+    }
+
+    private var slopeTrackSection: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text("map.slopeTrack.title")
+                .font(.headline)
+                .foregroundStyle(.white)
+
+            if trackSamples.count >= 2 {
+                TrackMapView(samples: trackSamples, speedSegments: speedSegments)
+                    .frame(height: 240)
+            } else {
+                Text("map.slopeTrack.empty")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding()
+                    .background(Color.white.opacity(0.06), in: RoundedRectangle(cornerRadius: 12))
+            }
         }
     }
 

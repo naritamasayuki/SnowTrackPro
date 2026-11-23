@@ -337,6 +337,46 @@
         "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "轉彎數據" } }
       }
     },
+    "map.slopeTrack.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Slope Track Map" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "ゲレンデ内軌跡マップ" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "雪道滑行轨迹图" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "雪道滑行軌跡圖" } }
+      }
+    },
+    "map.slopeTrack.empty" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No GPS route points were recorded for this session." } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "このセッションにはGPS軌跡ポイントが記録されていません。" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "本次滑行未记录 GPS 轨迹点。" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "本次滑行未記錄 GPS 軌跡點。" } }
+      }
+    },
+    "map.speed.low" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Low" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "低速" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "低速" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "低速" } }
+      }
+    },
+    "map.speed.medium" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Mid" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "中速" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "中速" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "中速" } }
+      }
+    },
+    "map.speed.high" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Fast" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "高速" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "高速" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "高速" } }
+      }
+    },
     "coaching.turnCount" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "TURNS" } },
