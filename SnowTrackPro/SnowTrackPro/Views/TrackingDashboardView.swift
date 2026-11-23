@@ -6,8 +6,10 @@ import SwiftUI
 struct TrackingDashboardView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.locale) private var locale
+    @Environment(ProPurchaseStore.self) private var purchaseStore
 
     let viewModel: TrackingViewModel
+    @State private var showProUpgradeSheet = false
 
     private var formatter: MeasurementFormatHelper {
         MeasurementFormatHelper(locale: locale)
@@ -51,6 +53,11 @@ struct TrackingDashboardView: View {
                         }
                         .font(.caption.bold())
                     }
+                }
+            }
+            .sheet(isPresented: $showProUpgradeSheet) {
+                ProUpgradeSheet {
+                    viewModel.savePendingSession(modelContext: modelContext)
                 }
             }
         }
@@ -144,18 +151,40 @@ struct TrackingDashboardView: View {
     private var actionControls: some View {
         if viewModel.isTracking {
             SlideToStopView {
-                viewModel.finishSession(modelContext: modelContext)
+                let saved = viewModel.finishSession(
+                    modelContext: modelContext,
+                    isPro: purchaseStore.isProUnlocked
+                )
+                if !saved {
+                    showProUpgradeSheet = true
+                }
             }
         } else {
-            Button {
-                viewModel.startSession()
-            } label: {
-                Text("action.startTracking")
-                    .font(.headline.weight(.heavy))
-                    .foregroundStyle(.black)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 58)
-                    .background(Color(red: 0.0, green: 0.92, blue: 0.98), in: Capsule())
+            VStack(spacing: 10) {
+                if viewModel.hasPendingUnsavedSession {
+                    Button {
+                        showProUpgradeSheet = true
+                    } label: {
+                        Label("pro.pendingSave.banner", systemImage: "exclamationmark.triangle.fill")
+                            .font(.caption.bold())
+                            .foregroundStyle(.yellow)
+                            .padding(.vertical, 8)
+                            .padding(.horizontal, 12)
+                            .frame(maxWidth: .infinity)
+                            .background(Color.yellow.opacity(0.15), in: RoundedRectangle(cornerRadius: 12))
+                    }
+                }
+
+                Button {
+                    viewModel.startSession()
+                } label: {
+                    Text("action.startTracking")
+                        .font(.headline.weight(.heavy))
+                        .foregroundStyle(.black)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 58)
+                        .background(Color(red: 0.0, green: 0.92, blue: 0.98), in: Capsule())
+                }
             }
         }
     }

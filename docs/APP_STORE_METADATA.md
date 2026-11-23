@@ -84,4 +84,9 @@ On the main "Track" tab, reviewers can tap the "Demo Run" button in the top-righ
 
 3. Privacy & Data Storage:
 No account or sign-in is required. All GPS tracks and session histories are stored strictly on-device using SwiftData and are never transmitted to external servers.
+
+4. One-Time In-App Purchase (Non-Consumable, StoreKit 2):
+- Product ID: `com.naritamasayuki.SnowTrackPro.pro.unlimited` (Non-Consumable, ¥100)
+- Free users can save up to 5 sessions per year. Purchasing the one-time Pro Plan permanently unlocks unlimited session saves.
+- Purchase & Restore UI is accessible from the top card of the "History" tab (or when reaching the 5-save annual limit).
 ```

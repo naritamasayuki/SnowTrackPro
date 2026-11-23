@@ -2,33 +2,46 @@ import SnowTrackCore
 import SwiftData
 import SwiftUI
 
-/// SwiftData に保存された滑走セッション履歴一覧
+/// SwiftData に保存された滑走セッション履歴一覧および年間保存枠ステータス
 struct SessionHistoryView: View {
     @Environment(\.locale) private var locale
+    @Environment(ProPurchaseStore.self) private var purchaseStore
     @Query(sort: \SkiSessionRecord.startedAt, order: .reverse) private var sessions: [SkiSessionRecord]
+
+    @State private var showProUpgradeSheet = false
 
     private var formatter: MeasurementFormatHelper {
         MeasurementFormatHelper(locale: locale)
     }
 
+    private var remainingFreeSaves: Int? {
+        purchaseStore.remainingFreeSaves(existingDates: sessions.map(\.startedAt))
+    }
+
     var body: some View {
         NavigationStack {
-            Group {
+            List {
+                Section {
+                    quotaStatusRow
+                }
+
                 if sessions.isEmpty {
-                    ContentUnavailableView(
-                        "history.empty.title",
-                        systemImage: "snowflake",
-                        description: Text("history.empty.description")
-                    )
+                    Section {
+                        ContentUnavailableView(
+                            "history.empty.title",
+                            systemImage: "snowflake",
+                            description: Text("history.empty.description")
+                        )
+                    }
                 } else {
-                    List {
+                    Section {
                         ForEach(sessions, id: \.id) { session in
                             SessionRow(session: session, formatter: formatter)
                         }
                     }
-                    .listStyle(.insetGrouped)
                 }
             }
+            .listStyle(.insetGrouped)
             .navigationTitle("history.title")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
@@ -40,6 +53,37 @@ struct SessionHistoryView: View {
                     }
                 }
             }
+            .sheet(isPresented: $showProUpgradeSheet) {
+                ProUpgradeSheet()
+            }
+        }
+    }
+
+    @ViewBuilder
+    private var quotaStatusRow: some View {
+        if let remaining = remainingFreeSaves {
+            HStack {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("pro.quota.freeTitle")
+                        .font(.subheadline.bold())
+                    Text("pro.quota.remaining \(remaining) \(SaveQuotaPolicy.annualFreeSaveLimit)")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+                Spacer()
+                Button("pro.quota.upgradeButton") {
+                    showProUpgradeSheet = true
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(.yellow)
+                .foregroundStyle(.black)
+                .font(.caption.bold())
+            }
+            .padding(.vertical, 4)
+        } else {
+            Label("pro.badge.active", systemImage: "checkmark.seal.fill")
+                .font(.subheadline.bold())
+                .foregroundStyle(.green)
         }
     }
 }

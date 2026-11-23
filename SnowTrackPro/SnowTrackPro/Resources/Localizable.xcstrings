@@ -288,6 +288,94 @@
         "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "升级Pro解锁速度热力图" } },
         "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "升級Pro解鎖速度熱力圖" } }
       }
+    },
+    "pro.sheet.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Pro Plan — Unlimited Saves" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "プロプラン（無制限保存）" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "Pro 方案（无限保存）" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "Pro 方案（無限保存）" } }
+      }
+    },
+    "pro.sheet.description" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Free plan allows up to 5 saved sessions per year. Unlock permanent unlimited saving with a single one-time purchase." } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "無料プランは1年間で5回まで滑走ログを保存できます。買い切りのプロプランで保存回数の上限を永久に解除できます。" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "免费版每年最多保存 5 次滑行记录。一次买断升级 Pro 方案，永久解锁无限保存。" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "免費版每年最多保存 5 次滑行記錄。一次買斷升級 Pro 方案，永久解鎖無限保存。" } }
+      }
+    },
+    "pro.sheet.benefit.unlimited" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Save unlimited ski & snowboard sessions every year" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "年間の保存回数制限なし（無制限保存）" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "全年无限次保存滑行记录" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "全年無限次保存滑行記錄" } }
+      }
+    },
+    "pro.sheet.benefit.oneTime" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "One-time purchase — no recurring subscription" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "買い切り型（月額課金・自動更新なし）" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "一次性买断，无自动续费订阅" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "一次性買斷，無自動續訂" } }
+      }
+    },
+    "pro.sheet.buyButton" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Unlock Unlimited Saves" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "無制限保存を解放する" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "解锁无限保存" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "解鎖無限保存" } }
+      }
+    },
+    "pro.badge.active" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Pro Plan Active (Unlimited Saves)" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "プロプラン有効（無制限保存）" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "Pro 方案已启用（无限保存）" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "Pro 方案已啟用（無限保存）" } }
+      }
+    },
+    "pro.quota.freeTitle" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Free Plan Annual Save Limit" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "無料プラン（年間保存枠）" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "免费版（年度保存额度）" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "免費版（年度保存額度）" } }
+      }
+    },
+    "pro.quota.remaining %lld %lld" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%1$lld of %2$lld saves remaining this year" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "過去1年間の残り保存回数: %1$lld / %2$lld 回" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "过去一年剩余保存次数：%1$lld / %2$lld 次" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "過去一年剩餘保存次數：%1$lld / %2$lld 次" } }
+      }
+    },
+    "pro.quota.upgradeButton" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Unlimited" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "無制限にする" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "升级无限" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "升級無限" } }
+      }
+    },
+    "pro.pendingSave.banner" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Annual limit reached — Tap to unlock Pro and save your latest run" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "年間5回の上限に達しました — タップしてプロプランで直前の記録を保存" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "已达年度 5 次上限 — 点击升级 Pro 保存本次记录" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "已達年度 5 次上限 — 點擊升級 Pro 保存本次記錄" } }
+      }
+    },
+    "pro.error.productUnavailable" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Unable to load App Store product. Please check your connection and try again." } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "App Store の商品情報を読み込めませんでした。通信環境をご確認のうえ再度お試しください。" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "无法加载 App Store 商品信息，请检查网络后重试。" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "無法載入 App Store 商品資訊，請檢查網路後重試。" } }
+      }
     }
   },
   "version" : "1.0"

@@ -18,12 +18,15 @@ final class TrackingViewModel {
     private(set) var samples: [TrackSample] = []
     private(set) var speedSegments: [SpeedSegment] = []
     private(set) var errorMessage: String?
+    /// 年間無料保存枠の上限に達し、プロプラン購入後の保存を待機しているセッションがあるか
+    private(set) var hasPendingUnsavedSession: Bool = false
 
     private let locationService: LocationTrackingService
     private let resortMatcher: ResortMatcher
     private let calculator = TrackMetricsCalculator()
     private var stateMachine = RunStateMachine()
     private var sessionStartedAt: Date?
+    private var sessionEndedAt: Date?
     private var simulationTask: Task<Void, Never>?
 
     init(locationService: LocationTrackingService? = nil) {
@@ -63,18 +66,47 @@ final class TrackingViewModel {
         locationService.startTracking()
     }
 
-    /// 計測を終了し、SwiftData にセッションログを保存する
-    func finishSession(modelContext: ModelContext) {
-        guard isTracking else { return }
+    /// 計測を終了し、保存枠に空きがあれば SwiftData へ保存する。
+    /// 無料プランの年間上限（5回）を超過している場合は false を返し、購入後に保存できるようデータを保持する。
+    @discardableResult
+    func finishSession(modelContext: ModelContext, isPro: Bool) -> Bool {
+        guard isTracking else { return true }
         simulationTask?.cancel()
         simulationTask = nil
         locationService.stopTracking()
         isTracking = false
 
         let endedAt = Date()
-        let startedAt = sessionStartedAt ?? endedAt
-        guard !samples.isEmpty else { return }
+        sessionEndedAt = endedAt
+        guard !samples.isEmpty else { return true }
 
+        let existingDates = fetchExistingSessionDates(modelContext: modelContext)
+        let quotaPolicy = SaveQuotaPolicy()
+        guard quotaPolicy.canSaveSession(existingSessionDates: existingDates, isPro: isPro) else {
+            hasPendingUnsavedSession = true
+            AppLogger.persistence.info("無料プランの年間保存上限（5回）に達したため保存を保留しました。")
+            return false
+        }
+
+        persistCurrentSession(modelContext: modelContext)
+        return true
+    }
+
+    /// プロプラン購入後に保留していたセッションを保存する
+    func savePendingSession(modelContext: ModelContext) {
+        guard hasPendingUnsavedSession, !samples.isEmpty else { return }
+        persistCurrentSession(modelContext: modelContext)
+    }
+
+    private func fetchExistingSessionDates(modelContext: ModelContext) -> [Date] {
+        let descriptor = FetchDescriptor<SkiSessionRecord>()
+        let records = (try? modelContext.fetch(descriptor)) ?? []
+        return records.map(\.startedAt)
+    }
+
+    private func persistCurrentSession(modelContext: ModelContext) {
+        let endedAt = sessionEndedAt ?? Date()
+        let startedAt = sessionStartedAt ?? endedAt
         let resortName = detectedResort?.localizedName() ?? String(localized: "resort.unknown")
         let pointRecords = samples.map { TrackPointRecord(sample: $0) }
         let record = SkiSessionRecord(
@@ -95,6 +127,7 @@ final class TrackingViewModel {
         modelContext.insert(record)
         do {
             try modelContext.save()
+            hasPendingUnsavedSession = false
             AppLogger.persistence.info("滑走セッションを保存しました（ポイント数: \(pointRecords.count)）")
         } catch {
             errorMessage = error.localizedDescription
