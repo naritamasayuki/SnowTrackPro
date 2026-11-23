@@ -17,6 +17,7 @@ final class TrackingViewModel {
     private(set) var runCount: Int = 0
     private(set) var samples: [TrackSample] = []
     private(set) var speedSegments: [SpeedSegment] = []
+    private(set) var detectedEvents: [TrackEvent] = []
     private(set) var errorMessage: String?
     /// 年間無料保存枠の上限に達し、プロプラン購入後の保存を待機しているセッションがあるか
     private(set) var hasPendingUnsavedSession: Bool = false
@@ -26,6 +27,7 @@ final class TrackingViewModel {
     private let resortMatcher: ResortMatcher
     private let calculator = TrackMetricsCalculator()
     private let turnAnalyzer = TurnAnalyzer()
+    private let eventDetector = TrackEventDetector()
     private var stateMachine = RunStateMachine()
     private var gyroSamples: [GyroSample] = []
     private var sessionStartedAt: Date?
@@ -203,11 +205,13 @@ final class TrackingViewModel {
         runCount = stateMachine.runCount
         summary = calculator.summarize(samples: samples)
         speedSegments = calculator.buildSpeedSegments(samples: samples)
+        detectedEvents = eventDetector.detectEvents(samples: samples)
     }
 
     private func resetMetrics() {
         samples.removeAll()
         speedSegments.removeAll()
+        detectedEvents.removeAll()
         gyroSamples.removeAll()
         stateMachine.reset()
         hasPendingUnsavedSession = false

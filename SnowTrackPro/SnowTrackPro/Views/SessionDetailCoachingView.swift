@@ -13,6 +13,7 @@ struct SessionDetailCoachingView: View {
 
     private let advisor = TurnCoachingAdvisor()
     private let calculator = TrackMetricsCalculator()
+    private let eventDetector = TrackEventDetector()
 
     private var formatter: MeasurementFormatHelper {
         MeasurementFormatHelper(locale: locale)
@@ -26,6 +27,10 @@ struct SessionDetailCoachingView: View {
 
     private var speedSegments: [SpeedSegment] {
         calculator.buildSpeedSegments(samples: trackSamples)
+    }
+
+    private var detectedEvents: [TrackEvent] {
+        eventDetector.detectEvents(samples: trackSamples)
     }
 
     private var coachingReport: TurnCoachingReport {
@@ -63,8 +68,19 @@ struct SessionDetailCoachingView: View {
                 .foregroundStyle(.white)
 
             if trackSamples.count >= 2 {
-                TrackMapView(samples: trackSamples, speedSegments: speedSegments)
-                    .frame(height: 240)
+                TrackMapView(
+                    samples: trackSamples,
+                    speedSegments: speedSegments,
+                    events: detectedEvents
+                )
+                .frame(height: 240)
+
+                let fallCount = detectedEvents.filter { $0.kind == .possibleFall }.count
+                let brakeCount = detectedEvents.filter { $0.kind == .hardBraking }.count
+                HStack(spacing: 12) {
+                    DetailStatCard(titleKey: "map.event.fallCount", value: "\(fallCount)", color: .pink)
+                    DetailStatCard(titleKey: "map.event.hardBrakeCount", value: "\(brakeCount)", color: .orange)
+                }
             } else {
                 Text("map.slopeTrack.empty")
                     .font(.caption)

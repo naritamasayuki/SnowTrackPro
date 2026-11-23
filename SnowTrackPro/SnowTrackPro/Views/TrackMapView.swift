@@ -2,10 +2,11 @@ import MapKit
 import SnowTrackCore
 import SwiftUI
 
-/// ゲレンデ内滑走軌跡および速度別カラーヒートマップを描画する MapKit ビュー（無料プランでも利用可能）
+/// ゲレンデ内滑走軌跡・速度ヒートマップ・転倒/急ブレーキ推定ピンを描画する MapKit ビュー（無料プランでも利用可能）
 struct TrackMapView: View {
     let samples: [TrackSample]
     let speedSegments: [SpeedSegment]
+    var events: [TrackEvent] = []
 
     @State private var cameraPosition: MapCameraPosition = .automatic
 
@@ -39,6 +40,15 @@ struct TrackMapView: View {
                     }
                 }
 
+                ForEach(events) { event in
+                    Annotation(
+                        eventLabel(for: event.kind),
+                        coordinate: CLLocationCoordinate2D(latitude: event.latitude, longitude: event.longitude)
+                    ) {
+                        EventPinBadge(kind: event.kind)
+                    }
+                }
+
                 if let latest = samples.last {
                     Annotation("", coordinate: CLLocationCoordinate2D(
                         latitude: latest.latitude,
@@ -54,15 +64,29 @@ struct TrackMapView: View {
             .mapStyle(.imagery(elevation: .realistic))
             .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
 
-            if !speedSegments.isEmpty {
-                HStack(spacing: 8) {
-                    LegendDot(color: .blue, labelKey: "map.speed.low")
-                    LegendDot(color: .yellow, labelKey: "map.speed.medium")
-                    LegendDot(color: .red, labelKey: "map.speed.high")
+            if !speedSegments.isEmpty || !events.isEmpty {
+                VStack(alignment: .leading, spacing: 4) {
+                    if !speedSegments.isEmpty {
+                        HStack(spacing: 8) {
+                            LegendDot(color: .blue, labelKey: "map.speed.low")
+                            LegendDot(color: .yellow, labelKey: "map.speed.medium")
+                            LegendDot(color: .red, labelKey: "map.speed.high")
+                        }
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 5)
+                        .background(.ultraThinMaterial, in: Capsule())
+                    }
+
+                    if !events.isEmpty {
+                        HStack(spacing: 8) {
+                            LegendIcon(icon: "figure.fall", color: .pink, labelKey: "map.event.fall")
+                            LegendIcon(icon: "exclamationmark.octagon.fill", color: .orange, labelKey: "map.event.hardBrake")
+                        }
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 5)
+                        .background(.ultraThinMaterial, in: Capsule())
+                    }
                 }
-                .padding(.horizontal, 8)
-                .padding(.vertical, 5)
-                .background(.ultraThinMaterial, in: Capsule())
                 .padding(8)
             }
         }
@@ -78,6 +102,33 @@ struct TrackMapView: View {
             return .red
         }
     }
+
+    private func eventLabel(for kind: TrackEventKind) -> String {
+        switch kind {
+        case .possibleFall:
+            return String(localized: "map.event.fall")
+        case .hardBraking:
+            return String(localized: "map.event.hardBrake")
+        }
+    }
+}
+
+private struct EventPinBadge: View {
+    let kind: TrackEventKind
+
+    var body: some View {
+        let color: Color = kind == .possibleFall ? .pink : .orange
+        let icon: String = kind == .possibleFall ? "figure.fall" : "exclamationmark.octagon.fill"
+        ZStack {
+            Circle()
+                .fill(color)
+                .frame(width: 24, height: 24)
+                .overlay(Circle().stroke(Color.white, lineWidth: 1.5))
+            Image(systemName: icon)
+                .font(.system(size: 11, weight: .bold))
+                .foregroundStyle(.white)
+        }
+    }
 }
 
 private struct LegendDot: View {
@@ -89,6 +140,23 @@ private struct LegendDot: View {
             Circle()
                 .fill(color)
                 .frame(width: 7, height: 7)
+            Text(labelKey)
+                .font(.caption2.bold())
+                .foregroundStyle(.white)
+        }
+    }
+}
+
+private struct LegendIcon: View {
+    let icon: String
+    let color: Color
+    let labelKey: LocalizedStringKey
+
+    var body: some View {
+        HStack(spacing: 4) {
+            Image(systemName: icon)
+                .font(.caption2.bold())
+                .foregroundStyle(color)
             Text(labelKey)
                 .font(.caption2.bold())
                 .foregroundStyle(.white)

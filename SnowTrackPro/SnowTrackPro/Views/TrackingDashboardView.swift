@@ -27,7 +27,8 @@ struct TrackingDashboardView: View {
 
                     TrackMapView(
                         samples: viewModel.samples,
-                        speedSegments: viewModel.speedSegments
+                        speedSegments: viewModel.speedSegments,
+                        events: viewModel.detectedEvents
                     )
                     .frame(height: 220)
 

@@ -377,6 +377,38 @@
         "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "高速" } }
       }
     },
+    "map.event.fall" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Possible Fall" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "転倒推定" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "疑似摔倒" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "疑似摔倒" } }
+      }
+    },
+    "map.event.hardBrake" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Hard Brake" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "急ブレーキ" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "急刹车" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "急煞車" } }
+      }
+    },
+    "map.event.fallCount" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "POSSIBLE FALLS" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "転倒推定回数" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "疑似摔倒次数" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "疑似摔倒次數" } }
+      }
+    },
+    "map.event.hardBrakeCount" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "HARD BRAKES" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "急ブレーキ回数" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "急刹车次数" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "急煞車次數" } }
+      }
+    },
     "coaching.turnCount" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "TURNS" } },
