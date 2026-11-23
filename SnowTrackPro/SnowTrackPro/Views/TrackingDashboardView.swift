@@ -39,6 +39,12 @@ struct TrackingDashboardView: View {
                     }
 
                     actionControls
+
+                    if !viewModel.isTracking {
+                        AdBannerSlotView {
+                            showProUpgradeSheet = true
+                        }
+                    }
                 }
                 .padding()
             }

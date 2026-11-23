@@ -87,6 +87,6 @@ No account or sign-in is required. All GPS tracks and session histories are stor
 
 4. One-Time In-App Purchase (Non-Consumable, StoreKit 2):
 - Product ID: `com.naritamasayuki.SnowTrackPro.pro.unlimited` (Non-Consumable, ¥100)
-- Free users can save up to 5 sessions per year. Purchasing the one-time Pro Plan permanently unlocks unlimited session saves.
-- Purchase & Restore UI is accessible from the top card of the "History" tab (or when reaching the 5-save annual limit).
+- Free users can save up to 5 sessions per year and see a bottom banner slot on idle/history screens. Purchasing the one-time Pro Plan permanently unlocks unlimited session saves and hides all banners/ads.
+- Purchase & Restore UI is accessible from the top card of the "History" tab, the bottom banner button, or when reaching the 5-save annual limit.
 ```

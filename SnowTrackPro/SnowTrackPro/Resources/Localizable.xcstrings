@@ -313,6 +313,30 @@
         "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "全年無限次保存滑行記錄" } }
       }
     },
+    "pro.sheet.benefit.adFree" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Ad-free clean interface across all screens" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "アプリ内の広告・バナーを完全非表示" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "全面隐藏应用内广告与横幅" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "全面隱藏應用程式內廣告與橫幅" } }
+      }
+    },
+    "banner.tip.pocket" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Tip: Keep your iPhone in an inner pocket to protect battery life in cold weather." } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "コツ：寒冷地では内ポケットに入れるとバッテリーの減りを抑えられます。" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "提示：寒冷天气请将 iPhone 放于内侧口袋以减少耗电。" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "提示：寒冷天氣請將 iPhone 放於內側口袋以減少耗電。" } }
+      }
+    },
+    "banner.hideWithPro" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Remove Ads" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "広告非表示" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "去除广告" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "移除廣告" } }
+      }
+    },
     "pro.sheet.benefit.oneTime" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "One-time purchase — no recurring subscription" } },

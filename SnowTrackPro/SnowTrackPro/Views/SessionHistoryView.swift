@@ -42,6 +42,13 @@ struct SessionHistoryView: View {
                 }
             }
             .listStyle(.insetGrouped)
+            .safeAreaInset(edge: .bottom) {
+                AdBannerSlotView {
+                    showProUpgradeSheet = true
+                }
+                .padding(.horizontal)
+                .padding(.bottom, 6)
+            }
             .navigationTitle("history.title")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
