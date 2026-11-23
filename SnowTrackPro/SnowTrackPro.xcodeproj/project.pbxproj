@@ -29,6 +29,7 @@
 		C11500000000000000000001 /* TrackingActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11500000000000000000001 /* TrackingActivityManager.swift */; };
 		C11600000000000000000001 /* SessionChartsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11600000000000000000001 /* SessionChartsView.swift */; };
 		C11700000000000000000001 /* SessionShareCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11700000000000000000001 /* SessionShareCardView.swift */; };
+		C11800000000000000000001 /* SnowGearShopSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11800000000000000000001 /* SnowGearShopSectionView.swift */; };
 		C20100000000000000000001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B20100000000000000000001 /* Assets.xcassets */; };
 		C20200000000000000000001 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = B20200000000000000000001 /* Localizable.xcstrings */; };
 		C20300000000000000000001 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = B20300000000000000000001 /* InfoPlist.xcstrings */; };
@@ -58,6 +59,7 @@
 		B11500000000000000000001 /* TrackingActivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/TrackingActivityManager.swift; sourceTree = "<group>"; };
 		B11600000000000000000001 /* SessionChartsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/SessionChartsView.swift; sourceTree = "<group>"; };
 		B11700000000000000000001 /* SessionShareCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/SessionShareCardView.swift; sourceTree = "<group>"; };
+		B11800000000000000000001 /* SnowGearShopSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/SnowGearShopSectionView.swift; sourceTree = "<group>"; };
 		B20100000000000000000001 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Resources/Assets.xcassets; sourceTree = "<group>"; };
 		B20200000000000000000001 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Resources/Localizable.xcstrings; sourceTree = "<group>"; };
 		B20300000000000000000001 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Resources/InfoPlist.xcstrings; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 				B11500000000000000000001 /* TrackingActivityManager.swift */,
 				B11600000000000000000001 /* SessionChartsView.swift */,
 				B11700000000000000000001 /* SessionShareCardView.swift */,
+				B11800000000000000000001 /* SnowGearShopSectionView.swift */,
 				B20100000000000000000001 /* Assets.xcassets */,
 				B20200000000000000000001 /* Localizable.xcstrings */,
 				B20300000000000000000001 /* InfoPlist.xcstrings */,
@@ -223,6 +226,7 @@
 				C11500000000000000000001 /* TrackingActivityManager.swift in Sources */,
 				C11600000000000000000001 /* SessionChartsView.swift in Sources */,
 				C11700000000000000000001 /* SessionShareCardView.swift in Sources */,
+				C11800000000000000000001 /* SnowGearShopSectionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

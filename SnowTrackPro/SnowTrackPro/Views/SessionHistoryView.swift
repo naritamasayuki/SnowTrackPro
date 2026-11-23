@@ -68,6 +68,12 @@ struct SessionHistoryView: View {
                         }
                     }
                 }
+
+                Section {
+                    SnowGearShopSectionView()
+                        .listRowInsets(EdgeInsets())
+                        .listRowBackground(Color.clear)
+                }
             }
             .listStyle(.insetGrouped)
             .safeAreaInset(edge: .bottom) {

@@ -75,6 +75,8 @@ struct SessionDetailCoachingView: View {
 
                 proCoachingSection
 
+                SnowGearShopSectionView()
+
                 healthKitExportSection
             }
             .padding()

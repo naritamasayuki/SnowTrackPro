@@ -593,6 +593,62 @@
         "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "此裝置不支援 Apple 健康。" } }
       }
     },
+    "shop.section.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Ski & Snowboard Gear Shop" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "おすすめグッズ・リフト券・宿泊" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "滑雪装备・缆车票・住宿推荐" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "滑雪裝備・纜車票・住宿推薦" } }
+      }
+    },
+    "shop.section.disclosure" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Contains affiliate links to Amazon." } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "※Amazonアソシエイト・プログラムのPRリンクを含みます。" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "* 包含 Amazon 联盟推广链接 (PR)。" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "* 包含 Amazon 聯盟推廣連結 (PR)。" } }
+      }
+    },
+    "shop.amazon.cta" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "View on Amazon ›" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "Amazonで見る ›" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "前往 Amazon ›" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "前往 Amazon ›" } }
+      }
+    },
+    "shop.category.gear" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Ski & Board Gear" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "スキー・スノボグッズ" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "滑雪装备配件" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "滑雪裝備配件" } }
+      }
+    },
+    "shop.category.liftTickets" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Lift Pass & Tickets" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "リフト券" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "雪场缆车票" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "雪場纜車票" } }
+      }
+    },
+    "shop.category.lodging" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Lodging & Travel" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "宿泊券・旅行グッズ" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "住宿券与旅行用品" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "住宿券與旅行用品" } }
+      }
+    },
+    "shop.category.safety" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Helmets & Protectors" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "プロテクター・安全ギア" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "头盔与护具" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "頭盔與護具" } }
+      }
+    },
     "coaching.turnCount" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "TURNS" } },
