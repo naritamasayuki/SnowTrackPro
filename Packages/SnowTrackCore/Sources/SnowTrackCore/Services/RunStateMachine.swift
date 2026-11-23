@@ -12,6 +12,7 @@ public struct RunStateMachine: Sendable {
     public private(set) var pureSkiDurationSeconds: TimeInterval = 0
 
     private var lastSample: TrackSample?
+    private var lastBarometerRelativeAltitudeMeters: Double?
     private var hasRecordedCurrentRun: Bool = false
 
     /// 停止とみなす速度閾値（km/h）
@@ -23,15 +24,20 @@ public struct RunStateMachine: Sendable {
 
     public init() {}
 
-    /// 新しいGPSサンプルを入力して状態を更新する
+    /// 新しいGPSサンプル（および任意で気圧計の相対高度）を入力して状態を更新する
+    /// 気圧計の相対高度が提供された場合はGPS高度より優先して高精度な上昇/下降判定を行う
     @discardableResult
-    public mutating func ingest(_ sample: TrackSample) -> MotionActivityState {
+    public mutating func ingest(
+        _ sample: TrackSample,
+        barometerRelativeAltitudeMeters: Double? = nil
+    ) -> MotionActivityState {
         guard sample.isValid() else {
             return currentState
         }
 
         guard let prev = lastSample else {
             lastSample = sample
+            lastBarometerRelativeAltitudeMeters = barometerRelativeAltitudeMeters
             return currentState
         }
 
@@ -49,7 +55,14 @@ public struct RunStateMachine: Sendable {
         let speedKmh = sample.speedMetersPerSecond >= 0
             ? sample.speedKilometersPerHour
             : (distance / dt) * 3.6
-        let climbRate = (sample.altitudeMeters - prev.altitudeMeters) / dt
+
+        let climbRate: Double
+        if let currentBaro = barometerRelativeAltitudeMeters,
+           let prevBaro = lastBarometerRelativeAltitudeMeters {
+            climbRate = (currentBaro - prevBaro) / dt
+        } else {
+            climbRate = (sample.altitudeMeters - prev.altitudeMeters) / dt
+        }
 
         let nextState: MotionActivityState
         if speedKmh < restingSpeedThresholdKmh {
@@ -78,6 +91,7 @@ public struct RunStateMachine: Sendable {
 
         currentState = nextState
         lastSample = sample
+        lastBarometerRelativeAltitudeMeters = barometerRelativeAltitudeMeters
         return currentState
     }
 
@@ -88,6 +102,7 @@ public struct RunStateMachine: Sendable {
         pureSkiDistanceMeters = 0
         pureSkiDurationSeconds = 0
         lastSample = nil
+        lastBarometerRelativeAltitudeMeters = nil
         hasRecordedCurrentRun = false
     }
 }

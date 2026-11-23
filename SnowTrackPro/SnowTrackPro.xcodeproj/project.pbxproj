@@ -24,6 +24,11 @@
 		C11000000000000000000001 /* AdBannerSlotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11000000000000000000001 /* AdBannerSlotView.swift */; };
 		C11100000000000000000001 /* MotionTurnService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11100000000000000000001 /* MotionTurnService.swift */; };
 		C11200000000000000000001 /* SessionDetailCoachingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11200000000000000000001 /* SessionDetailCoachingView.swift */; };
+		C11300000000000000000001 /* BarometerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11300000000000000000001 /* BarometerService.swift */; };
+		C11400000000000000000001 /* HealthKitWorkoutService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11400000000000000000001 /* HealthKitWorkoutService.swift */; };
+		C11500000000000000000001 /* TrackingActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11500000000000000000001 /* TrackingActivityManager.swift */; };
+		C11600000000000000000001 /* SessionChartsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11600000000000000000001 /* SessionChartsView.swift */; };
+		C11700000000000000000001 /* SessionShareCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11700000000000000000001 /* SessionShareCardView.swift */; };
 		C20100000000000000000001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B20100000000000000000001 /* Assets.xcassets */; };
 		C20200000000000000000001 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = B20200000000000000000001 /* Localizable.xcstrings */; };
 		C20300000000000000000001 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = B20300000000000000000001 /* InfoPlist.xcstrings */; };
@@ -48,6 +53,11 @@
 		B11000000000000000000001 /* AdBannerSlotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/AdBannerSlotView.swift; sourceTree = "<group>"; };
 		B11100000000000000000001 /* MotionTurnService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/MotionTurnService.swift; sourceTree = "<group>"; };
 		B11200000000000000000001 /* SessionDetailCoachingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/SessionDetailCoachingView.swift; sourceTree = "<group>"; };
+		B11300000000000000000001 /* BarometerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/BarometerService.swift; sourceTree = "<group>"; };
+		B11400000000000000000001 /* HealthKitWorkoutService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/HealthKitWorkoutService.swift; sourceTree = "<group>"; };
+		B11500000000000000000001 /* TrackingActivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/TrackingActivityManager.swift; sourceTree = "<group>"; };
+		B11600000000000000000001 /* SessionChartsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/SessionChartsView.swift; sourceTree = "<group>"; };
+		B11700000000000000000001 /* SessionShareCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/SessionShareCardView.swift; sourceTree = "<group>"; };
 		B20100000000000000000001 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Resources/Assets.xcassets; sourceTree = "<group>"; };
 		B20200000000000000000001 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Resources/Localizable.xcstrings; sourceTree = "<group>"; };
 		B20300000000000000000001 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Resources/InfoPlist.xcstrings; sourceTree = "<group>"; };
@@ -102,6 +112,11 @@
 				B11000000000000000000001 /* AdBannerSlotView.swift */,
 				B11100000000000000000001 /* MotionTurnService.swift */,
 				B11200000000000000000001 /* SessionDetailCoachingView.swift */,
+				B11300000000000000000001 /* BarometerService.swift */,
+				B11400000000000000000001 /* HealthKitWorkoutService.swift */,
+				B11500000000000000000001 /* TrackingActivityManager.swift */,
+				B11600000000000000000001 /* SessionChartsView.swift */,
+				B11700000000000000000001 /* SessionShareCardView.swift */,
 				B20100000000000000000001 /* Assets.xcassets */,
 				B20200000000000000000001 /* Localizable.xcstrings */,
 				B20300000000000000000001 /* InfoPlist.xcstrings */,
@@ -203,6 +218,11 @@
 				C11000000000000000000001 /* AdBannerSlotView.swift in Sources */,
 				C11100000000000000000001 /* MotionTurnService.swift in Sources */,
 				C11200000000000000000001 /* SessionDetailCoachingView.swift in Sources */,
+				C11300000000000000000001 /* BarometerService.swift in Sources */,
+				C11400000000000000000001 /* HealthKitWorkoutService.swift in Sources */,
+				C11500000000000000000001 /* TrackingActivityManager.swift in Sources */,
+				C11600000000000000000001 /* SessionChartsView.swift in Sources */,
+				C11700000000000000000001 /* SessionShareCardView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

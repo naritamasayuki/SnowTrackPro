@@ -457,6 +457,142 @@
         "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "關閉" } }
       }
     },
+    "season.summary.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Season Summary & Personal Best" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "シーズン累計 ＆ 自己ベスト" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "雪季总计与个人最佳" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "雪季總計與個人最佳" } }
+      }
+    },
+    "season.pbSpeed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "PERSONAL BEST" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "自己最高速度" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "个人最高速度" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "個人最高速度" } }
+      }
+    },
+    "season.totalDistance" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "TOTAL DISTANCE" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "累計滑走距離" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "累计滑行距离" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "累計滑行距離" } }
+      }
+    },
+    "season.totalVertical" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "TOTAL VERTICAL" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "累計獲得標高" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "累计滑行落差" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "累計滑行落差" } }
+      }
+    },
+    "season.resortsAndRuns" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "RESORTS / RUNS" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "スキー場 / 本数" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "雪场数 / 趟数" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "雪場數 / 趟數" } }
+      }
+    },
+    "pb.badge.short" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "NEW PB!" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "自己ベスト更新!" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "刷新纪录!" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "刷新紀錄!" } }
+      }
+    },
+    "pb.banner.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "New Personal Best Speed Achieved!" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "自己最高速度を更新しました！" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "恭喜刷新个人最高速度纪录！" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "恭喜刷新個人最高速度紀錄！" } }
+      }
+    },
+    "charts.section.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Speed & Elevation Profile" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "速度・高度推移グラフ" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "速度与海拔曲线" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "速度與海拔曲線" } }
+      }
+    },
+    "charts.speed.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Speed Timeline" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "速度推移" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "速度变化" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "速度變化" } }
+      }
+    },
+    "charts.elevation.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Elevation Profile" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "高度推移" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "海拔变化" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "海拔變化" } }
+      }
+    },
+    "charts.empty" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Not enough GPS points to draw charts." } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "グラフを描画するためのGPSデータが不足しています。" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "GPS 数据不足，无法绘制图表。" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "GPS 數據不足，無法繪製圖表。" } }
+      }
+    },
+    "share.sheet.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Share Result Card" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "リザルトカードをシェア" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "分享滑行战绩卡" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "分享滑行戰績卡" } }
+      }
+    },
+    "share.button.shareCard" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Share to Social Media" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "SNS でシェアする" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "分享至社交媒体" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "分享至社群媒體" } }
+      }
+    },
+    "share.card.tagline" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Tracked on iOS" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "ポケットで自動計測" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "口袋自动记录" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "口袋自動記錄" } }
+      }
+    },
+    "healthkit.action.save" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Save Workout to Apple Health" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "Apple ヘルスケアにワークアウトを記録" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "保存体能训练到 Apple 健康" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "將體能訓練儲存至 Apple 健康" } }
+      }
+    },
+    "healthkit.saved.success" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Saved to Apple Health!" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "Apple ヘルスケアに記録しました！" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "已保存到 Apple 健康！" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "已儲存至 Apple 健康！" } }
+      }
+    },
+    "healthkit.error.unavailable" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Apple Health is not available on this device." } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "この端末では Apple ヘルスケアを利用できません。" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "此设备不支持 Apple 健康。" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "此裝置不支援 Apple 健康。" } }
+      }
+    },
     "coaching.turnCount" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "TURNS" } },

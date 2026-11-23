@@ -24,6 +24,8 @@ final class TrackingViewModel {
 
     private let locationService: LocationTrackingService
     private let motionTurnService = MotionTurnService()
+    private let barometerService = BarometerService()
+    private let liveActivityManager = TrackingActivityManager()
     private let resortMatcher: ResortMatcher
     private let calculator = TrackMetricsCalculator()
     private let turnAnalyzer = TurnAnalyzer()
@@ -74,6 +76,8 @@ final class TrackingViewModel {
         isTracking = true
         locationService.startTracking()
         motionTurnService.start()
+        barometerService.start()
+        liveActivityManager.start(resortName: String(localized: "resort.detecting"))
     }
 
     /// 計測を終了し、保存枠に空きがあれば SwiftData へ保存する。
@@ -85,6 +89,8 @@ final class TrackingViewModel {
         simulationTask = nil
         locationService.stopTracking()
         motionTurnService.stop()
+        barometerService.stop()
+        liveActivityManager.end()
         isTracking = false
 
         let endedAt = Date()
@@ -196,7 +202,10 @@ final class TrackingViewModel {
         }
 
         let previousState = activityState
-        activityState = stateMachine.ingest(sample)
+        activityState = stateMachine.ingest(
+            sample,
+            barometerRelativeAltitudeMeters: barometerService.latestRelativeAltitudeMeters
+        )
         if activityState != previousState {
             locationService.updatePowerMode(for: activityState)
         }
@@ -206,6 +215,22 @@ final class TrackingViewModel {
         summary = calculator.summarize(samples: samples)
         speedSegments = calculator.buildSpeedSegments(samples: samples)
         detectedEvents = eventDetector.detectEvents(samples: samples)
+
+        let resortLabel = detectedResort?.localizedName() ?? String(localized: "resort.detecting")
+        let stateLabel: String
+        switch activityState {
+        case .skiing: stateLabel = String(localized: "state.skiing")
+        case .ridingLift: stateLabel = String(localized: "state.lift")
+        case .resting: stateLabel = String(localized: "state.resting")
+        }
+        liveActivityManager.update(
+            resortName: resortLabel,
+            currentSpeedKmh: currentSpeedKmh,
+            maxSpeedKmh: summary.maxSpeedKilometersPerHour,
+            distanceMeters: pureSkiDistanceMeters > 0 ? pureSkiDistanceMeters : summary.totalDistanceMeters,
+            runCount: runCount,
+            activityLabel: stateLabel
+        )
     }
 
     private func resetMetrics() {

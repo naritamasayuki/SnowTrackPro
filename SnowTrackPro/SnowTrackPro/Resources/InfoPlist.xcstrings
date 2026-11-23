@@ -84,6 +84,34 @@
           }
         }
       }
+    },
+    "NSHealthUpdateUsageDescription" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Used to save your ski and snowboard sessions as workouts in Apple Health."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "スキー・スノーボードの滑走記録をワークアウトとして Apple ヘルスケアに保存するために使用します。"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "用于将您的滑雪和单板滑行记录作为体能训练保存到 Apple 健康。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "用於將您的滑雪與單板滑行記錄作為體能訓練儲存到 Apple 健康。"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"
