@@ -20,6 +20,10 @@ final class SkiSessionRecord {
     var turnCount: Int = 0
     var turnsPerKilometer: Double = 0
     var turnConsistencyScore: Double = 0
+    /// 雪質コンディションタグ（"powder" / "groomed" / "icy" / "slush" / ""）
+    var snowConditionRaw: String = ""
+    /// ユーザーが自由に記録する滑走メモ
+    var sessionMemo: String = ""
     @Relationship(deleteRule: .cascade) var trackPoints: [TrackPointRecord]
 
     init(

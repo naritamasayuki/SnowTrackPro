@@ -193,6 +193,14 @@ private struct SessionRow: View {
             HStack {
                 Text(session.resortNameSnapshot)
                     .font(.headline)
+                if let tag = SnowConditionTag(rawValue: session.snowConditionRaw) {
+                    Text(tag.labelKey)
+                        .font(.caption2.bold())
+                        .padding(.horizontal, 6)
+                        .padding(.vertical, 2)
+                        .background(Color.cyan.opacity(0.2), in: Capsule())
+                        .foregroundStyle(.cyan)
+                }
                 Spacer()
                 Text(session.startedAt, format: .dateTime.month().day().hour().minute())
                     .font(.caption)

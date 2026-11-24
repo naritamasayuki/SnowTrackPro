@@ -1,182 +1,162 @@
 [
   {
     "id": "sapporo-teine",
-    "names": {
-      "ja": "サッポロテイネ",
-      "en": "Sapporo Teine",
-      "zh-Hans": "札幌手稻滑雪场",
-      "zh-Hant": "札幌手稻滑雪場"
-    },
-    "countryCode": "JP",
-    "latitude": 43.0764,
-    "longitude": 141.1997,
-    "radiusMeters": 4500,
-    "baseElevationMeters": 340,
-    "summitElevationMeters": 1023
+    "names": { "ja": "サッポロテイネ", "en": "Sapporo Teine", "zh-Hans": "札幌手稻滑雪场", "zh-Hant": "札幌手稻滑雪場" },
+    "countryCode": "JP", "latitude": 43.0764, "longitude": 141.1997, "radiusMeters": 4500, "baseElevationMeters": 340, "summitElevationMeters": 1023
+  },
+  {
+    "id": "sapporo-kokusai",
+    "names": { "ja": "札幌国際スキー場", "en": "Sapporo Kokusai", "zh-Hans": "札幌国际滑雪场", "zh-Hant": "札幌國際滑雪場" },
+    "countryCode": "JP", "latitude": 43.0631, "longitude": 141.1031, "radiusMeters": 4500, "baseElevationMeters": 630, "summitElevationMeters": 1100
   },
   {
     "id": "rusutsu-resort",
-    "names": {
-      "ja": "ルスツリゾート",
-      "en": "Rusutsu Resort",
-      "zh-Hans": "留寿都度假村",
-      "zh-Hant": "留壽都渡假村"
-    },
-    "countryCode": "JP",
-    "latitude": 42.7527,
-    "longitude": 140.9022,
-    "radiusMeters": 6000,
-    "baseElevationMeters": 400,
-    "summitElevationMeters": 994
+    "names": { "ja": "ルスツリゾート", "en": "Rusutsu Resort", "zh-Hans": "留寿都度假村", "zh-Hant": "留壽都渡假村" },
+    "countryCode": "JP", "latitude": 42.7527, "longitude": 140.9022, "radiusMeters": 6000, "baseElevationMeters": 400, "summitElevationMeters": 994
   },
   {
     "id": "niseko-grand-hirafu",
-    "names": {
-      "ja": "ニセコ東急 グラン・ヒラフ",
-      "en": "Niseko Tokyu Grand Hirafu",
-      "zh-Hans": "二世古东急大比罗夫",
-      "zh-Hant": "二世古東急大比羅夫"
-    },
-    "countryCode": "JP",
-    "latitude": 42.8628,
-    "longitude": 140.6997,
-    "radiusMeters": 6500,
-    "baseElevationMeters": 260,
-    "summitElevationMeters": 1200
+    "names": { "ja": "ニセコ東急 グラン・ヒラフ", "en": "Niseko Tokyu Grand Hirafu", "zh-Hans": "二世古东急大比罗夫", "zh-Hant": "二世古東急大比羅夫" },
+    "countryCode": "JP", "latitude": 42.8628, "longitude": 140.6997, "radiusMeters": 6500, "baseElevationMeters": 260, "summitElevationMeters": 1200
   },
   {
     "id": "kiroro-resort",
-    "names": {
-      "ja": "キロロスノーワールド",
-      "en": "Kiroro Snow World",
-      "zh-Hans": "喜乐乐雪世界",
-      "zh-Hant": "喜樂樂雪世界"
-    },
-    "countryCode": "JP",
-    "latitude": 43.0653,
-    "longitude": 140.9903,
-    "radiusMeters": 5000,
-    "baseElevationMeters": 570,
-    "summitElevationMeters": 1180
+    "names": { "ja": "キロロスノーワールド", "en": "Kiroro Snow World", "zh-Hans": "喜乐乐雪世界", "zh-Hant": "喜樂樂雪世界" },
+    "countryCode": "JP", "latitude": 43.0653, "longitude": 140.9903, "radiusMeters": 5000, "baseElevationMeters": 570, "summitElevationMeters": 1180
   },
   {
     "id": "furano-ski-resort",
-    "names": {
-      "ja": "富良野スキー場",
-      "en": "Furano Ski Resort",
-      "zh-Hans": "富良野滑雪场",
-      "zh-Hant": "富良野滑雪場"
-    },
-    "countryCode": "JP",
-    "latitude": 43.3316,
-    "longitude": 142.3578,
-    "radiusMeters": 5500,
-    "baseElevationMeters": 235,
-    "summitElevationMeters": 1074
+    "names": { "ja": "富良野スキー場", "en": "Furano Ski Resort", "zh-Hans": "富良野滑雪场", "zh-Hant": "富良野滑雪場" },
+    "countryCode": "JP", "latitude": 43.3316, "longitude": 142.3578, "radiusMeters": 5500, "baseElevationMeters": 235, "summitElevationMeters": 1074
   },
   {
-    "id": "hakuba-happo-one",
-    "names": {
-      "ja": "白馬八方尾根スキー場",
-      "en": "Hakuba Happo-One",
-      "zh-Hans": "白马八方尾根滑雪场",
-      "zh-Hant": "白馬八方尾根滑雪場"
-    },
-    "countryCode": "JP",
-    "latitude": 36.7019,
-    "longitude": 137.8390,
-    "radiusMeters": 5500,
-    "baseElevationMeters": 760,
-    "summitElevationMeters": 1831
+    "id": "hoshino-tomamu",
+    "names": { "ja": "星野リゾート トマム", "en": "Hoshino Resorts Tomamu", "zh-Hans": "星野度假村 Tomamu", "zh-Hant": "星野渡假村 Tomamu" },
+    "countryCode": "JP", "latitude": 43.0632, "longitude": 142.6317, "radiusMeters": 5500, "baseElevationMeters": 540, "summitElevationMeters": 1239
   },
   {
-    "id": "nozawa-onsen",
-    "names": {
-      "ja": "野沢温泉スキー場",
-      "en": "Nozawa Onsen Snow Resort",
-      "zh-Hans": "野泽温泉滑雪场",
-      "zh-Hant": "野澤溫泉滑雪場"
-    },
-    "countryCode": "JP",
-    "latitude": 36.9212,
-    "longitude": 138.4517,
-    "radiusMeters": 5500,
-    "baseElevationMeters": 565,
-    "summitElevationMeters": 1650
+    "id": "kamui-ski-links",
+    "names": { "ja": "カムイスキーリンクス", "en": "Kamui Ski Links", "zh-Hans": "神居滑雪场", "zh-Hant": "神居滑雪場" },
+    "countryCode": "JP", "latitude": 43.7336, "longitude": 142.1981, "radiusMeters": 4500, "baseElevationMeters": 150, "summitElevationMeters": 751
   },
   {
-    "id": "shiga-kogen",
-    "names": {
-      "ja": "志賀高原マウンテンリゾート",
-      "en": "Shiga Kogen Mountain Resort",
-      "zh-Hans": "志贺高原山地度假村",
-      "zh-Hant": "志賀高原山地渡假村"
-    },
-    "countryCode": "JP",
-    "latitude": 36.7317,
-    "longitude": 138.5144,
-    "radiusMeters": 8000,
-    "baseElevationMeters": 1340,
-    "summitElevationMeters": 2307
+    "id": "appi-kogen",
+    "names": { "ja": "安比高原スキー場", "en": "Appi Kogen Ski Resort", "zh-Hans": "安比高原滑雪场", "zh-Hant": "安比高原滑雪場" },
+    "countryCode": "JP", "latitude": 40.0028, "longitude": 140.9708, "radiusMeters": 6000, "baseElevationMeters": 600, "summitElevationMeters": 1304
+  },
+  {
+    "id": "geto-kogen",
+    "names": { "ja": "夏油高原スキー場", "en": "Geto Kogen Ski Resort", "zh-Hans": "夏油高原滑雪场", "zh-Hant": "夏油高原滑雪場" },
+    "countryCode": "JP", "latitude": 39.2225, "longitude": 140.8886, "radiusMeters": 4500, "baseElevationMeters": 640, "summitElevationMeters": 1070
   },
   {
     "id": "zao-onsen",
-    "names": {
-      "ja": "蔵王温泉スキー場",
-      "en": "Zao Onsen Ski Resort",
-      "zh-Hans": "藏王温泉滑雪场",
-      "zh-Hant": "藏王溫泉滑雪場"
-    },
-    "countryCode": "JP",
-    "latitude": 38.1678,
-    "longitude": 140.3982,
-    "radiusMeters": 6000,
-    "baseElevationMeters": 780,
-    "summitElevationMeters": 1661
+    "names": { "ja": "蔵王温泉スキー場", "en": "Zao Onsen Ski Resort", "zh-Hans": "藏王温泉滑雪场", "zh-Hant": "藏王溫泉滑雪場" },
+    "countryCode": "JP", "latitude": 38.1678, "longitude": 140.3982, "radiusMeters": 6000, "baseElevationMeters": 780, "summitElevationMeters": 1661
+  },
+  {
+    "id": "nekoma-mountain",
+    "names": { "ja": "星野リゾート ネコマ マウンテン", "en": "Hoshino Resorts Nekoma Mountain", "zh-Hans": "星野度假村猫魔山", "zh-Hant": "星野渡假村貓魔山" },
+    "countryCode": "JP", "latitude": 37.5866, "longitude": 140.0258, "radiusMeters": 6000, "baseElevationMeters": 530, "summitElevationMeters": 1338
   },
   {
     "id": "naeba-ski-resort",
-    "names": {
-      "ja": "苗場スキー場",
-      "en": "Naeba Ski Resort",
-      "zh-Hans": "苗场滑雪场",
-      "zh-Hant": "苗場滑雪場"
-    },
-    "countryCode": "JP",
-    "latitude": 36.7928,
-    "longitude": 138.7878,
-    "radiusMeters": 5000,
-    "baseElevationMeters": 900,
-    "summitElevationMeters": 1789
+    "names": { "ja": "苗場スキー場", "en": "Naeba Ski Resort", "zh-Hans": "苗场滑雪场", "zh-Hant": "苗場滑雪場" },
+    "countryCode": "JP", "latitude": 36.7928, "longitude": 138.7878, "radiusMeters": 5000, "baseElevationMeters": 900, "summitElevationMeters": 1789
+  },
+  {
+    "id": "kagura-ski-resort",
+    "names": { "ja": "かぐらスキー場", "en": "Kagura Ski Resort", "zh-Hans": "神乐滑雪场", "zh-Hant": "神樂滑雪場" },
+    "countryCode": "JP", "latitude": 36.8781, "longitude": 138.7425, "radiusMeters": 6000, "baseElevationMeters": 620, "summitElevationMeters": 1845
+  },
+  {
+    "id": "gala-yuzawa",
+    "names": { "ja": "GALA湯沢スキー場", "en": "GALA Yuzawa Snow Resort", "zh-Hans": "GALA汤泽滑雪场", "zh-Hant": "GALA湯澤滑雪場" },
+    "countryCode": "JP", "latitude": 36.9506, "longitude": 138.7995, "radiusMeters": 4000, "baseElevationMeters": 358, "summitElevationMeters": 1181
+  },
+  {
+    "id": "joetsu-kokusai",
+    "names": { "ja": "上越国際スキー場", "en": "Joetsu Kokusai Ski Resort", "zh-Hans": "上越国际滑雪场", "zh-Hant": "上越國際滑雪場" },
+    "countryCode": "JP", "latitude": 37.0169, "longitude": 138.8236, "radiusMeters": 5500, "baseElevationMeters": 225, "summitElevationMeters": 1017
+  },
+  {
+    "id": "myoko-suginohara",
+    "names": { "ja": "妙高杉ノ原スキー場", "en": "Myoko Suginohara", "zh-Hans": "妙高杉之原滑雪场", "zh-Hant": "妙高杉之原滑雪場" },
+    "countryCode": "JP", "latitude": 36.8475, "longitude": 138.1517, "radiusMeters": 5000, "baseElevationMeters": 731, "summitElevationMeters": 1855
+  },
+  {
+    "id": "akakura-kanko",
+    "names": { "ja": "赤倉観光リゾートスキー場", "en": "Akakura Kanko Resort", "zh-Hans": "赤仓观光度假村滑雪场", "zh-Hant": "赤倉觀光渡假村滑雪場" },
+    "countryCode": "JP", "latitude": 36.8856, "longitude": 138.1725, "radiusMeters": 4500, "baseElevationMeters": 740, "summitElevationMeters": 1500
+  },
+  {
+    "id": "kawaba-ski",
+    "names": { "ja": "川場スキー場", "en": "Kawaba Ski Resort", "zh-Hans": "川场滑雪场", "zh-Hant": "川場滑雪場" },
+    "countryCode": "JP", "latitude": 36.7592, "longitude": 139.1047, "radiusMeters": 4000, "baseElevationMeters": 1270, "summitElevationMeters": 1870
+  },
+  {
+    "id": "marunuma-kogen",
+    "names": { "ja": "丸沼高原スキー場", "en": "Marunuma Kogen", "zh-Hans": "丸沼高原滑雪场", "zh-Hant": "丸沼高原滑雪場" },
+    "countryCode": "JP", "latitude": 36.8178, "longitude": 139.3292, "radiusMeters": 4500, "baseElevationMeters": 1400, "summitElevationMeters": 2000
+  },
+  {
+    "id": "karuizawa-prince",
+    "names": { "ja": "軽井沢プリンスホテルスキー場", "en": "Karuizawa Prince Hotel Ski Resort", "zh-Hans": "轻井泽王子大饭店滑雪场", "zh-Hant": "輕井澤王子大飯店滑雪場" },
+    "countryCode": "JP", "latitude": 36.3378, "longitude": 138.6361, "radiusMeters": 3500, "baseElevationMeters": 940, "summitElevationMeters": 1155
+  },
+  {
+    "id": "hakuba-happo-one",
+    "names": { "ja": "白馬八方尾根スキー場", "en": "Hakuba Happo-One", "zh-Hans": "白马八方尾根滑雪场", "zh-Hant": "白馬八方尾根滑雪場" },
+    "countryCode": "JP", "latitude": 36.7019, "longitude": 137.8390, "radiusMeters": 5500, "baseElevationMeters": 760, "summitElevationMeters": 1831
+  },
+  {
+    "id": "hakuba-goryu-47",
+    "names": { "ja": "エイブル白馬五竜＆Hakuba47", "en": "Hakuba Goryu & Hakuba47", "zh-Hans": "白马五龙与Hakuba47", "zh-Hant": "白馬五龍與Hakuba47" },
+    "countryCode": "JP", "latitude": 36.6625, "longitude": 137.8364, "radiusMeters": 5000, "baseElevationMeters": 750, "summitElevationMeters": 1676
+  },
+  {
+    "id": "hakuba-cortina",
+    "names": { "ja": "白馬コルチナスキー場", "en": "Hakuba Cortina", "zh-Hans": "白马科尔蒂纳滑雪场", "zh-Hant": "白馬科爾蒂納滑雪場" },
+    "countryCode": "JP", "latitude": 36.7747, "longitude": 137.8878, "radiusMeters": 4500, "baseElevationMeters": 872, "summitElevationMeters": 1402
+  },
+  {
+    "id": "nozawa-onsen",
+    "names": { "ja": "野沢温泉スキー場", "en": "Nozawa Onsen Snow Resort", "zh-Hans": "野泽温泉滑雪场", "zh-Hant": "野澤溫泉滑雪場" },
+    "countryCode": "JP", "latitude": 36.9212, "longitude": 138.4517, "radiusMeters": 5500, "baseElevationMeters": 565, "summitElevationMeters": 1650
+  },
+  {
+    "id": "shiga-kogen",
+    "names": { "ja": "志賀高原マウンテンリゾート", "en": "Shiga Kogen Mountain Resort", "zh-Hans": "志贺高原山地度假村", "zh-Hant": "志賀高原山地渡假村" },
+    "countryCode": "JP", "latitude": 36.7317, "longitude": 138.5144, "radiusMeters": 8000, "baseElevationMeters": 1340, "summitElevationMeters": 2307
+  },
+  {
+    "id": "madarao-kogen",
+    "names": { "ja": "斑尾高原スキー場", "en": "Madarao Mountain Resort", "zh-Hans": "斑尾高原滑雪场", "zh-Hant": "斑尾高原滑雪場" },
+    "countryCode": "JP", "latitude": 36.8514, "longitude": 138.2994, "radiusMeters": 4500, "baseElevationMeters": 910, "summitElevationMeters": 1350
+  },
+  {
+    "id": "takasu-snow-park",
+    "names": { "ja": "高鷲スノーパーク", "en": "Takasu Snow Park", "zh-Hans": "高鹫雪地公园", "zh-Hant": "高鷲雪地公園" },
+    "countryCode": "JP", "latitude": 35.9831, "longitude": 136.8781, "radiusMeters": 4500, "baseElevationMeters": 950, "summitElevationMeters": 1550
+  },
+  {
+    "id": "meiho-ski",
+    "names": { "ja": "めいほうスキー場", "en": "Meiho Ski Resort", "zh-Hans": "明宝滑雪场", "zh-Hant": "明寶滑雪場" },
+    "countryCode": "JP", "latitude": 35.8756, "longitude": 137.0419, "radiusMeters": 4500, "baseElevationMeters": 700, "summitElevationMeters": 1600
   },
   {
     "id": "whistler-blackcomb",
-    "names": {
-      "ja": "ウィスラー・ブラッコム",
-      "en": "Whistler Blackcomb",
-      "zh-Hans": "惠斯勒黑梳山",
-      "zh-Hant": "惠斯勒黑梳山"
-    },
-    "countryCode": "CA",
-    "latitude": 50.1163,
-    "longitude": -122.9574,
-    "radiusMeters": 10000,
-    "baseElevationMeters": 652,
-    "summitElevationMeters": 2284
+    "names": { "ja": "ウィスラー・ブラッコム", "en": "Whistler Blackcomb", "zh-Hans": "惠斯勒黑梳山", "zh-Hant": "惠斯勒黑梳山" },
+    "countryCode": "CA", "latitude": 50.1163, "longitude": -122.9574, "radiusMeters": 10000, "baseElevationMeters": 652, "summitElevationMeters": 2284
   },
   {
     "id": "zermatt-matterhorn",
-    "names": {
-      "ja": "ツェルマット",
-      "en": "Zermatt Matterhorn",
-      "zh-Hans": "采尔马特",
-      "zh-Hant": "策馬特"
-    },
-    "countryCode": "CH",
-    "latitude": 45.9766,
-    "longitude": 7.7491,
-    "radiusMeters": 10000,
-    "baseElevationMeters": 1620,
-    "summitElevationMeters": 3883
+    "names": { "ja": "ツェルマット", "en": "Zermatt Matterhorn", "zh-Hans": "采尔马特", "zh-Hant": "策馬特" },
+    "countryCode": "CH", "latitude": 45.9766, "longitude": 7.7491, "radiusMeters": 10000, "baseElevationMeters": 1620, "summitElevationMeters": 3883
+  },
+  {
+    "id": "chamonix-mont-blanc",
+    "names": { "ja": "シャモニー・モンブラン", "en": "Chamonix Mont-Blanc", "zh-Hans": "霞慕尼勃朗峰", "zh-Hant": "霞慕尼白朗峰" },
+    "countryCode": "FR", "latitude": 45.9237, "longitude": 6.8694, "radiusMeters": 10000, "baseElevationMeters": 1035, "summitElevationMeters": 3842
   }
 ]

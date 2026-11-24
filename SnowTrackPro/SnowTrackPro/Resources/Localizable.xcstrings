@@ -649,6 +649,86 @@
         "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "頭盔與護具" } }
       }
     },
+    "map.action.toggle3D" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Toggle 3D Terrain View" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "3D 立体表示を切替" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "切换 3D 立体地形" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "切換 3D 立體地形" } }
+      }
+    },
+    "pitch.max" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "MAX SLOPE PITCH" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "最大斜度" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "最大坡度" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "最大坡度" } }
+      }
+    },
+    "pitch.average" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "AVG SLOPE PITCH" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "平均斜度" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "平均坡度" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "平均坡度" } }
+      }
+    },
+    "condition.section.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Snow Conditions & Notes" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "雪質コンディション ＆ メモ" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "雪质记录与备注" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "雪質記錄與備註" } }
+      }
+    },
+    "condition.powder" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Powder" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "パウダー" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "粉雪" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "粉雪" } }
+      }
+    },
+    "condition.groomed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Groomed" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "圧雪バーン" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "机压雪道" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "機壓雪道" } }
+      }
+    },
+    "condition.icy" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Icy" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "アイスバーン" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "冰面" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "冰面" } }
+      }
+    },
+    "condition.slush" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Spring / Slush" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "シャバ雪・春雪" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "春雪 / 湿雪" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "春雪 / 濕雪" } }
+      }
+    },
+    "condition.memo.placeholder" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Add notes about snow quality, favorite runs, or gear setup..." } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "雪質・コースの感想・ギアの調子などをメモ..." } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "记录雪质感受、推荐雪道或装备状态..." } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "記錄雪質感受、推薦雪道或裝備狀態..." } }
+      }
+    },
+    "gpx.action.export" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Export GPX Track File" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "GPX 軌跡ファイルを書き出す（Strava等対応）" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "导出 GPX 轨迹文件（支持 Strava 等）" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "匯出 GPX 軌跡檔案（支援 Strava 等）" } }
+      }
+    },
     "coaching.turnCount" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "TURNS" } },

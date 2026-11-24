@@ -49,6 +49,7 @@ struct TrackMapView: View {
     @State private var cameraPosition: MapCameraPosition = .automatic
     @State private var currentRegion: MKCoordinateRegion?
     @State private var visualStyle: SlopeMapVisualStyle = .hybrid
+    @State private var is3DPitchEnabled: Bool = false
     @State private var showFullScreenMap: Bool = false
 
     var body: some View {
@@ -175,6 +176,13 @@ struct TrackMapView: View {
                         fitToTrack()
                     }
 
+                    MapControlButton(
+                        icon: is3DPitchEnabled ? "cube.fill" : "cube",
+                        accessibilityKey: "map.action.toggle3D"
+                    ) {
+                        toggle3DView()
+                    }
+
                     MapControlButton(icon: visualStyle.iconName, accessibilityKey: "map.action.switchStyle") {
                         visualStyle = visualStyle.next()
                     }
@@ -205,6 +213,7 @@ struct TrackMapView: View {
 
     /// 軌跡全体が見やすく収まる位置にカメラをリセットする
     private func fitToTrack() {
+        is3DPitchEnabled = false
         if let region = defaultTrackRegion() {
             currentRegion = region
             withAnimation(.easeInOut(duration: 0.3)) {
@@ -214,6 +223,24 @@ struct TrackMapView: View {
             withAnimation(.easeInOut(duration: 0.3)) {
                 cameraPosition = .automatic
             }
+        }
+    }
+
+    /// 2D 真上ビュー ⇄ 3D 立体鳥瞰ビュー（ピッチ62°）を切り替える
+    private func toggle3DView() {
+        is3DPitchEnabled.toggle()
+        let region = currentRegion ?? defaultTrackRegion()
+        guard let target = region else { return }
+
+        let distance = max(350.0, target.span.latitudeDelta * 111_000.0 * 1.4)
+        let camera = MapCamera(
+            centerCoordinate: target.center,
+            distance: distance,
+            heading: 0,
+            pitch: is3DPitchEnabled ? 62 : 0
+        )
+        withAnimation(.easeInOut(duration: 0.35)) {
+            cameraPosition = .camera(camera)
         }
     }
 
