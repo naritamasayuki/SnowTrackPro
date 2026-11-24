@@ -19,7 +19,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.1.0</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>2</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
@@ -30,6 +30,8 @@
 	<string>Used to measure your speed, distance, elevation drop, and detect the ski resort automatically.</string>
 	<key>NSMotionUsageDescription</key>
 	<string>Used to analyze turns, braking distance, and distinguish skiing from lift rides.</string>
+	<key>NSHealthShareUsageDescription</key>
+	<string>Used to verify Apple Health workout integration for your ski and snowboard sessions.</string>
 	<key>NSHealthUpdateUsageDescription</key>
 	<string>Used to save your ski and snowboard sessions as workouts in Apple Health.</string>
 	<key>NSSupportsLiveActivities</key>

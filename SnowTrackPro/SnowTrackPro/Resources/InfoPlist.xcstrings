@@ -85,6 +85,34 @@
         }
       }
     },
+    "NSHealthShareUsageDescription" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Used to verify Apple Health workout integration for your ski and snowboard sessions."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "スキー・スノーボードの滑走記録を Apple ヘルスケアのワークアウトと連携するために使用します。"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "用于将您的滑雪和单板滑行记录与 Apple 健康体能训练同步。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "用於將您的滑雪與單板滑行記錄與 Apple 健康體能訓練同步。"
+          }
+        }
+      }
+    },
     "NSHealthUpdateUsageDescription" : {
       "localizations" : {
         "en" : {
