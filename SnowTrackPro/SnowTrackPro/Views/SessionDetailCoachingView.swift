@@ -126,7 +126,7 @@ struct SessionDetailCoachingView: View {
 
                 snowConditionMemoSection
 
-                SessionChartsView(samples: trackSamples, events: detectedEvents)
+                proChartsSection
 
                 turnMetricsSection
 
@@ -163,6 +163,41 @@ struct SessionDetailCoachingView: View {
                 samples: trackSamples,
                 isPersonalBest: isPersonalBestSpeed
             )
+        }
+    }
+
+    @ViewBuilder
+    private var proChartsSection: some View {
+        if purchaseStore.isProUnlocked {
+            SessionChartsView(samples: trackSamples, events: detectedEvents)
+        } else {
+            ZStack {
+                SessionChartsView(samples: trackSamples, events: detectedEvents)
+                    .blur(radius: 6)
+                    .allowsHitTesting(false)
+                    .opacity(0.6)
+
+                VStack(spacing: 10) {
+                    Image(systemName: "chart.xyaxis.line")
+                        .font(.title2.bold())
+                        .foregroundStyle(.yellow)
+
+                    Text("charts.locked.title")
+                        .font(.subheadline.bold())
+                        .foregroundStyle(.white)
+                        .multilineTextAlignment(.center)
+
+                    Button("charts.locked.button") {
+                        showProUpgradeSheet = true
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .tint(.yellow)
+                    .foregroundStyle(.black)
+                    .font(.caption.bold())
+                }
+                .padding(18)
+                .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 16))
+            }
         }
     }
 

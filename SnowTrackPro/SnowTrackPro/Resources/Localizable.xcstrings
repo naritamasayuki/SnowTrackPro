@@ -329,6 +329,30 @@
         "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "轉彎變化歷史對比與要點指導建議" } }
       }
     },
+    "pro.sheet.benefit.charts" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Detailed speed & elevation timeline charts" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "詳細な速度・高度推移グラフ表示" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "详细速度与海拔变化曲线图" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "詳細速度與海拔變化曲線圖" } }
+      }
+    },
+    "charts.locked.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Speed & Elevation Charts (Pro)" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "速度・高度推移グラフ（プロ限定）" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "速度与海拔曲线图（Pro 专属）" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "速度與海拔曲線圖（Pro 專屬）" } }
+      }
+    },
+    "charts.locked.button" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Unlock with Pro Plan" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "プロプランで解放する" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "升级 Pro 方案解锁" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "升級 Pro 方案解鎖" } }
+      }
+    },
     "coaching.turnMetrics.title" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Turn Telemetry" } },

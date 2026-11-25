@@ -30,6 +30,7 @@ struct ProUpgradeSheet: View {
                 VStack(alignment: .leading, spacing: 12) {
                     Label("pro.sheet.benefit.unlimited", systemImage: "checkmark.circle.fill")
                     Label("pro.sheet.benefit.adFree", systemImage: "checkmark.circle.fill")
+                    Label("pro.sheet.benefit.charts", systemImage: "checkmark.circle.fill")
                     Label("pro.sheet.benefit.coaching", systemImage: "checkmark.circle.fill")
                     Label("pro.sheet.benefit.oneTime", systemImage: "checkmark.circle.fill")
                 }
