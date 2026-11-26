@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A00000000000000000000012 /* SnowTrackCore in Frameworks */ = {isa = PBXBuildFile; productRef = A00000000000000000000011 /* SnowTrackCore */; };
+		A00000000000000000000022 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = A00000000000000000000021 /* GoogleMobileAds */; };
 		C10100000000000000000001 /* SnowTrackProApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10100000000000000000001 /* SnowTrackProApp.swift */; };
 		C10200000000000000000001 /* SkiSessionModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10200000000000000000001 /* SkiSessionModels.swift */; };
 		C10300000000000000000001 /* AppLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10300000000000000000001 /* AppLogger.swift */; };
@@ -73,6 +74,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A00000000000000000000012 /* SnowTrackCore in Frameworks */,
+				A00000000000000000000022 /* GoogleMobileAds in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,6 +149,7 @@
 			name = SnowTrackPro;
 			packageProductDependencies = (
 				A00000000000000000000011 /* SnowTrackCore */,
+				A00000000000000000000021 /* GoogleMobileAds */,
 			);
 			productName = SnowTrackPro;
 			productReference = A00000000000000000000005 /* SnowTrackPro.app */;
@@ -176,6 +179,7 @@
 			mainGroup = A00000000000000000000002;
 			packageReferences = (
 				A00000000000000000000010 /* XCLocalSwiftPackageReference "../Packages/SnowTrackCore" */,
+				A00000000000000000000020 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
 			);
 			productRefGroup = A00000000000000000000003 /* Products */;
 			projectDirPath = "";
@@ -282,7 +286,11 @@
 					"@executable_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.3.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.naritamasayuki.SnowTrackPro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -307,7 +315,11 @@
 					"@executable_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.3.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.naritamasayuki.SnowTrackPro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -347,11 +359,27 @@
 		};
 /* End XCLocalSwiftPackageReference section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		A00000000000000000000020 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 13.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		A00000000000000000000011 /* SnowTrackCore */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = A00000000000000000000010 /* XCLocalSwiftPackageReference "../Packages/SnowTrackCore" */;
 			productName = SnowTrackCore;
+		};
+		A00000000000000000000021 /* GoogleMobileAds */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A00000000000000000000020 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */;
+			productName = GoogleMobileAds;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
