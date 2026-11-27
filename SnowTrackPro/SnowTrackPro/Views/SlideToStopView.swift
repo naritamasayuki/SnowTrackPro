@@ -52,5 +52,9 @@ struct SlideToStopView: View {
         .frame(height: trackHeight)
         .accessibilityElement(children: .combine)
         .accessibilityAddTraits(.isButton)
+        .accessibilityHint("action.slideToStop.hint")
+        .accessibilityAction {
+            onFinish()
+        }
     }
 }

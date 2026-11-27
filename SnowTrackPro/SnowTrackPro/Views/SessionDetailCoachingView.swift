@@ -1,6 +1,8 @@
 import SnowTrackCore
+import StoreKit
 import SwiftData
 import SwiftUI
+import UniformTypeIdentifiers
 
 /// 雪質コンディションタグの選択肢
 enum SnowConditionTag: String, CaseIterable, Identifiable {
@@ -30,10 +32,30 @@ enum SnowConditionTag: String, CaseIterable, Identifiable {
     }
 }
 
-/// 滑走セッションの詳細およびプロプラン限定の「ターン過去比較＆ワンポイントアドバイス」画面
+/// ShareLink 押下時にのみ GPX XML を遅延生成する Transferable ドキュメント
+private struct GPXTransferDocument: Transferable {
+    let trackName: String
+    let startedAt: Date
+    let samples: [TrackSample]
+
+    static var transferRepresentation: some TransferRepresentation {
+        DataRepresentation(exportedContentType: .xml) { document in
+            let xml = GPXExporter().exportGPX(
+                trackName: document.trackName,
+                startedAt: document.startedAt,
+                samples: document.samples
+            )
+            return Data(xml.utf8)
+        }
+    }
+}
+
+/// 滑走セッションの詳細およびプロプラン限定の「グラフ・ターン過去比較コーチング」画面
 struct SessionDetailCoachingView: View {
+    @Environment(\.dismiss) private var dismiss
     @Environment(\.locale) private var locale
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.requestReview) private var requestReview
     @Environment(ProPurchaseStore.self) private var purchaseStore
 
     let session: SkiSessionRecord
@@ -41,39 +63,25 @@ struct SessionDetailCoachingView: View {
 
     @State private var showProUpgradeSheet = false
     @State private var showShareCardSheet = false
+    @State private var showDeleteConfirmation = false
     @State private var isSavingHealthKit = false
     @State private var healthKitStatusMessage: String?
     @State private var memoDraft: String = ""
+    @State private var memoSaveTask: Task<Void, Never>?
+
+    /// 毎描画での全点再計算を防ぐためのキャッシュ
+    @State private var cachedSamples: [TrackSample] = []
+    @State private var cachedSpeedSegments: [SpeedSegment] = []
+    @State private var cachedEvents: [TrackEvent] = []
+    @State private var cachedSlopePitch = SlopePitchSummary()
+    @State private var hasRequestedReview = false
 
     private let advisor = TurnCoachingAdvisor()
     private let calculator = TrackMetricsCalculator()
     private let eventDetector = TrackEventDetector()
     private let pitchCalculator = SlopePitchCalculator()
-    private let gpxExporter = GPXExporter()
     private let seasonCalculator = SeasonStatsCalculator()
     private let healthKitService = HealthKitWorkoutService()
-
-    private var slopePitch: SlopePitchSummary {
-        pitchCalculator.analyze(samples: trackSamples)
-    }
-
-    private var gpxExportURL: URL? {
-        guard trackSamples.count >= 2 else { return nil }
-        let xml = gpxExporter.exportGPX(
-            trackName: session.resortNameSnapshot,
-            startedAt: session.startedAt,
-            samples: trackSamples
-        )
-        let fileURL = FileManager.default.temporaryDirectory
-            .appendingPathComponent("SnowTrack-\(session.id.uuidString.prefix(8)).gpx")
-        do {
-            try xml.write(to: fileURL, atomically: true, encoding: .utf8)
-            return fileURL
-        } catch {
-            AppLogger.persistence.error("GPX一時ファイルの生成に失敗しました: \(error.localizedDescription, privacy: .public)")
-            return nil
-        }
-    }
 
     private var isPersonalBestSpeed: Bool {
         seasonCalculator.isNewPersonalBestSpeed(
@@ -84,20 +92,6 @@ struct SessionDetailCoachingView: View {
 
     private var formatter: MeasurementFormatHelper {
         MeasurementFormatHelper(locale: locale)
-    }
-
-    private var trackSamples: [TrackSample] {
-        session.trackPoints
-            .map { $0.toTrackSample() }
-            .sorted { $0.timestamp < $1.timestamp }
-    }
-
-    private var speedSegments: [SpeedSegment] {
-        calculator.buildSpeedSegments(samples: trackSamples)
-    }
-
-    private var detectedEvents: [TrackEvent] {
-        eventDetector.detectEvents(samples: trackSamples)
     }
 
     private var coachingReport: TurnCoachingReport {
@@ -135,14 +129,35 @@ struct SessionDetailCoachingView: View {
                 SnowGearShopSectionView()
 
                 exportAndHealthSection
+
+                deleteSessionSection
             }
             .padding()
         }
         .background(Color.black.ignoresSafeArea())
         .navigationTitle(session.resortNameSnapshot)
         .navigationBarTitleDisplayMode(.inline)
-        .onAppear {
+        .task(id: session.id) {
             memoDraft = session.sessionMemo
+            let sorted = session.trackPoints
+                .map { $0.toTrackSample() }
+                .sorted { $0.timestamp < $1.timestamp }
+            cachedSamples = sorted
+            cachedSpeedSegments = calculator.buildSpeedSegments(samples: sorted)
+            cachedEvents = eventDetector.detectEvents(samples: sorted)
+            cachedSlopePitch = pitchCalculator.analyze(samples: sorted)
+
+            if isPersonalBestSpeed && !hasRequestedReview {
+                hasRequestedReview = true
+                requestReview()
+            }
+        }
+        .onDisappear {
+            memoSaveTask?.cancel()
+            if session.sessionMemo != memoDraft {
+                session.sessionMemo = memoDraft
+                try? modelContext.save()
+            }
         }
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
@@ -160,19 +175,29 @@ struct SessionDetailCoachingView: View {
         .sheet(isPresented: $showShareCardSheet) {
             SessionShareCardSheet(
                 session: session,
-                samples: trackSamples,
+                samples: cachedSamples,
                 isPersonalBest: isPersonalBestSpeed
             )
+        }
+        .alert("history.delete.confirmTitle", isPresented: $showDeleteConfirmation) {
+            Button("history.delete.confirmAction", role: .destructive) {
+                modelContext.delete(session)
+                try? modelContext.save()
+                dismiss()
+            }
+            Button("action.cancel", role: .cancel) {}
+        } message: {
+            Text("history.delete.confirmMessage")
         }
     }
 
     @ViewBuilder
     private var proChartsSection: some View {
         if purchaseStore.isProUnlocked {
-            SessionChartsView(samples: trackSamples, events: detectedEvents)
+            SessionChartsView(samples: cachedSamples, events: cachedEvents)
         } else {
             ZStack {
-                SessionChartsView(samples: trackSamples, events: detectedEvents)
+                SessionChartsView(samples: cachedSamples, events: cachedEvents)
                     .blur(radius: 6)
                     .allowsHitTesting(false)
                     .opacity(0.6)
@@ -233,8 +258,13 @@ struct SessionDetailCoachingView: View {
                 .padding(10)
                 .background(Color.white.opacity(0.07), in: RoundedRectangle(cornerRadius: 10))
                 .onChange(of: memoDraft) { _, newValue in
-                    session.sessionMemo = newValue
-                    try? modelContext.save()
+                    memoSaveTask?.cancel()
+                    memoSaveTask = Task {
+                        try? await Task.sleep(for: .milliseconds(450))
+                        guard !Task.isCancelled else { return }
+                        session.sessionMemo = newValue
+                        try? modelContext.save()
+                    }
                 }
         }
         .padding(14)
@@ -243,8 +273,16 @@ struct SessionDetailCoachingView: View {
 
     private var exportAndHealthSection: some View {
         VStack(spacing: 10) {
-            if let gpxURL = gpxExportURL {
-                ShareLink(item: gpxURL) {
+            if cachedSamples.count >= 2 {
+                let gpxDoc = GPXTransferDocument(
+                    trackName: session.resortNameSnapshot,
+                    startedAt: session.startedAt,
+                    samples: cachedSamples
+                )
+                ShareLink(
+                    item: gpxDoc,
+                    preview: SharePreview("SnowTrack-\(session.id.uuidString.prefix(8)).gpx")
+                ) {
                     Label("gpx.action.export", systemImage: "doc.badge.arrow.up")
                         .font(.subheadline.bold())
                         .foregroundStyle(.cyan)
@@ -267,27 +305,35 @@ struct SessionDetailCoachingView: View {
                         try await healthKitService.saveSkiWorkout(
                             startedAt: session.startedAt,
                             endedAt: session.endedAt,
-                            totalDistanceMeters: session.totalDistanceMeters,
+                            totalDistanceMeters: session.displaySkiDistanceMeters,
                             resortName: session.resortNameSnapshot
                         )
+                        session.healthKitExported = true
+                        try? modelContext.save()
                         healthKitStatusMessage = String(localized: "healthkit.saved.success")
                     } catch {
                         healthKitStatusMessage = error.localizedDescription
                     }
                 }
             } label: {
-                Label("healthkit.action.save", systemImage: "heart.fill")
-                    .font(.subheadline.bold())
-                    .foregroundStyle(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 12)
-                    .background(Color.pink.opacity(0.28), in: RoundedRectangle(cornerRadius: 12))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 12)
-                            .stroke(Color.pink.opacity(0.6), lineWidth: 1)
-                    )
+                Label(
+                    session.healthKitExported ? "healthkit.saved.already" : "healthkit.action.save",
+                    systemImage: session.healthKitExported ? "checkmark.heart.fill" : "heart.fill"
+                )
+                .font(.subheadline.bold())
+                .foregroundStyle(.white)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 12)
+                .background(
+                    (session.healthKitExported ? Color.green : Color.pink).opacity(0.28),
+                    in: RoundedRectangle(cornerRadius: 12)
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke((session.healthKitExported ? Color.green : Color.pink).opacity(0.6), lineWidth: 1)
+                )
             }
-            .disabled(isSavingHealthKit)
+            .disabled(isSavingHealthKit || session.healthKitExported)
 
             if let status = healthKitStatusMessage {
                 Text(status)
@@ -297,25 +343,37 @@ struct SessionDetailCoachingView: View {
         }
     }
 
+    private var deleteSessionSection: some View {
+        Button(role: .destructive) {
+            showDeleteConfirmation = true
+        } label: {
+            Label("history.delete.button", systemImage: "trash")
+                .font(.footnote.bold())
+                .foregroundStyle(.red)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 10)
+        }
+    }
+
     private var slopeTrackSection: some View {
         VStack(alignment: .leading, spacing: 10) {
             Text("map.slopeTrack.title")
                 .font(.headline)
                 .foregroundStyle(.white)
 
-            if trackSamples.count >= 2 {
+            if cachedSamples.count >= 2 {
                 TrackMapView(
-                    samples: trackSamples,
-                    speedSegments: speedSegments,
-                    events: detectedEvents
+                    samples: cachedSamples,
+                    speedSegments: cachedSpeedSegments,
+                    events: cachedEvents
                 )
                 .frame(height: 240)
 
-                let fallCount = detectedEvents.filter { $0.kind == .possibleFall }.count
-                let brakeCount = detectedEvents.filter { $0.kind == .hardBraking }.count
+                let fallCount = cachedEvents.filter { $0.kind == .possibleFall }.count
+                let brakeCount = cachedEvents.filter { $0.kind == .hardBraking }.count
                 LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 10) {
-                    DetailStatCard(titleKey: "pitch.max", value: String(format: "%.1f°", slopePitch.maxPitchDegrees), color: .cyan)
-                    DetailStatCard(titleKey: "pitch.average", value: String(format: "%.1f°", slopePitch.averagePitchDegrees), color: .green)
+                    DetailStatCard(titleKey: "pitch.max", value: String(format: "%.1f°", cachedSlopePitch.maxPitchDegrees), color: .cyan)
+                    DetailStatCard(titleKey: "pitch.average", value: String(format: "%.1f°", cachedSlopePitch.averagePitchDegrees), color: .green)
                     DetailStatCard(titleKey: "map.event.fallCount", value: "\(fallCount)", color: .pink)
                     DetailStatCard(titleKey: "map.event.hardBrakeCount", value: "\(brakeCount)", color: .orange)
                 }
@@ -338,7 +396,7 @@ struct SessionDetailCoachingView: View {
                 .foregroundStyle(.secondary)
 
             LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
-                DetailStatCard(titleKey: "metric.distance", value: formatter.formattedDistance(meters: session.totalDistanceMeters), color: .cyan)
+                DetailStatCard(titleKey: "metric.distance", value: formatter.formattedDistance(meters: session.displaySkiDistanceMeters), color: .cyan)
                 DetailStatCard(titleKey: "metric.maxSpeed", value: "\(maxSpeed.value) \(maxSpeed.unit)", color: .yellow)
                 DetailStatCard(titleKey: "metric.verticalDrop", value: formatter.formattedElevation(meters: session.verticalDropMeters), color: .green)
                 DetailStatCard(titleKey: "metric.runs", value: "\(session.runCount)", color: .orange)

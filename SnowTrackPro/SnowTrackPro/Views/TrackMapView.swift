@@ -52,16 +52,39 @@ struct TrackMapView: View {
     @State private var is3DPitchEnabled: Bool = false
     @State private var showFullScreenMap: Bool = false
 
+    /// 同じ速度帯の連続セグメントを1本のポリラインに結合して描画負荷を大幅に軽減する
+    private var coalescedPolylines: [CoalescedSpeedPolyline] {
+        guard !speedSegments.isEmpty else { return [] }
+        var result: [CoalescedSpeedPolyline] = []
+        var currentBand = speedSegments[0].band
+        var currentCoords: [CLLocationCoordinate2D] = [
+            CLLocationCoordinate2D(latitude: speedSegments[0].startLatitude, longitude: speedSegments[0].startLongitude),
+            CLLocationCoordinate2D(latitude: speedSegments[0].endLatitude, longitude: speedSegments[0].endLongitude)
+        ]
+
+        for segment in speedSegments.dropFirst() {
+            if segment.band == currentBand {
+                currentCoords.append(CLLocationCoordinate2D(latitude: segment.endLatitude, longitude: segment.endLongitude))
+            } else {
+                result.append(CoalescedSpeedPolyline(id: result.count, band: currentBand, coordinates: currentCoords))
+                currentBand = segment.band
+                currentCoords = [
+                    CLLocationCoordinate2D(latitude: segment.startLatitude, longitude: segment.startLongitude),
+                    CLLocationCoordinate2D(latitude: segment.endLatitude, longitude: segment.endLongitude)
+                ]
+            }
+        }
+        result.append(CoalescedSpeedPolyline(id: result.count, band: currentBand, coordinates: currentCoords))
+        return result
+    }
+
     var body: some View {
         ZStack(alignment: .topLeading) {
             Map(position: $cameraPosition, interactionModes: .all) {
-                if !speedSegments.isEmpty {
-                    ForEach(speedSegments) { segment in
-                        MapPolyline(coordinates: [
-                            CLLocationCoordinate2D(latitude: segment.startLatitude, longitude: segment.startLongitude),
-                            CLLocationCoordinate2D(latitude: segment.endLatitude, longitude: segment.endLongitude)
-                        ])
-                        .stroke(color(for: segment.band), lineWidth: isFullScreen ? 6 : 5)
+                if !coalescedPolylines.isEmpty {
+                    ForEach(coalescedPolylines) { line in
+                        MapPolyline(coordinates: line.coordinates)
+                            .stroke(color(for: line.band), lineWidth: isFullScreen ? 6 : 5)
                     }
                 } else if samples.count >= 2 {
                     MapPolyline(coordinates: samples.map {
@@ -368,6 +391,12 @@ private struct LegendDot: View {
                 .foregroundStyle(.white)
         }
     }
+}
+
+private struct CoalescedSpeedPolyline: Identifiable {
+    let id: Int
+    let band: SpeedBand
+    let coordinates: [CLLocationCoordinate2D]
 }
 
 private struct LegendIcon: View {

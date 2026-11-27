@@ -41,8 +41,10 @@
   ・ポケット内での誤操作を防ぐ「スライドして計測終了」ロックUI
   ・滑走ルートを MapKit 上に速度別カラーヒートマップで描画
 
-  ■ プライバシー重視
-  ・滑走ログ・位置情報データはすべて端末内（SwiftData）のみに保存され、外部サーバーへ送信されません。
+  ■ プランとプライバシー
+  ・無料版：すべての滑走ログを端末内に安全保存（直近5件の詳細閲覧可・バナー広告あり）
+  ・プロプラン（買い切り）：全履歴の詳細閲覧、速度＆高度グラフ、ターン過去比較コーチング、広告非表示を永久解放
+  ・滑走ログ・位置情報データはすべて端末内（SwiftData）のみに保存されます（無料版の広告配信に Google AdMob を使用／ヘルスケア連携はユーザー操作時のみ書き込み）。
   ```
 
 ---
@@ -63,10 +65,11 @@
 
   Key Features:
   - Background GPS Tracking: Automatically measures current speed, max speed, ski distance, vertical drop, and run count with smart battery optimization on lifts.
-  - Offline Resort Detection: Automatically identifies major resorts worldwide without requiring cellular reception.
+  - Offline Resort Detection: Automatically identifies major ski resorts without requiring cellular reception.
   - High-Contrast Glare-Proof UI: Large dark-mode telemetry built for bright snowy slopes, with a slide-to-finish lock to prevent accidental pocket taps.
-  - Trail Map & Speed Heatmap: View your recorded route with speed-colored heatmaps on MapKit and unlimited local session history.
-  - Private by Design: All session logs and GPS tracks stay locally on your device.
+  - Trail Map & Speed Heatmap: View your recorded route with speed-colored heatmaps on MapKit, GPX export, and Apple Health workout export.
+  - Free & Pro Plan: Free users save all sessions safely on-device (latest 5 session details viewable, banner ads shown). One-time Pro Plan unlocks full history access, speed & elevation charts, turn coaching, and an ad-free experience.
+  - Private by Design: All session logs and GPS tracks stay locally on your device. (Free version uses Google AdMob for banner ads.)
   ```
 
 ---
@@ -79,14 +82,11 @@ Thank you for reviewing SnowTrack Pro.
 1. Background Location Usage (Guideline 2.5.4):
 SnowTrack Pro is a ski and snowboard GPS tracker designed to run while the user's iPhone stays inside their jacket pocket on the slopes. Background location updates (`UIBackgroundModes: location`) are essential to continuously record speed, distance, vertical drop, and route tracks with the screen off, and accuracy is dynamically reduced during lift rides/rest to conserve battery.
 
-2. Testing Without Being at a Ski Resort:
-On the main "Track" tab, reviewers can tap the "Demo Run" button in the top-right navigation bar to replay a simulated ski descent at Sapporo Teine. This immediately demonstrates automatic resort detection, live speed/distance/vertical-drop telemetry, MapKit trail rendering, and saving sessions to History via the "Slide to Finish Session" control.
+2. Privacy, Advertising & HealthKit:
+No account or sign-in is required. All GPS tracks and session histories are stored strictly on-device using SwiftData and are never transmitted to developer servers. The free version displays Google AdMob banner ads (with UMP consent and ATT support) and sets Age Rating "Advertising" to Yes. Apple Health (HealthKit) writes downhill snow sports workouts only when the user explicitly taps "Save to Apple Health".
 
-3. Privacy & Data Storage:
-No account or sign-in is required. All GPS tracks and session histories are stored strictly on-device using SwiftData and are never transmitted to external servers.
-
-4. One-Time In-App Purchase (Non-Consumable, StoreKit 2):
+3. One-Time In-App Purchase (Non-Consumable, StoreKit 2):
 - Product ID: `com.naritamasayuki.SnowTrackPro.pro.unlimited` (Non-Consumable, ¥100)
-- Free users can save up to 5 sessions per year and see a bottom banner slot on idle/history screens. Purchasing the one-time Pro Plan permanently unlocks unlimited session saves, hides all banners/ads, and unlocks past-session turn comparison & one-point coaching advice on each session's detail screen.
-- Purchase & Restore UI is accessible from the top card of the "History" tab, the bottom banner button, session detail coaching card, or when reaching the 5-save annual limit.
+- Free users save all sessions safely on-device and can view the latest 5 session details (with banner ads). Purchasing the one-time Pro Plan permanently unlocks all older session details, speed & elevation charts, past-session turn comparison & coaching advice, and removes all ads.
+- Purchase & Restore UI is accessible from the top card of the "History" tab, locked sessions, or session detail charts/coaching cards.
 ```

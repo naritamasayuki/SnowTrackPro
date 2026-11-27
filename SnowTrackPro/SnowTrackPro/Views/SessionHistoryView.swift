@@ -2,11 +2,16 @@ import SnowTrackCore
 import SwiftData
 import SwiftUI
 
-/// SwiftData に保存された滑走セッション履歴一覧・シーズン累計サマリー・年間保存枠ステータス
+/// SwiftData に保存された滑走セッション履歴一覧・シーズン累計サマリー・プランステータス
 struct SessionHistoryView: View {
     @Environment(\.locale) private var locale
+    @Environment(\.modelContext) private var modelContext
     @Environment(ProPurchaseStore.self) private var purchaseStore
-    @Query(sort: \SkiSessionRecord.startedAt, order: .reverse) private var sessions: [SkiSessionRecord]
+    @Query(
+        filter: #Predicate<SkiSessionRecord> { $0.isInProgress == false },
+        sort: \SkiSessionRecord.startedAt,
+        order: .reverse
+    ) private var sessions: [SkiSessionRecord]
 
     @State private var showProUpgradeSheet = false
 
@@ -16,16 +21,12 @@ struct SessionHistoryView: View {
         MeasurementFormatHelper(locale: locale)
     }
 
-    private var remainingFreeSaves: Int? {
-        purchaseStore.remainingFreeSaves(existingDates: sessions.map(\.startedAt))
-    }
-
     private var seasonSummary: SeasonStatsSummary {
         let inputs = sessions.map {
             SeasonSessionInput(
                 date: $0.startedAt,
                 resortID: $0.resortID,
-                totalDistanceMeters: $0.totalDistanceMeters,
+                totalDistanceMeters: $0.displaySkiDistanceMeters,
                 verticalDropMeters: $0.verticalDropMeters,
                 maxSpeedKilometersPerHour: $0.maxSpeedKilometersPerHour,
                 runCount: $0.runCount,
@@ -45,7 +46,7 @@ struct SessionHistoryView: View {
                 }
 
                 Section {
-                    quotaStatusRow
+                    planStatusRow
                 }
 
                 if sessions.isEmpty {
@@ -58,14 +59,31 @@ struct SessionHistoryView: View {
                     }
                 } else {
                     Section {
-                        ForEach(sessions, id: \.id) { session in
-                            let olderSessions = sessions.filter { $0.startedAt < session.startedAt }
-                            NavigationLink {
-                                SessionDetailCoachingView(session: session, previousSessions: olderSessions)
-                            } label: {
-                                SessionRow(session: session, formatter: formatter)
+                        ForEach(Array(sessions.enumerated()), id: \.element.id) { index, session in
+                            let isLockedForFree = !purchaseStore.isProUnlocked
+                                && index >= SaveQuotaPolicy.annualFreeSaveLimit
+                            if isLockedForFree {
+                                Button {
+                                    showProUpgradeSheet = true
+                                } label: {
+                                    HStack {
+                                        SessionRow(session: session, formatter: formatter)
+                                            .opacity(0.6)
+                                        Image(systemName: "lock.fill")
+                                            .foregroundStyle(.yellow)
+                                    }
+                                }
+                                .buttonStyle(.plain)
+                            } else {
+                                let olderSessions = sessions.filter { $0.startedAt < session.startedAt }
+                                NavigationLink {
+                                    SessionDetailCoachingView(session: session, previousSessions: olderSessions)
+                                } label: {
+                                    SessionRow(session: session, formatter: formatter)
+                                }
                             }
                         }
+                        .onDelete(perform: deleteSessions)
                     }
                 }
 
@@ -100,6 +118,14 @@ struct SessionHistoryView: View {
         }
     }
 
+    private func deleteSessions(at offsets: IndexSet) {
+        for index in offsets {
+            guard sessions.indices.contains(index) else { continue }
+            modelContext.delete(sessions[index])
+        }
+        try? modelContext.save()
+    }
+
     private var seasonSummaryCard: some View {
         let pbSpeed = formatter.formattedSpeed(kilometersPerHour: seasonSummary.personalBestSpeedKmh)
         return VStack(spacing: 12) {
@@ -132,13 +158,13 @@ struct SessionHistoryView: View {
     }
 
     @ViewBuilder
-    private var quotaStatusRow: some View {
-        if let remaining = remainingFreeSaves {
+    private var planStatusRow: some View {
+        if !purchaseStore.isProUnlocked {
             HStack {
                 VStack(alignment: .leading, spacing: 4) {
                     Text("pro.quota.freeTitle")
                         .font(.subheadline.bold())
-                    Text("pro.quota.remaining \(remaining) \(SaveQuotaPolicy.annualFreeSaveLimit)")
+                    Text("pro.quota.freeHistoryNote \(SaveQuotaPolicy.annualFreeSaveLimit)")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
@@ -209,7 +235,7 @@ private struct SessionRow: View {
 
             HStack(spacing: 16) {
                 Label(
-                    formatter.formattedDistance(meters: session.totalDistanceMeters),
+                    formatter.formattedDistance(meters: session.displaySkiDistanceMeters),
                     systemImage: "point.topleft.down.curvedto.point.bottomright.up"
                 )
                 Label("\(maxSpeed.value) \(maxSpeed.unit)", systemImage: "speedometer")

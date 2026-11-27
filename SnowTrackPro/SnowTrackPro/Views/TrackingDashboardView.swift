@@ -6,6 +6,7 @@ import SwiftUI
 struct TrackingDashboardView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.locale) private var locale
+    @Environment(\.openURL) private var openURL
     @Environment(ProPurchaseStore.self) private var purchaseStore
 
     let viewModel: TrackingViewModel
@@ -32,11 +33,35 @@ struct TrackingDashboardView: View {
                     )
                     .frame(height: 220)
 
-                    if let errorMessage = viewModel.errorMessage {
-                        Text(errorMessage)
-                            .font(.footnote)
-                            .foregroundStyle(.red)
+                    if let statusBanner = viewModel.statusBannerMessage {
+                        Label(statusBanner, systemImage: "checkmark.circle.fill")
+                            .font(.footnote.bold())
+                            .foregroundStyle(.green)
                             .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(10)
+                            .background(Color.green.opacity(0.14), in: RoundedRectangle(cornerRadius: 10))
+                    }
+
+                    if let errorMessage = viewModel.errorMessage {
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text(errorMessage)
+                                .font(.footnote)
+                                .foregroundStyle(.red)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+
+                            if viewModel.isLocationDenied,
+                               let settingsURL = URL(string: UIApplication.openSettingsURLString) {
+                                Button("action.openSettings") {
+                                    openURL(settingsURL)
+                                }
+                                .buttonStyle(.borderedProminent)
+                                .tint(.cyan)
+                                .foregroundStyle(.black)
+                                .font(.caption.bold())
+                            }
+                        }
+                        .padding(10)
+                        .background(Color.red.opacity(0.12), in: RoundedRectangle(cornerRadius: 10))
                     }
 
                     actionControls
@@ -52,6 +77,7 @@ struct TrackingDashboardView: View {
             .background(Color.black.ignoresSafeArea())
             .navigationTitle("SnowTrack Pro")
             .navigationBarTitleDisplayMode(.inline)
+            #if DEBUG
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     if !viewModel.isTracking {
@@ -62,10 +88,12 @@ struct TrackingDashboardView: View {
                     }
                 }
             }
+            #endif
+            .onAppear {
+                viewModel.recoverInProgressSessionsIfNeeded(modelContext: modelContext)
+            }
             .sheet(isPresented: $showProUpgradeSheet) {
-                ProUpgradeSheet {
-                    viewModel.savePendingSession(modelContext: modelContext)
-                }
+                ProUpgradeSheet()
             }
         }
     }
@@ -88,6 +116,15 @@ struct TrackingDashboardView: View {
             .lineLimit(1)
 
             Spacer()
+
+            if viewModel.isDemoSession {
+                Text("DEMO")
+                    .font(.caption2.bold())
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 4)
+                    .background(Color.orange.opacity(0.3), in: Capsule())
+                    .foregroundStyle(.orange)
+            }
 
             Text(activityLabelKey)
                 .font(.caption.bold())
@@ -158,40 +195,18 @@ struct TrackingDashboardView: View {
     private var actionControls: some View {
         if viewModel.isTracking {
             SlideToStopView {
-                let saved = viewModel.finishSession(
-                    modelContext: modelContext,
-                    isPro: purchaseStore.isProUnlocked
-                )
-                if !saved {
-                    showProUpgradeSheet = true
-                }
+                viewModel.finishSession(modelContext: modelContext)
             }
         } else {
-            VStack(spacing: 10) {
-                if viewModel.hasPendingUnsavedSession {
-                    Button {
-                        showProUpgradeSheet = true
-                    } label: {
-                        Label("pro.pendingSave.banner", systemImage: "exclamationmark.triangle.fill")
-                            .font(.caption.bold())
-                            .foregroundStyle(.yellow)
-                            .padding(.vertical, 8)
-                            .padding(.horizontal, 12)
-                            .frame(maxWidth: .infinity)
-                            .background(Color.yellow.opacity(0.15), in: RoundedRectangle(cornerRadius: 12))
-                    }
-                }
-
-                Button {
-                    viewModel.startSession()
-                } label: {
-                    Text("action.startTracking")
-                        .font(.headline.weight(.heavy))
-                        .foregroundStyle(.black)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 58)
-                        .background(Color(red: 0.0, green: 0.92, blue: 0.98), in: Capsule())
-                }
+            Button {
+                viewModel.startSession(modelContext: modelContext)
+            } label: {
+                Text("action.startTracking")
+                    .font(.headline.weight(.heavy))
+                    .foregroundStyle(.black)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 58)
+                    .background(Color(red: 0.0, green: 0.92, blue: 0.98), in: Capsule())
             }
         }
     }

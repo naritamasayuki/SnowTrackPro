@@ -45,6 +45,24 @@ struct ProUpgradeSheet: View {
                         .font(.headline)
                         .foregroundStyle(.green)
                         .padding()
+                } else if purchaseStore.proProduct == nil {
+                    VStack(spacing: 10) {
+                        if purchaseStore.isLoading {
+                            ProgressView()
+                                .tint(.yellow)
+                        } else {
+                            Button("pro.sheet.reloadButton") {
+                                Task {
+                                    await purchaseStore.load()
+                                }
+                            }
+                            .buttonStyle(.borderedProminent)
+                            .tint(.yellow)
+                            .foregroundStyle(.black)
+                            .font(.subheadline.bold())
+                        }
+                    }
+                    .frame(height: 54)
                 } else {
                     Button {
                         Task {
@@ -55,10 +73,15 @@ struct ProUpgradeSheet: View {
                             }
                         }
                     } label: {
-                        HStack {
-                            Text("pro.sheet.buyButton")
-                            if let price = purchaseStore.proProduct?.displayPrice {
-                                Text("(\(price))")
+                        HStack(spacing: 8) {
+                            if purchaseStore.isLoading {
+                                ProgressView()
+                                    .tint(.black)
+                            } else {
+                                Text("pro.sheet.buyButton")
+                                if let price = purchaseStore.proProduct?.displayPrice {
+                                    Text("(\(price))")
+                                }
                             }
                         }
                         .font(.headline.bold())
@@ -68,6 +91,13 @@ struct ProUpgradeSheet: View {
                         .background(Color.yellow, in: Capsule())
                     }
                     .disabled(purchaseStore.isLoading)
+                }
+
+                if let statusMessage = purchaseStore.statusMessage {
+                    Text(statusMessage)
+                        .font(.caption)
+                        .foregroundStyle(.yellow)
+                        .multilineTextAlignment(.center)
                 }
 
                 if let errorMessage = purchaseStore.lastErrorMessage {

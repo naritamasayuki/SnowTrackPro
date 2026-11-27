@@ -9,6 +9,7 @@ import SwiftData
 @Observable
 final class TrackingViewModel {
     private(set) var isTracking: Bool = false
+    private(set) var isDemoSession: Bool = false
     private(set) var detectedResort: Resort?
     private(set) var activityState: MotionActivityState = .resting
     private(set) var currentSpeedKmh: Double = 0
@@ -19,8 +20,8 @@ final class TrackingViewModel {
     private(set) var speedSegments: [SpeedSegment] = []
     private(set) var detectedEvents: [TrackEvent] = []
     private(set) var errorMessage: String?
-    /// 年間無料保存枠の上限に達し、プロプラン購入後の保存を待機しているセッションがあるか
-    private(set) var hasPendingUnsavedSession: Bool = false
+    private(set) var statusBannerMessage: String?
+    private(set) var isLocationDenied: Bool = false
 
     private let locationService: LocationTrackingService
     private let motionTurnService = MotionTurnService()
@@ -35,6 +36,13 @@ final class TrackingViewModel {
     private var sessionStartedAt: Date?
     private var sessionEndedAt: Date?
     private var simulationTask: Task<Void, Never>?
+
+    /// 計測中のデータをクラッシュやバッテリー切れから守るための逐次永続化レコード
+    private var activeSessionRecord: SkiSessionRecord?
+    private var activeModelContext: ModelContext?
+    private var lastFlushedSampleCount: Int = 0
+    private var lastFlushDate: Date = .distantPast
+    private var lastMapRebuildSampleCount: Int = 0
 
     init(locationService: LocationTrackingService? = nil) {
         self.locationService = locationService ?? LocationTrackingService()
@@ -58,8 +66,10 @@ final class TrackingViewModel {
         locationService.onAuthorizationChange = { [weak self] status in
             guard let self else { return }
             if status == .denied || status == .restricted {
+                self.isLocationDenied = true
                 self.errorMessage = String(localized: "error.locationDenied")
             } else {
+                self.isLocationDenied = false
                 self.errorMessage = nil
             }
         }
@@ -68,22 +78,90 @@ final class TrackingViewModel {
         }
     }
 
-    /// 計測を開始する
-    func startSession() {
+    /// 起動時にクラッシュやバッテリー切れで残った「計測中」セッションを自動復旧して履歴へ確定保存する
+    func recoverInProgressSessionsIfNeeded(modelContext: ModelContext) {
+        let descriptor = FetchDescriptor<SkiSessionRecord>(
+            predicate: #Predicate { $0.isInProgress == true }
+        )
+        guard let orphaned = try? modelContext.fetch(descriptor), !orphaned.isEmpty else {
+            return
+        }
+
+        var recoveredCount = 0
+        for record in orphaned {
+            if record.trackPoints.isEmpty {
+                modelContext.delete(record)
+            } else {
+                record.isInProgress = false
+                if let lastTimestamp = record.trackPoints.map(\.timestamp).max() {
+                    record.endedAt = max(record.startedAt, lastTimestamp)
+                    record.elapsedSeconds = max(record.elapsedSeconds, record.endedAt.timeIntervalSince(record.startedAt))
+                }
+                recoveredCount += 1
+            }
+        }
+
+        do {
+            try modelContext.save()
+            if recoveredCount > 0 {
+                statusBannerMessage = String(localized: "tracking.recoveredSession")
+                AppLogger.persistence.info("未完了セッションを自動復旧しました（件数: \(recoveredCount)）")
+            }
+        } catch {
+            AppLogger.persistence.error("未完了セッションの復旧保存に失敗しました: \(error.localizedDescription, privacy: .public)")
+        }
+    }
+
+    /// 計測を開始する（位置情報拒否時は計測を開始せず設定アプリへの誘導を表示）
+    func startSession(modelContext: ModelContext) {
         guard !isTracking else { return }
+
+        let status = locationService.authorizationStatus
+        if status == .denied || status == .restricted {
+            isLocationDenied = true
+            errorMessage = String(localized: "error.locationDenied")
+            return
+        }
+
         resetMetrics()
-        sessionStartedAt = Date()
+        isDemoSession = false
+        let now = Date()
+        sessionStartedAt = now
         isTracking = true
+        activeModelContext = modelContext
+
+        // クラッシュ・バッテリー切れ耐性のため、開始時点で進行中レコードを作成しておく
+        let draftRecord = SkiSessionRecord(
+            startedAt: now,
+            endedAt: now,
+            resortID: nil,
+            resortNameSnapshot: String(localized: "resort.unknown"),
+            totalDistanceMeters: 0,
+            pureSkiDistanceMeters: 0,
+            maxSpeedKilometersPerHour: 0,
+            averageSpeedKilometersPerHour: 0,
+            verticalDropMeters: 0,
+            runCount: 1,
+            elapsedSeconds: 0,
+            trackPoints: []
+        )
+        draftRecord.isInProgress = true
+        modelContext.insert(draftRecord)
+        try? modelContext.save()
+        activeSessionRecord = draftRecord
+        lastFlushedSampleCount = 0
+        lastFlushDate = now
+
         locationService.startTracking()
         motionTurnService.start()
         barometerService.start()
         liveActivityManager.start(resortName: String(localized: "resort.detecting"))
     }
 
-    /// 計測を終了し、保存枠に空きがあれば SwiftData へ保存する。
-    /// 無料プランの年間上限（5回）を超過している場合は false を返し、購入後に保存できるようデータを保持する。
+    /// 計測を終了し、実計測セッションは常に SwiftData へ確定保存する（データ消失ゼロ設計）。
+    /// デモ滑走時は保存を完全にスキップし、履歴やシーズン累計を汚染しない。
     @discardableResult
-    func finishSession(modelContext: ModelContext, isPro: Bool) -> Bool {
+    func finishSession(modelContext: ModelContext) -> Bool {
         guard isTracking else { return true }
         simulationTask?.cancel()
         simulationTask = nil
@@ -95,72 +173,137 @@ final class TrackingViewModel {
 
         let endedAt = Date()
         sessionEndedAt = endedAt
-        guard !samples.isEmpty else { return true }
 
-        let existingDates = fetchExistingSessionDates(modelContext: modelContext)
-        let quotaPolicy = SaveQuotaPolicy()
-        guard quotaPolicy.canSaveSession(existingSessionDates: existingDates, isPro: isPro) else {
-            hasPendingUnsavedSession = true
-            AppLogger.persistence.info("無料プランの年間保存上限（5回）に達したため保存を保留しました。")
+        // デモ滑走は実データとして保存しない
+        if isDemoSession {
+            isDemoSession = false
+            cleanupActiveDraftIfNeeded(modelContext: modelContext)
+            statusBannerMessage = String(localized: "tracking.demoFinished")
+            return true
+        }
+
+        guard !samples.isEmpty else {
+            cleanupActiveDraftIfNeeded(modelContext: modelContext)
+            statusBannerMessage = String(localized: "tracking.noGpsSamples")
             return false
         }
 
-        persistCurrentSession(modelContext: modelContext)
+        finalizeAndPersistSession(modelContext: modelContext, endedAt: endedAt)
         return true
     }
 
-    /// プロプラン購入後に保留していたセッションを保存する
-    func savePendingSession(modelContext: ModelContext) {
-        guard hasPendingUnsavedSession, !samples.isEmpty else { return }
-        persistCurrentSession(modelContext: modelContext)
+    private func cleanupActiveDraftIfNeeded(modelContext: ModelContext) {
+        if let draft = activeSessionRecord {
+            modelContext.delete(draft)
+            try? modelContext.save()
+        }
+        activeSessionRecord = nil
+        activeModelContext = nil
     }
 
-    private func fetchExistingSessionDates(modelContext: ModelContext) -> [Date] {
-        let descriptor = FetchDescriptor<SkiSessionRecord>()
-        let records = (try? modelContext.fetch(descriptor)) ?? []
-        return records.map(\.startedAt)
-    }
-
-    private func persistCurrentSession(modelContext: ModelContext) {
-        let endedAt = sessionEndedAt ?? Date()
+    private func finalizeAndPersistSession(modelContext: ModelContext, endedAt: Date) {
         let startedAt = sessionStartedAt ?? endedAt
         let resortName = detectedResort?.localizedName() ?? String(localized: "resort.unknown")
-        let pointRecords = samples.map { TrackPointRecord(sample: $0) }
         let effectiveSkiDistance = pureSkiDistanceMeters > 0 ? pureSkiDistanceMeters : summary.totalDistanceMeters
         let turnMetrics = turnAnalyzer.analyze(gyroSamples: gyroSamples, skiDistanceMeters: effectiveSkiDistance)
-        let record = SkiSessionRecord(
-            startedAt: startedAt,
-            endedAt: endedAt,
-            resortID: detectedResort?.id,
-            resortNameSnapshot: resortName,
-            totalDistanceMeters: summary.totalDistanceMeters,
-            pureSkiDistanceMeters: pureSkiDistanceMeters,
-            maxSpeedKilometersPerHour: summary.maxSpeedKilometersPerHour,
-            averageSpeedKilometersPerHour: summary.averageSpeedKilometersPerHour,
-            verticalDropMeters: summary.verticalDropMeters,
-            runCount: max(runCount, 1),
-            elapsedSeconds: max(summary.elapsedSeconds, endedAt.timeIntervalSince(startedAt)),
-            turnCount: turnMetrics.turnCount,
-            turnsPerKilometer: turnMetrics.turnsPerKilometer,
-            turnConsistencyScore: turnMetrics.consistencyScore,
-            trackPoints: pointRecords
-        )
 
-        modelContext.insert(record)
+        let record: SkiSessionRecord
+        if let existing = activeSessionRecord {
+            record = existing
+            if lastFlushedSampleCount < samples.count {
+                let remainingPoints = samples[lastFlushedSampleCount...].map { TrackPointRecord(sample: $0) }
+                record.trackPoints.append(contentsOf: remainingPoints)
+            }
+        } else {
+            record = SkiSessionRecord(
+                startedAt: startedAt,
+                endedAt: endedAt,
+                resortID: detectedResort?.id,
+                resortNameSnapshot: resortName,
+                totalDistanceMeters: summary.totalDistanceMeters,
+                pureSkiDistanceMeters: pureSkiDistanceMeters,
+                maxSpeedKilometersPerHour: summary.maxSpeedKilometersPerHour,
+                averageSpeedKilometersPerHour: summary.averageSpeedKilometersPerHour,
+                verticalDropMeters: summary.verticalDropMeters,
+                runCount: max(runCount, 1),
+                elapsedSeconds: max(summary.elapsedSeconds, endedAt.timeIntervalSince(startedAt)),
+                turnCount: turnMetrics.turnCount,
+                turnsPerKilometer: turnMetrics.turnsPerKilometer,
+                turnConsistencyScore: turnMetrics.consistencyScore,
+                trackPoints: samples.map { TrackPointRecord(sample: $0) }
+            )
+            modelContext.insert(record)
+        }
+
+        record.startedAt = startedAt
+        record.endedAt = endedAt
+        record.resortID = detectedResort?.id
+        record.resortNameSnapshot = resortName
+        record.totalDistanceMeters = summary.totalDistanceMeters
+        record.pureSkiDistanceMeters = pureSkiDistanceMeters
+        record.maxSpeedKilometersPerHour = summary.maxSpeedKilometersPerHour
+        record.averageSpeedKilometersPerHour = summary.averageSpeedKilometersPerHour
+        record.verticalDropMeters = summary.verticalDropMeters
+        record.runCount = max(runCount, 1)
+        record.elapsedSeconds = max(summary.elapsedSeconds, endedAt.timeIntervalSince(startedAt))
+        record.turnCount = turnMetrics.turnCount
+        record.turnsPerKilometer = turnMetrics.turnsPerKilometer
+        record.turnConsistencyScore = turnMetrics.consistencyScore
+        record.isInProgress = false
+
         do {
             try modelContext.save()
-            hasPendingUnsavedSession = false
-            AppLogger.persistence.info("滑走セッションを保存しました（ポイント数: \(pointRecords.count)）")
+            activeSessionRecord = nil
+            activeModelContext = nil
+            lastFlushedSampleCount = 0
+            statusBannerMessage = String(localized: "tracking.savedSuccess")
+            AppLogger.persistence.info("滑走セッションを確定保存しました（ポイント数: \(record.trackPoints.count)）")
         } catch {
             errorMessage = error.localizedDescription
             AppLogger.persistence.error("滑走セッションの保存に失敗しました: \(error.localizedDescription, privacy: .public)")
         }
     }
 
-    /// シミュレータや室内テスト用にサッポロテイネでのデモ滑走を実行する
+    /// 計測中に一定件数または一定時間ごとに SwiftData へ逐次書き出しを行い、強制終了時のデータ消失を防ぐ
+    private func flushIncrementalBackupIfNeeded() {
+        guard !isDemoSession,
+              let record = activeSessionRecord,
+              let modelContext = activeModelContext else { return }
+
+        let unsavedCount = samples.count - lastFlushedSampleCount
+        let elapsedSinceFlush = Date().timeIntervalSince(lastFlushDate)
+        guard unsavedCount >= 10 || (unsavedCount > 0 && elapsedSinceFlush >= 25) else { return }
+
+        let newPoints = samples[lastFlushedSampleCount...].map { TrackPointRecord(sample: $0) }
+        record.trackPoints.append(contentsOf: newPoints)
+        record.endedAt = Date()
+        record.resortID = detectedResort?.id
+        record.resortNameSnapshot = detectedResort?.localizedName() ?? String(localized: "resort.unknown")
+        record.totalDistanceMeters = summary.totalDistanceMeters
+        record.pureSkiDistanceMeters = pureSkiDistanceMeters
+        record.maxSpeedKilometersPerHour = summary.maxSpeedKilometersPerHour
+        record.averageSpeedKilometersPerHour = summary.averageSpeedKilometersPerHour
+        record.verticalDropMeters = summary.verticalDropMeters
+        record.runCount = max(runCount, 1)
+        if let startedAt = sessionStartedAt {
+            record.elapsedSeconds = max(summary.elapsedSeconds, Date().timeIntervalSince(startedAt))
+        }
+
+        do {
+            try modelContext.save()
+            lastFlushedSampleCount = samples.count
+            lastFlushDate = Date()
+        } catch {
+            AppLogger.persistence.warning("計測中の自動バックアップ保存に失敗しました: \(error.localizedDescription, privacy: .public)")
+        }
+    }
+
+    #if DEBUG
+    /// シミュレータや開発テスト用にサッポロテイネでのデモ滑走を実行する（履歴には保存されない）
     func startDemoSimulation() {
         simulationTask?.cancel()
         resetMetrics()
+        isDemoSession = true
         sessionStartedAt = Date()
         isTracking = true
 
@@ -174,11 +317,11 @@ final class TrackingViewModel {
         }
     }
 
-    #if DEBUG
     /// スクリーンショット撮影用にサッポロテイネ滑走途中の状態を即座に再現する
     func loadScreenshotLiveState() {
         simulationTask?.cancel()
         resetMetrics()
+        isDemoSession = true
         sessionStartedAt = Date().addingTimeInterval(-120)
         isTracking = true
         let demoSamples = Self.buildTeineDemoSamples().dropLast()
@@ -213,8 +356,15 @@ final class TrackingViewModel {
         pureSkiDistanceMeters = stateMachine.pureSkiDistanceMeters
         runCount = stateMachine.runCount
         summary = calculator.summarize(samples: samples)
-        speedSegments = calculator.buildSpeedSegments(samples: samples)
-        detectedEvents = eventDetector.detectEvents(samples: samples)
+
+        // 長時間計測時のCPU負荷とバッテリー消費を抑えるため、地図セグメント再構築を適度に間引く
+        if samples.count <= 40 || samples.count - lastMapRebuildSampleCount >= 5 {
+            speedSegments = calculator.buildSpeedSegments(samples: samples)
+            detectedEvents = eventDetector.detectEvents(samples: samples)
+            lastMapRebuildSampleCount = samples.count
+        }
+
+        flushIncrementalBackupIfNeeded()
 
         let resortLabel = detectedResort?.localizedName() ?? String(localized: "resort.detecting")
         let stateLabel: String
@@ -239,7 +389,6 @@ final class TrackingViewModel {
         detectedEvents.removeAll()
         gyroSamples.removeAll()
         stateMachine.reset()
-        hasPendingUnsavedSession = false
         detectedResort = nil
         activityState = .resting
         currentSpeedKmh = 0
@@ -247,8 +396,12 @@ final class TrackingViewModel {
         pureSkiDistanceMeters = 0
         runCount = 0
         errorMessage = nil
+        statusBannerMessage = nil
+        lastFlushedSampleCount = 0
+        lastMapRebuildSampleCount = 0
     }
 
+    #if DEBUG
     /// サッポロテイネのゲレンデを模擬したデモ用GPSデータ列を生成する
     private static func buildTeineDemoSamples() -> [TrackSample] {
         let baseDate = Date()
@@ -275,4 +428,5 @@ final class TrackingViewModel {
             )
         }
     }
+    #endif
 }

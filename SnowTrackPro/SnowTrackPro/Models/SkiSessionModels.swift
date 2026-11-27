@@ -24,7 +24,16 @@ final class SkiSessionRecord {
     var snowConditionRaw: String = ""
     /// ユーザーが自由に記録する滑走メモ
     var sessionMemo: String = ""
+    /// 計測中のセッションかどうか（クラッシュ・バッテリー切れ時の自動復旧に使用）
+    var isInProgress: Bool = false
+    /// Apple ヘルスケアへワークアウトとして保存済みか（重複登録を防止）
+    var healthKitExported: Bool = false
     @Relationship(deleteRule: .cascade) var trackPoints: [TrackPointRecord]
+
+    /// 全画面で統一して表示する滑走距離（純粋滑走距離を優先し、未算出時のみ総距離へフォールバック）
+    var displaySkiDistanceMeters: Double {
+        pureSkiDistanceMeters > 0 ? pureSkiDistanceMeters : totalDistanceMeters
+    }
 
     init(
         id: UUID = UUID(),

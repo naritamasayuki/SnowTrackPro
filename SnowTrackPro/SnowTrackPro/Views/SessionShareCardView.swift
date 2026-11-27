@@ -24,6 +24,8 @@ struct SessionShareCardSheet: View {
                     let swiftUIImage = Image(uiImage: image)
                     ShareLink(
                         item: swiftUIImage,
+                        subject: Text(session.resortNameSnapshot),
+                        message: Text("SnowTrack Pro — https://apps.apple.com/app/id6838124975"),
                         preview: SharePreview(session.resortNameSnapshot, image: swiftUIImage)
                     ) {
                         Label("share.button.shareCard", systemImage: "square.and.arrow.up")
@@ -139,7 +141,7 @@ private struct SessionShareCardCanvas: View {
             }
 
             HStack(spacing: 12) {
-                ShareStatPill(titleKey: "metric.distance", value: formatter.formattedDistance(meters: session.totalDistanceMeters))
+                ShareStatPill(titleKey: "metric.distance", value: formatter.formattedDistance(meters: session.displaySkiDistanceMeters))
                 ShareStatPill(titleKey: "metric.verticalDrop", value: formatter.formattedElevation(meters: session.verticalDropMeters))
                 ShareStatPill(titleKey: "metric.runs", value: "\(session.runCount)")
             }

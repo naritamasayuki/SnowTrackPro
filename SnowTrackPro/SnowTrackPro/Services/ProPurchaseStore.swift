@@ -11,6 +11,7 @@ final class ProPurchaseStore {
     private(set) var isProUnlocked: Bool = false
     private(set) var isLoading: Bool = false
     private(set) var lastErrorMessage: String?
+    private(set) var statusMessage: String?
 
     private let policy = SaveQuotaPolicy()
     private var transactionListener: Task<Void, Never>?
@@ -54,6 +55,7 @@ final class ProPurchaseStore {
 
         isLoading = true
         lastErrorMessage = nil
+        statusMessage = nil
         defer { isLoading = false }
 
         do {
@@ -69,6 +71,7 @@ final class ProPurchaseStore {
                 AppLogger.subscription.info("購入がキャンセルされました。")
                 return false
             case .pending:
+                statusMessage = String(localized: "pro.status.pending")
                 AppLogger.subscription.info("購入が承認待ちです。")
                 return false
             @unknown default:
@@ -85,11 +88,15 @@ final class ProPurchaseStore {
     func restorePurchases() async {
         isLoading = true
         lastErrorMessage = nil
+        statusMessage = nil
         defer { isLoading = false }
 
         do {
             try await AppStore.sync()
             await refreshEntitlements()
+            if !isProUnlocked {
+                statusMessage = String(localized: "pro.status.restoreEmpty")
+            }
             AppLogger.subscription.info("購入の復元を実行しました。")
         } catch {
             lastErrorMessage = error.localizedDescription
