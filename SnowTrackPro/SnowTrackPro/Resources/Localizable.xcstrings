@@ -1042,25 +1042,25 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Free plan allows up to 5 saved sessions per year. Unlock permanent unlimited saving with a single one-time purchase."
+            "value": "All your sessions are always saved. The free plan shows details for your latest 5 sessions. Unlock every session plus charts and coaching with a single one-time purchase."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "無料プランは1年間で5回まで滑走ログを保存できます。買い切りのプロプランで保存回数の上限を永久に解除できます。"
+            "value": "滑走記録はすべて保存されます。無料プランでは直近5件の詳細を閲覧できます。買い切りのプロプランで、全記録とグラフ・コーチングを永久に解放できます。"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "免费版每年最多保存 5 次滑行记录。一次买断升级 Pro 方案，永久解锁无限保存。"
+            "value": "所有滑行记录都会被保存。免费版可查看最近 5 次记录的详情。一次买断升级 Pro，永久解锁全部记录及图表与教练分析。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "免費版每年最多保存 5 次滑行記錄。一次買斷升級 Pro 方案，永久解鎖無限保存。"
+            "value": "所有滑行記錄都會被保存。免費版可查看最近 5 次記錄的詳情。一次買斷升級 Pro，永久解鎖全部記錄及圖表與教練分析。"
           }
         }
       }
@@ -1070,25 +1070,25 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Save unlimited ski & snowboard sessions every year"
+            "value": "View every saved session — no history limit"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "年間の保存回数制限なし（無制限保存）"
+            "value": "全ての滑走記録を閲覧可能（件数制限なし）"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "全年无限次保存滑行记录"
+            "value": "查看全部滑行记录（无条数限制）"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "全年無限次保存滑行記錄"
+            "value": "查看全部滑行記錄（無筆數限制）"
           }
         }
       }
@@ -3422,25 +3422,25 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Free Plan Annual Save Limit"
+            "value": "Free Plan (latest 5 sessions viewable)"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "無料プラン（年間保存枠）"
+            "value": "無料プラン（直近5件を閲覧可）"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "免费版（年度保存额度）"
+            "value": "免费版（可查看最近 5 次）"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "免費版（年度保存額度）"
+            "value": "免費版（可查看最近 5 次）"
           }
         }
       }
@@ -4001,6 +4001,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "刪除"
+          }
+        }
+      }
+    },
+    "ad.accessibilityLabel": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Advertisement"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "広告"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "广告"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "廣告"
           }
         }
       }

@@ -38,7 +38,7 @@ public struct TrackMetricsCalculator: Sendable {
     public let minSegmentDistanceMeters: Double
 
     public init(
-        maxHorizontalAccuracyMeters: Double = 50.0,
+        maxHorizontalAccuracyMeters: Double = 30.0,
         maxRealisticSpeedKmh: Double = 160.0,
         minSegmentDistanceMeters: Double = 1.5
     ) {
@@ -47,78 +47,22 @@ public struct TrackMetricsCalculator: Sendable {
         self.minSegmentDistanceMeters = minSegmentDistanceMeters
     }
 
-    /// サンプル列から集計メトリクスを算出する
-    public func summarize(samples: [TrackSample]) -> TrackMetricsSummary {
-        let validSamples = samples
-            .filter { $0.isValid(maxAccuracyMeters: maxHorizontalAccuracyMeters) }
-            .sorted { $0.timestamp < $1.timestamp }
-
-        guard let first = validSamples.first, let last = validSamples.last else {
-            return TrackMetricsSummary()
-        }
-
-        let elapsed = max(0, last.timestamp.timeIntervalSince(first.timestamp))
-        var totalDistance = 0.0
-        var verticalDrop = 0.0
-        var maxSpeedKmh = 0.0
-
-        for sample in validSamples {
-            let speedKmh = sample.speedKilometersPerHour
-            if speedKmh <= maxRealisticSpeedKmh {
-                maxSpeedKmh = max(maxSpeedKmh, speedKmh)
-            }
-        }
-
-        if validSamples.count >= 2 {
-            for index in 1..<validSamples.count {
-                let prev = validSamples[index - 1]
-                let curr = validSamples[index]
-
-                let dt = curr.timestamp.timeIntervalSince(prev.timestamp)
-                let segmentDistance = ResortMatcher.haversineDistanceMeters(
-                    lat1: prev.latitude,
-                    lon1: prev.longitude,
-                    lat2: curr.latitude,
-                    lon2: curr.longitude
-                )
-
-                // GPSジャンプによる異常移動を除外
-                if dt > 0 {
-                    let impliedSpeedKmh = (segmentDistance / dt) * 3.6
-                    if impliedSpeedKmh > maxRealisticSpeedKmh {
-                        continue
-                    }
-                    if curr.speedMetersPerSecond < 0 {
-                        maxSpeedKmh = max(maxSpeedKmh, impliedSpeedKmh)
-                    }
-                }
-
-                if segmentDistance >= minSegmentDistanceMeters {
-                    totalDistance += segmentDistance
-                }
-
-                // 標高が下降した差分のみを滑走獲得標高差として積算（ノイズ緩和のため 0.5m 以上）
-                let altitudeDiff = prev.altitudeMeters - curr.altitudeMeters
-                if altitudeDiff > 0.5 {
-                    verticalDrop += altitudeDiff
-                }
-            }
-        }
-
-        let averageSpeedKmh: Double
-        if elapsed > 0 {
-            averageSpeedKmh = (totalDistance / elapsed) * 3.6
-        } else {
-            averageSpeedKmh = 0
-        }
-
-        return TrackMetricsSummary(
-            totalDistanceMeters: totalDistance,
-            maxSpeedKilometersPerHour: maxSpeedKmh,
-            averageSpeedKilometersPerHour: min(averageSpeedKmh, maxRealisticSpeedKmh),
-            verticalDropMeters: verticalDrop,
-            elapsedSeconds: elapsed
+    /// 同じ設定の逐次集計アキュムレータを生成する（計測中の O(1) 更新に使う）
+    public func makeAccumulator() -> TrackMetricsAccumulator {
+        TrackMetricsAccumulator(
+            maxHorizontalAccuracyMeters: maxHorizontalAccuracyMeters,
+            maxRealisticSpeedKmh: maxRealisticSpeedKmh,
+            minSegmentDistanceMeters: minSegmentDistanceMeters
         )
+    }
+
+    /// サンプル列から集計メトリクスを算出する（アキュムレータと同一ロジック）
+    public func summarize(samples: [TrackSample]) -> TrackMetricsSummary {
+        var accumulator = makeAccumulator()
+        for sample in samples.sorted(by: { $0.timestamp < $1.timestamp }) {
+            accumulator.add(sample)
+        }
+        return accumulator.summary
     }
 
     /// 地図描画用の速度別カラーセグメントを生成する

@@ -32,6 +32,11 @@ enum SnowConditionTag: String, CaseIterable, Identifiable {
     }
 }
 
+private extension UTType {
+    /// GPX（拡張子ベースの動的型。XML に準拠）
+    static let gpxDocument = UTType(filenameExtension: "gpx", conformingTo: .xml) ?? .xml
+}
+
 /// ShareLink 押下時にのみ GPX XML を遅延生成する Transferable ドキュメント
 private struct GPXTransferDocument: Transferable {
     let trackName: String
@@ -39,7 +44,7 @@ private struct GPXTransferDocument: Transferable {
     let samples: [TrackSample]
 
     static var transferRepresentation: some TransferRepresentation {
-        DataRepresentation(exportedContentType: .xml) { document in
+        DataRepresentation(exportedContentType: .gpxDocument) { document in
             let xml = GPXExporter().exportGPX(
                 trackName: document.trackName,
                 startedAt: document.startedAt,
@@ -47,6 +52,7 @@ private struct GPXTransferDocument: Transferable {
             )
             return Data(xml.utf8)
         }
+        .suggestedFileName("SnowTrack.gpx")
     }
 }
 
@@ -68,6 +74,7 @@ struct SessionDetailCoachingView: View {
     @State private var healthKitStatusMessage: String?
     @State private var memoDraft: String = ""
     @State private var memoSaveTask: Task<Void, Never>?
+    @State private var didDeleteSession = false
 
     /// 毎描画での全点再計算を防ぐためのキャッシュ
     @State private var cachedSamples: [TrackSample] = []
@@ -154,6 +161,7 @@ struct SessionDetailCoachingView: View {
         }
         .onDisappear {
             memoSaveTask?.cancel()
+            guard !didDeleteSession else { return }
             if session.sessionMemo != memoDraft {
                 session.sessionMemo = memoDraft
                 try? modelContext.save()
@@ -181,6 +189,9 @@ struct SessionDetailCoachingView: View {
         }
         .alert("history.delete.confirmTitle", isPresented: $showDeleteConfirmation) {
             Button("history.delete.confirmAction", role: .destructive) {
+                memoSaveTask?.cancel()
+                memoSaveTask = nil
+                didDeleteSession = true
                 modelContext.delete(session)
                 try? modelContext.save()
                 dismiss()
@@ -261,7 +272,7 @@ struct SessionDetailCoachingView: View {
                     memoSaveTask?.cancel()
                     memoSaveTask = Task {
                         try? await Task.sleep(for: .milliseconds(450))
-                        guard !Task.isCancelled else { return }
+                        guard !Task.isCancelled, !didDeleteSession else { return }
                         session.sessionMemo = newValue
                         try? modelContext.save()
                     }

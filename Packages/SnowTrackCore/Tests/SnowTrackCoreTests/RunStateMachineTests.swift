@@ -47,5 +47,61 @@ struct RunStateMachineTests {
         #expect(machine.runCount == 0)
         #expect(machine.pureSkiDistanceMeters == 0)
         #expect(machine.pureSkiDurationSeconds == 0)
+        #expect(machine.maxSkiSpeedKmh == 0)
+    }
+
+    @Test("平地を車で移動しても滑走扱いにならず、最高滑走速度にも入らない")
+    func flatDrivingIsNotSkiing() {
+        var machine = RunStateMachine()
+        let start = Date(timeIntervalSince1970: 1_700_000_000)
+        for i in 0..<30 {
+            machine.ingest(TrackSample(
+                timestamp: start.addingTimeInterval(Double(i)),
+                latitude: 43.0760 + Double(i) * 0.000225, // 約25m/秒
+                longitude: 141.1990,
+                altitudeMeters: 500,
+                speedMetersPerSecond: 25,
+                horizontalAccuracyMeters: 5
+            ))
+        }
+        #expect(machine.runCount == 0)
+        #expect(machine.maxSkiSpeedKmh == 0)
+    }
+
+    @Test("最高滑走速度は位置変化と矛盾する速度スパイクを除外する")
+    func maxSkiSpeedRejectsSpike() {
+        var machine = RunStateMachine()
+        let start = Date(timeIntervalSince1970: 1_700_000_000)
+        for i in 0..<10 {
+            machine.ingest(TrackSample(
+                timestamp: start.addingTimeInterval(Double(i)),
+                latitude: 43.0760 + Double(i) * 0.00009, // 約10m/秒
+                longitude: 141.1990,
+                altitudeMeters: 1000 - Double(i) * 2,
+                speedMetersPerSecond: (i == 5) ? 40 : 10,
+                horizontalAccuracyMeters: 5
+            ))
+        }
+        #expect(machine.maxSkiSpeedKmh > 35 && machine.maxSkiSpeedKmh < 37)
+    }
+
+    @Test("滑走中の1サンプルだけの上昇ノイズでは滑走本数が増えない")
+    func singleClimbNoiseDoesNotSplitRun() {
+        var machine = RunStateMachine()
+        let start = Date(timeIntervalSince1970: 1_700_000_000)
+        var altitude = 1000.0
+        for i in 0..<30 {
+            altitude += (i == 15) ? 0.6 : -1.0 // i=15 だけ +0.6m/秒の上昇ノイズ
+            machine.ingest(TrackSample(
+                timestamp: start.addingTimeInterval(Double(i)),
+                latitude: 43.0760 + Double(i) * 0.00005, // 約5.6m/秒
+                longitude: 141.1990,
+                altitudeMeters: altitude,
+                speedMetersPerSecond: 5.6,
+                horizontalAccuracyMeters: 5
+            ))
+        }
+        #expect(machine.runCount == 1)
+        #expect(machine.currentState == .skiing)
     }
 }

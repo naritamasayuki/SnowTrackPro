@@ -46,7 +46,7 @@ struct AdBannerSlotView: View {
                 .frame(maxWidth: .infinity)
                 .frame(height: 50)
                 .background(Color.white.opacity(0.05), in: RoundedRectangle(cornerRadius: 10, style: .continuous))
-                .accessibilityLabel("Advertisement")
+                .accessibilityLabel("ad.accessibilityLabel")
             }
             #else
             fallbackTipBanner

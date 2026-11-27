@@ -17,27 +17,23 @@
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.3.0</string>
+	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleVersion</key>
-	<string>3</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>GADApplicationIdentifier</key>
 	<string>ca-app-pub-4261439423960578~9967695096</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Used to record your ski and snowboard runs automatically even while your iPhone is in your jacket pocket.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Used to measure your speed, distance, elevation drop, and detect the ski resort automatically.</string>
+	<string>Used to measure your speed, distance, elevation drop and ski resort, including while your iPhone stays in your pocket during a session you started.</string>
 	<key>NSMotionUsageDescription</key>
 	<string>Used to analyze turns, braking distance, and distinguish skiing from lift rides.</string>
 	<key>NSHealthShareUsageDescription</key>
 	<string>Used to verify Apple Health workout integration for your ski and snowboard sessions.</string>
 	<key>NSHealthUpdateUsageDescription</key>
 	<string>Used to save your ski and snowboard sessions as workouts in Apple Health.</string>
-	<key>NSSupportsLiveActivities</key>
-	<true/>
 	<key>NSUserTrackingUsageDescription</key>
 	<string>This identifier will be used to deliver personalized ads to you.</string>
 	<key>SKAdNetworkItems</key>

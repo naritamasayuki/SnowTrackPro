@@ -79,6 +79,8 @@ public struct TrackEventDetector: Sendable {
 
             let dt = curr.timestamp.timeIntervalSince(prev.timestamp)
             guard dt > 0 && dt <= 10.0 else { continue }
+            // 速度が無効値（負）のサンプルは 0km/h と区別できないため判定に使わない
+            guard prev.speedMetersPerSecond >= 0, curr.speedMetersPerSecond >= 0 else { continue }
 
             let prevSpeedKmh = prev.speedKilometersPerHour
             let currSpeedKmh = curr.speedKilometersPerHour

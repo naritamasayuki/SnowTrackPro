@@ -10,7 +10,6 @@ import UserMessagingPlatform
 
 @main
 struct SnowTrackProApp: App {
-    @Environment(\.scenePhase) private var scenePhase
     @State private var purchaseStore = ProPurchaseStore()
     @State private var hasInitializedAds = false
 
@@ -20,14 +19,11 @@ struct SnowTrackProApp: App {
                 .environment(purchaseStore)
                 .preferredColorScheme(.dark)
                 .task {
+                    // 購入状態を確定させてから、広告まわり（UMP → ATT → SDK）を初期化する
                     await purchaseStore.load()
-                }
-                .onChange(of: scenePhase) { _, newPhase in
-                    guard newPhase == .active, !hasInitializedAds else { return }
+                    guard !hasInitializedAds else { return }
                     hasInitializedAds = true
-                    Task {
-                        await initializeConsentAndAds()
-                    }
+                    await initializeConsentAndAds()
                 }
         }
         .modelContainer(for: [SkiSessionRecord.self, TrackPointRecord.self])
@@ -38,6 +34,9 @@ struct SnowTrackProApp: App {
     private func initializeConsentAndAds() async {
         // 画面描画が完了してから同意フローを開始する
         try? await Task.sleep(for: .milliseconds(800))
+
+        // Pro（広告なし）ユーザーには同意フォーム・ATT・広告SDKを一切出さない
+        guard !purchaseStore.isProUnlocked else { return }
 
         #if canImport(UserMessagingPlatform)
         do {

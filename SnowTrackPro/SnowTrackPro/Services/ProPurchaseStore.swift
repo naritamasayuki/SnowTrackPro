@@ -13,21 +13,10 @@ final class ProPurchaseStore {
     private(set) var lastErrorMessage: String?
     private(set) var statusMessage: String?
 
-    private let policy = SaveQuotaPolicy()
     private var transactionListener: Task<Void, Never>?
 
     init() {
         transactionListener = listenForTransactions()
-    }
-
-    /// 既存セッションの保存日時一覧から新規保存が可能か判定する
-    func canSaveSession(existingDates: [Date]) -> Bool {
-        policy.canSaveSession(existingSessionDates: existingDates, isPro: isProUnlocked)
-    }
-
-    /// 無料プランの過去1年間の残り保存可能回数（プロプラン時は nil）
-    func remainingFreeSaves(existingDates: [Date]) -> Int? {
-        policy.remainingFreeSaves(existingSessionDates: existingDates, isPro: isProUnlocked)
     }
 
     /// 商品情報の読み込みと購入済み状態の同期を行う
@@ -38,11 +27,12 @@ final class ProPurchaseStore {
         do {
             let products = try await Product.products(for: [SaveQuotaPolicy.proUnlockProductID])
             proProduct = products.first
-            await refreshEntitlements()
         } catch {
             lastErrorMessage = error.localizedDescription
             AppLogger.subscription.error("プロプラン商品の読み込みに失敗しました: \(error.localizedDescription, privacy: .public)")
         }
+        // 圏外などで商品情報が取れなくても、端末に保存された購入済み状態は必ず反映する
+        await refreshEntitlements()
     }
 
     /// プロプラン（買い切り）を購入する。購入成功時は true を返す

@@ -48,4 +48,31 @@ struct TrackEventDetectorTests {
         let events = detector.detectEvents(samples: samples)
         #expect(events.isEmpty)
     }
+
+    @Test("速度が無効値（-1）になっただけでは転倒と判定しない")
+    func invalidSpeedDoesNotTriggerFall() {
+        let start = Date(timeIntervalSince1970: 1_700_000_000)
+        var samples = [
+            TrackSample(
+                timestamp: start,
+                latitude: 43.0760,
+                longitude: 141.1990,
+                altitudeMeters: 1000,
+                speedMetersPerSecond: 6.0,
+                horizontalAccuracyMeters: 5
+            )
+        ]
+        for i in 1...10 {
+            samples.append(TrackSample(
+                timestamp: start.addingTimeInterval(Double(i)),
+                latitude: 43.07605,
+                longitude: 141.1990,
+                altitudeMeters: 1000,
+                speedMetersPerSecond: -1,
+                horizontalAccuracyMeters: 5
+            ))
+        }
+        let events = detector.detectEvents(samples: samples)
+        #expect(events.isEmpty)
+    }
 }

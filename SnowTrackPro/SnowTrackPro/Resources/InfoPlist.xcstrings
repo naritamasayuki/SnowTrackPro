@@ -1,174 +1,146 @@
 {
-  "sourceLanguage" : "en",
-  "strings" : {
-    "NSLocationAlwaysAndWhenInUseUsageDescription" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Used to record your ski and snowboard runs automatically even while your iPhone is in your jacket pocket."
+  "sourceLanguage": "en",
+  "strings": {
+    "NSLocationWhenInUseUsageDescription": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Used to measure your speed, distance, elevation drop and ski resort, including while your iPhone stays in your pocket during a session you started."
           }
         },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ウェアのポケットにiPhoneを入れたままでも滑走データを自動記録するために位置情報をバックグラウンドで使用します。"
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "計測開始後、ウェアのポケットにiPhoneを入れた状態も含めて滑走速度・距離・獲得標高差の計測およびスキー場自動判定のために位置情報を使用します。"
           }
         },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "即使将iPhone放在雪服口袋中，也用于在后台自动记录您的滑雪与单板滑行数据。"
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "开始记录后，即使将iPhone放在雪服口袋中，也用于测量滑行速度、距离、落差并自动识别所在滑雪场。"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "即使將iPhone放在雪衣口袋中，也用於在背景自動記錄您的滑雪與單板滑行數據。"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "開始記錄後，即使將iPhone放在雪衣口袋中，也用於測量滑行速度、距離、落差並自動識別所在滑雪場。"
           }
         }
       }
     },
-    "NSLocationWhenInUseUsageDescription" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Used to measure your speed, distance, elevation drop, and detect the ski resort automatically."
+    "NSMotionUsageDescription": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Used to analyze turns, braking distance, and distinguish skiing from lift rides."
           }
         },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "滑走速度・距離・獲得標高差の計測およびスキー場の自動判定のために位置情報を使用します。"
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ターン数や制動距離の解析、および滑走とリフト乗車の自動判別にモーションセンサーを使用します。"
           }
         },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "用于测量滑行速度、距离、落差并自动识别所在滑雪场。"
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "用于分析转弯次数、制动距离以及自动区分滑行与缆车乘坐。"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "用於測量滑行速度、距離、落差並自動識別所在滑雪場。"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "用於分析轉彎次數、制動距離以及自動區分滑行與纜車乘坐。"
           }
         }
       }
     },
-    "NSMotionUsageDescription" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Used to analyze turns, braking distance, and distinguish skiing from lift rides."
+    "NSHealthShareUsageDescription": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Used to verify Apple Health workout integration for your ski and snowboard sessions."
           }
         },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ターン数や制動距離の解析、および滑走とリフト乗車の自動判別にモーションセンサーを使用します。"
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "スキー・スノーボードの滑走記録を Apple ヘルスケアのワークアウトと連携するために使用します。"
           }
         },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "用于分析转弯次数、制动距离以及自动区分滑行与缆车乘坐。"
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "用于将您的滑雪和单板滑行记录与 Apple 健康体能训练同步。"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "用於分析轉彎次數、制動距離以及自動區分滑行與纜車乘坐。"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "用於將您的滑雪與單板滑行記錄與 Apple 健康體能訓練同步。"
           }
         }
       }
     },
-    "NSHealthShareUsageDescription" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Used to verify Apple Health workout integration for your ski and snowboard sessions."
+    "NSHealthUpdateUsageDescription": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Used to save your ski and snowboard sessions as workouts in Apple Health."
           }
         },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "スキー・スノーボードの滑走記録を Apple ヘルスケアのワークアウトと連携するために使用します。"
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "スキー・スノーボードの滑走記録をワークアウトとして Apple ヘルスケアに保存するために使用します。"
           }
         },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "用于将您的滑雪和单板滑行记录与 Apple 健康体能训练同步。"
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "用于将您的滑雪和单板滑行记录作为体能训练保存到 Apple 健康。"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "用於將您的滑雪與單板滑行記錄與 Apple 健康體能訓練同步。"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "用於將您的滑雪與單板滑行記錄作為體能訓練儲存到 Apple 健康。"
           }
         }
       }
     },
-    "NSHealthUpdateUsageDescription" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Used to save your ski and snowboard sessions as workouts in Apple Health."
+    "NSUserTrackingUsageDescription": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This identifier will be used to deliver personalized ads to you."
           }
         },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "スキー・スノーボードの滑走記録をワークアウトとして Apple ヘルスケアに保存するために使用します。"
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "お客様に関連性の高い広告を表示するために識別子を使用します。"
           }
         },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "用于将您的滑雪和单板滑行记录作为体能训练保存到 Apple 健康。"
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "此标识符将用于向您展示更相关的个性化广告。"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "用於將您的滑雪與單板滑行記錄作為體能訓練儲存到 Apple 健康。"
-          }
-        }
-      }
-    },
-    "NSUserTrackingUsageDescription" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "This identifier will be used to deliver personalized ads to you."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "お客様に関連性の高い広告を表示するために識別子を使用します。"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "此标识符将用于向您展示更相关的个性化广告。"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "此識別碼將用於向您顯示更相關的個人化廣告。"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "此識別碼將用於向您顯示更相關的個人化廣告。"
           }
         }
       }
     }
   },
-  "version" : "1.0"
+  "version": "1.0"
 }

@@ -21,20 +21,15 @@ final class LocationTrackingService: NSObject {
 
         locationManager.delegate = self
         locationManager.activityType = .fitness
-        locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.distanceFilter = 3.0
         locationManager.pausesLocationUpdatesAutomatically = false
     }
 
-    /// 位置情報の利用権限（常に許可 / 使用中）をリクエストする
+    /// 位置情報の利用権限（使用中のみ）をリクエストする。手動開始＋バックグラウンドモードで画面オフ計測は継続できる
     func requestAuthorization() {
-        switch manager.authorizationStatus {
-        case .notDetermined:
+        if manager.authorizationStatus == .notDetermined {
             manager.requestWhenInUseAuthorization()
-        case .authorizedWhenInUse:
-            manager.requestAlwaysAuthorization()
-        default:
-            break
         }
     }
 
@@ -42,7 +37,7 @@ final class LocationTrackingService: NSObject {
     func startTracking() {
         requestAuthorization()
         configureBackgroundUpdates(enabled: true)
-        manager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+        manager.desiredAccuracy = kCLLocationAccuracyBest
         manager.startUpdatingLocation()
         AppLogger.location.info("GPSトラッキングを開始しました。")
     }
@@ -58,7 +53,7 @@ final class LocationTrackingService: NSObject {
     func updatePowerMode(for state: MotionActivityState) {
         switch state {
         case .skiing:
-            manager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+            manager.desiredAccuracy = kCLLocationAccuracyBest
             manager.distanceFilter = 2.0
         case .ridingLift:
             manager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
@@ -99,7 +94,9 @@ extension LocationTrackingService: CLLocationManagerDelegate {
                 longitude: location.coordinate.longitude,
                 altitudeMeters: location.altitude,
                 speedMetersPerSecond: location.speed,
-                horizontalAccuracyMeters: location.horizontalAccuracy
+                horizontalAccuracyMeters: location.horizontalAccuracy,
+                verticalAccuracyMeters: location.verticalAccuracy,
+                speedAccuracyMetersPerSecond: location.speedAccuracy
             )
         }
         Task { @MainActor [weak self] in

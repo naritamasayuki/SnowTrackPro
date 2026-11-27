@@ -7,6 +7,7 @@ struct TrackingDashboardView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.locale) private var locale
     @Environment(\.openURL) private var openURL
+    @Environment(\.scenePhase) private var scenePhase
     @Environment(ProPurchaseStore.self) private var purchaseStore
 
     let viewModel: TrackingViewModel
@@ -92,6 +93,11 @@ struct TrackingDashboardView: View {
             .onAppear {
                 viewModel.recoverInProgressSessionsIfNeeded(modelContext: modelContext)
             }
+            .onChange(of: scenePhase) { _, newPhase in
+                if newPhase == .active {
+                    viewModel.rebuildMapOverlaysIfNeeded()
+                }
+            }
             .sheet(isPresented: $showProUpgradeSheet) {
                 ProUpgradeSheet()
             }
@@ -162,7 +168,7 @@ struct TrackingDashboardView: View {
     }
 
     private var metricsGrid: some View {
-        let maxSpeed = formatter.formattedSpeed(kilometersPerHour: viewModel.summary.maxSpeedKilometersPerHour)
+        let maxSpeed = formatter.formattedSpeed(kilometersPerHour: viewModel.maxSpeedKmh)
         let skiDistance = viewModel.pureSkiDistanceMeters > 0
             ? viewModel.pureSkiDistanceMeters
             : viewModel.summary.totalDistanceMeters

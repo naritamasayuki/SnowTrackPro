@@ -90,6 +90,8 @@ final class TrackPointRecord {
     var altitudeMeters: Double
     var speedMetersPerSecond: Double
     var horizontalAccuracyMeters: Double
+    var verticalAccuracyMeters: Double? = nil
+    var speedAccuracyMetersPerSecond: Double? = nil
 
     init(sample: TrackSample) {
         self.timestamp = sample.timestamp
@@ -98,6 +100,8 @@ final class TrackPointRecord {
         self.altitudeMeters = sample.altitudeMeters
         self.speedMetersPerSecond = sample.speedMetersPerSecond
         self.horizontalAccuracyMeters = sample.horizontalAccuracyMeters
+        self.verticalAccuracyMeters = sample.verticalAccuracyMeters
+        self.speedAccuracyMetersPerSecond = sample.speedAccuracyMetersPerSecond
     }
 
     func toTrackSample() -> TrackSample {
@@ -107,7 +111,9 @@ final class TrackPointRecord {
             longitude: longitude,
             altitudeMeters: altitudeMeters,
             speedMetersPerSecond: speedMetersPerSecond,
-            horizontalAccuracyMeters: horizontalAccuracyMeters
+            horizontalAccuracyMeters: horizontalAccuracyMeters,
+            verticalAccuracyMeters: verticalAccuracyMeters,
+            speedAccuracyMetersPerSecond: speedAccuracyMetersPerSecond
         )
     }
 }

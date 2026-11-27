@@ -3,6 +3,7 @@ import Foundation
 import Observation
 import SnowTrackCore
 import SwiftData
+import UIKit
 
 /// 滑走計測ダッシュボードの状態管理とコアロジック連携を担う ViewModel
 @MainActor
@@ -23,12 +24,17 @@ final class TrackingViewModel {
     private(set) var statusBannerMessage: String?
     private(set) var isLocationDenied: Bool = false
 
+    /// 表示・保存に使う最高速度（滑走中の信頼できる値を優先し、未算出時は全体集計へフォールバック）
+    var maxSpeedKmh: Double {
+        stateMachine.maxSkiSpeedKmh > 0 ? stateMachine.maxSkiSpeedKmh : summary.maxSpeedKilometersPerHour
+    }
+
     private let locationService: LocationTrackingService
     private let motionTurnService = MotionTurnService()
     private let barometerService = BarometerService()
-    private let liveActivityManager = TrackingActivityManager()
     private let resortMatcher: ResortMatcher
     private let calculator = TrackMetricsCalculator()
+    private var metricsAccumulator = TrackMetricsCalculator().makeAccumulator()
     private let turnAnalyzer = TurnAnalyzer()
     private let eventDetector = TrackEventDetector()
     private var stateMachine = RunStateMachine()
@@ -43,6 +49,10 @@ final class TrackingViewModel {
     private var lastFlushedSampleCount: Int = 0
     private var lastFlushDate: Date = .distantPast
     private var lastMapRebuildSampleCount: Int = 0
+    /// 起動後に一度だけ復旧処理を行うためのフラグ（タブ切替の onAppear で再実行させない）
+    private var hasAttemptedRecovery: Bool = false
+    /// 権限ダイアログの応答待ちの間、開始要求を保持する
+    private var pendingStartModelContext: ModelContext?
 
     init(locationService: LocationTrackingService? = nil) {
         self.locationService = locationService ?? LocationTrackingService()
@@ -53,9 +63,9 @@ final class TrackingViewModel {
             self.resortMatcher = ResortMatcher(resorts: [])
         }
         bindLocationService()
-        motionTurnService.onGyroSample = { [weak self] sample in
+        motionTurnService.onGyroBatch = { [weak self] batch in
             guard let self, self.isTracking else { return }
-            self.gyroSamples.append(sample)
+            self.gyroSamples.append(contentsOf: batch)
         }
     }
 
@@ -66,20 +76,37 @@ final class TrackingViewModel {
         locationService.onAuthorizationChange = { [weak self] status in
             guard let self else { return }
             if status == .denied || status == .restricted {
+                self.pendingStartModelContext = nil
                 self.isLocationDenied = true
                 self.errorMessage = String(localized: "error.locationDenied")
             } else {
                 self.isLocationDenied = false
                 self.errorMessage = nil
+                if status == .authorizedWhenInUse || status == .authorizedAlways,
+                   let context = self.pendingStartModelContext {
+                    self.pendingStartModelContext = nil
+                    self.startSession(modelContext: context)
+                }
             }
         }
         locationService.onError = { [weak self] error in
+            if let clError = error as? CLError {
+                switch clError.code {
+                case .locationUnknown, .denied:
+                    return // 一時的なエラー、または onAuthorizationChange 側で案内済み
+                default:
+                    break
+                }
+            }
             self?.errorMessage = error.localizedDescription
         }
     }
 
     /// 起動時にクラッシュやバッテリー切れで残った「計測中」セッションを自動復旧して履歴へ確定保存する
     func recoverInProgressSessionsIfNeeded(modelContext: ModelContext) {
+        guard !isTracking, !hasAttemptedRecovery else { return }
+        hasAttemptedRecovery = true
+
         let descriptor = FetchDescriptor<SkiSessionRecord>(
             predicate: #Predicate { $0.isInProgress == true }
         )
@@ -89,6 +116,8 @@ final class TrackingViewModel {
 
         var recoveredCount = 0
         for record in orphaned {
+            // 念のため、現在計測中の下書きは対象外にする
+            if let active = activeSessionRecord, active.id == record.id { continue }
             if record.trackPoints.isEmpty {
                 modelContext.delete(record)
             } else {
@@ -112,7 +141,7 @@ final class TrackingViewModel {
         }
     }
 
-    /// 計測を開始する（位置情報拒否時は計測を開始せず設定アプリへの誘導を表示）
+    /// 計測を開始する（位置情報未決定なら許可要求後に自動開始、拒否時は設定アプリへの誘導を表示）
     func startSession(modelContext: ModelContext) {
         guard !isTracking else { return }
 
@@ -120,6 +149,11 @@ final class TrackingViewModel {
         if status == .denied || status == .restricted {
             isLocationDenied = true
             errorMessage = String(localized: "error.locationDenied")
+            return
+        }
+        if status == .notDetermined {
+            pendingStartModelContext = modelContext
+            locationService.requestAuthorization()
             return
         }
 
@@ -155,7 +189,6 @@ final class TrackingViewModel {
         locationService.startTracking()
         motionTurnService.start()
         barometerService.start()
-        liveActivityManager.start(resortName: String(localized: "resort.detecting"))
     }
 
     /// 計測を終了し、実計測セッションは常に SwiftData へ確定保存する（データ消失ゼロ設計）。
@@ -168,7 +201,6 @@ final class TrackingViewModel {
         locationService.stopTracking()
         motionTurnService.stop()
         barometerService.stop()
-        liveActivityManager.end()
         isTracking = false
 
         let endedAt = Date()
@@ -188,8 +220,17 @@ final class TrackingViewModel {
             return false
         }
 
+        rebuildMapOverlaysIfNeeded()
         finalizeAndPersistSession(modelContext: modelContext, endedAt: endedAt)
         return true
+    }
+
+    /// フォアグラウンド復帰時などに地図セグメントとイベントを最新化する
+    func rebuildMapOverlaysIfNeeded() {
+        guard samples.count != lastMapRebuildSampleCount else { return }
+        speedSegments = calculator.buildSpeedSegments(samples: samples)
+        detectedEvents = eventDetector.detectEvents(samples: samples)
+        lastMapRebuildSampleCount = samples.count
     }
 
     private func cleanupActiveDraftIfNeeded(modelContext: ModelContext) {
@@ -222,7 +263,7 @@ final class TrackingViewModel {
                 resortNameSnapshot: resortName,
                 totalDistanceMeters: summary.totalDistanceMeters,
                 pureSkiDistanceMeters: pureSkiDistanceMeters,
-                maxSpeedKilometersPerHour: summary.maxSpeedKilometersPerHour,
+                maxSpeedKilometersPerHour: maxSpeedKmh,
                 averageSpeedKilometersPerHour: summary.averageSpeedKilometersPerHour,
                 verticalDropMeters: summary.verticalDropMeters,
                 runCount: max(runCount, 1),
@@ -241,7 +282,7 @@ final class TrackingViewModel {
         record.resortNameSnapshot = resortName
         record.totalDistanceMeters = summary.totalDistanceMeters
         record.pureSkiDistanceMeters = pureSkiDistanceMeters
-        record.maxSpeedKilometersPerHour = summary.maxSpeedKilometersPerHour
+        record.maxSpeedKilometersPerHour = maxSpeedKmh
         record.averageSpeedKilometersPerHour = summary.averageSpeedKilometersPerHour
         record.verticalDropMeters = summary.verticalDropMeters
         record.runCount = max(runCount, 1)
@@ -281,7 +322,7 @@ final class TrackingViewModel {
         record.resortNameSnapshot = detectedResort?.localizedName() ?? String(localized: "resort.unknown")
         record.totalDistanceMeters = summary.totalDistanceMeters
         record.pureSkiDistanceMeters = pureSkiDistanceMeters
-        record.maxSpeedKilometersPerHour = summary.maxSpeedKilometersPerHour
+        record.maxSpeedKilometersPerHour = maxSpeedKmh
         record.averageSpeedKilometersPerHour = summary.averageSpeedKilometersPerHour
         record.verticalDropMeters = summary.verticalDropMeters
         record.runCount = max(runCount, 1)
@@ -355,32 +396,16 @@ final class TrackingViewModel {
 
         pureSkiDistanceMeters = stateMachine.pureSkiDistanceMeters
         runCount = stateMachine.runCount
-        summary = calculator.summarize(samples: samples)
+        metricsAccumulator.add(sample)
+        summary = metricsAccumulator.summary
 
-        // 長時間計測時のCPU負荷とバッテリー消費を抑えるため、地図セグメント再構築を適度に間引く
-        if samples.count <= 40 || samples.count - lastMapRebuildSampleCount >= 5 {
-            speedSegments = calculator.buildSpeedSegments(samples: samples)
-            detectedEvents = eventDetector.detectEvents(samples: samples)
-            lastMapRebuildSampleCount = samples.count
+        // 地図・イベントは画面に見えている間だけ再構築する（バックグラウンドでは復帰時にまとめて1回）
+        if UIApplication.shared.applicationState == .active,
+           samples.count <= 40 || samples.count - lastMapRebuildSampleCount >= 5 {
+            rebuildMapOverlaysIfNeeded()
         }
 
         flushIncrementalBackupIfNeeded()
-
-        let resortLabel = detectedResort?.localizedName() ?? String(localized: "resort.detecting")
-        let stateLabel: String
-        switch activityState {
-        case .skiing: stateLabel = String(localized: "state.skiing")
-        case .ridingLift: stateLabel = String(localized: "state.lift")
-        case .resting: stateLabel = String(localized: "state.resting")
-        }
-        liveActivityManager.update(
-            resortName: resortLabel,
-            currentSpeedKmh: currentSpeedKmh,
-            maxSpeedKmh: summary.maxSpeedKilometersPerHour,
-            distanceMeters: pureSkiDistanceMeters > 0 ? pureSkiDistanceMeters : summary.totalDistanceMeters,
-            runCount: runCount,
-            activityLabel: stateLabel
-        )
     }
 
     private func resetMetrics() {
@@ -389,6 +414,7 @@ final class TrackingViewModel {
         detectedEvents.removeAll()
         gyroSamples.removeAll()
         stateMachine.reset()
+        metricsAccumulator = calculator.makeAccumulator()
         detectedResort = nil
         activityState = .resting
         currentSpeedKmh = 0
