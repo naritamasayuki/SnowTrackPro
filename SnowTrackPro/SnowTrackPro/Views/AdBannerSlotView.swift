@@ -1,7 +1,11 @@
+import AppTrackingTransparency
 import OSLog
 import SwiftUI
 #if canImport(GoogleMobileAds)
 import GoogleMobileAds
+#endif
+#if canImport(UserMessagingPlatform)
+import UserMessagingPlatform
 #endif
 
 /// Google AdMob のアプリ ID および広告ユニット ID を管理する設定
@@ -22,18 +26,62 @@ enum AdMobConfiguration {
     }
 }
 
+/// UMP（GDPR 同意）→ ATT → Google Mobile Ads SDK 初期化を直列管理し、初期化完了後にのみバナー読み込みを許可するコントローラ
+@MainActor
+@Observable
+final class AdMobController {
+    private(set) var isReadyForAds: Bool = false
+    private var hasStartedInitialization: Bool = false
+
+    func initializeIfNeeded(isProUnlocked: Bool) async {
+        guard !isProUnlocked, !hasStartedInitialization else { return }
+        hasStartedInitialization = true
+
+        // 画面描画が完了してから同意フローを開始する
+        try? await Task.sleep(for: .milliseconds(800))
+        guard !isProUnlocked else { return }
+
+        var consentSucceeded = false
+        #if canImport(UserMessagingPlatform)
+        do {
+            try await ConsentInformation.shared.requestConsentInfoUpdate(with: nil)
+            try await ConsentForm.loadAndPresentIfRequired(from: nil)
+            consentSucceeded = true
+        } catch {
+            AppLogger.tracking.warning("UMP 同意情報の更新に失敗しました: \(error.localizedDescription, privacy: .public)")
+        }
+        #endif
+
+        if ATTrackingManager.trackingAuthorizationStatus == .notDetermined {
+            _ = await ATTrackingManager.requestTrackingAuthorization()
+        }
+
+        #if canImport(GoogleMobileAds)
+        #if canImport(UserMessagingPlatform)
+        let allowedByConsent = consentSucceeded ? ConsentInformation.shared.canRequestAds : true
+        if allowedByConsent {
+            await MobileAds.shared.start()
+            isReadyForAds = true
+        }
+        #else
+        await MobileAds.shared.start()
+        isReadyForAds = true
+        #endif
+        #endif
+    }
+}
+
 /// 無料ユーザー向けの下部バナー領域（プロプラン購入で自動的に完全非表示）
 struct AdBannerSlotView: View {
     @Environment(ProPurchaseStore.self) private var purchaseStore
+    @Environment(AdMobController.self) private var adMobController
     @State private var adDidFailToLoad = false
     var onTapUpgrade: () -> Void
 
     var body: some View {
         if !purchaseStore.isProUnlocked {
             #if canImport(GoogleMobileAds)
-            if adDidFailToLoad {
-                fallbackTipBanner
-            } else {
+            if adMobController.isReadyForAds && !adDidFailToLoad {
                 GoogleAdMobBannerRepresentable(
                     adUnitID: AdMobConfiguration.effectiveBannerAdUnitId,
                     onAdFailed: {
@@ -47,6 +95,15 @@ struct AdBannerSlotView: View {
                 .frame(height: 50)
                 .background(Color.white.opacity(0.05), in: RoundedRectangle(cornerRadius: 10, style: .continuous))
                 .accessibilityLabel("ad.accessibilityLabel")
+            } else {
+                fallbackTipBanner
+                    .task(id: adDidFailToLoad) {
+                        // 圏外や一時的な読み込み失敗から復帰できるよう、45秒後に自動リトライする
+                        guard adDidFailToLoad else { return }
+                        try? await Task.sleep(for: .seconds(45))
+                        guard !Task.isCancelled else { return }
+                        adDidFailToLoad = false
+                    }
             }
             #else
             fallbackTipBanner
@@ -54,7 +111,7 @@ struct AdBannerSlotView: View {
         }
     }
 
-    /// オフライン（ゲレンデ圏外）や広告取得失敗時に表示するフォールバックバナー
+    /// 初期化待機中・オフライン（ゲレンデ圏外）・広告取得失敗時に表示するフォールバックバナー
     private var fallbackTipBanner: some View {
         HStack(spacing: 10) {
             Image(systemName: "snowflake")
