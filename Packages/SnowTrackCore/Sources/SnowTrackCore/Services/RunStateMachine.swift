@@ -18,6 +18,12 @@ public struct RunStateMachine: Sendable {
     private var hasRecordedCurrentRun: Bool = false
     /// リフト確定前に累積した上昇量（メートル）
     private var pendingLiftClimbMeters: Double = 0
+    /// この累積上昇を超えたらリフト乗車と確定する（1サンプルの高度ノイズで本数を割らない）
+    private let liftConfirmClimbMeters: Double = 10.0
+    /// 休憩・リフトから滑走へ入る前に累積した正味の下降量（メートル）
+    private var pendingSkiDropMeters: Double = 0
+    /// この正味下降量を超えたら滑走開始と確定する（平地走行の高度ノイズでは到達しない）
+    private let skiingEntryDropMeters: Double = 5.0
 
     /// 停止とみなす速度閾値（km/h）
     private let restingSpeedThresholdKmh: Double = 3.0
@@ -25,10 +31,6 @@ public struct RunStateMachine: Sendable {
     private let skiingSpeedThresholdKmh: Double = 8.0
     /// リフト上昇判定の最小標高増加率（メートル/秒）
     private let liftClimbRateThresholdMetersPerSecond: Double = 0.25
-    /// 休憩・リフトから滑走へ入るときに必要な下降率（m/s）。平地の車移動を滑走と誤判定しない
-    private let skiingEntryClimbRateMetersPerSecond: Double = -0.1
-    /// この累積上昇を超えたらリフト乗車と確定する（1サンプルの高度ノイズで本数を割らない）
-    private let liftConfirmClimbMeters: Double = 10.0
 
     public init() {}
 
@@ -74,19 +76,30 @@ public struct RunStateMachine: Sendable {
         }
         let climbRate = altitudeDelta / dt
 
+        // 滑走開始判定用の正味下降量。全サンプルの符号付き総和（＝区間始点との高度差）なので、平地のノイズでは発散しない
+        if currentState != .skiing {
+            pendingSkiDropMeters -= altitudeDelta
+        }
+
         let nextState: MotionActivityState
         if speedKmh < restingSpeedThresholdKmh {
             pendingLiftClimbMeters = 0
+            pendingSkiDropMeters = 0
             nextState = .resting
         } else if climbRate >= liftClimbRateThresholdMetersPerSecond && speedKmh < 30.0 {
             pendingLiftClimbMeters += altitudeDelta
+            pendingSkiDropMeters = 0
             nextState = (currentState == .ridingLift || pendingLiftClimbMeters >= liftConfirmClimbMeters)
                 ? .ridingLift
                 : currentState
-        } else if speedKmh >= skiingSpeedThresholdKmh
-                    && climbRate <= (currentState == .skiing ? 0.1 : skiingEntryClimbRateMetersPerSecond) {
+        } else if speedKmh >= skiingSpeedThresholdKmh && climbRate <= 0.1 {
             pendingLiftClimbMeters = 0
-            nextState = .skiing
+            if currentState == .skiing || pendingSkiDropMeters >= skiingEntryDropMeters {
+                pendingSkiDropMeters = 0
+                nextState = .skiing
+            } else {
+                nextState = currentState
+            }
         } else {
             nextState = currentState
         }
@@ -122,6 +135,7 @@ public struct RunStateMachine: Sendable {
         pureSkiDurationSeconds = 0
         maxSkiSpeedKmh = 0
         pendingLiftClimbMeters = 0
+        pendingSkiDropMeters = 0
         lastSample = nil
         lastBarometerRelativeAltitudeMeters = nil
         hasRecordedCurrentRun = false

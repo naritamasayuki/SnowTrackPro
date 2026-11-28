@@ -30,7 +30,7 @@ final class MotionTurnService {
         let buffer = GyroBatchBuffer()
         let batchSize = self.batchSize
         motionManager.gyroUpdateInterval = 1.0 / 20.0
-        motionManager.startGyroUpdates(to: queue) { [weak self] data, error in
+        motionManager.startGyroUpdates(to: queue) { @Sendable [weak self] data, error in
             if let error {
                 Task { @MainActor in
                     AppLogger.tracking.error("ジャイロ取得エラー: \(error.localizedDescription, privacy: .public)")

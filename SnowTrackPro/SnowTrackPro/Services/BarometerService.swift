@@ -22,7 +22,7 @@ final class BarometerService {
             return
         }
         latestRelativeAltitudeMeters = 0
-        altimeter.startRelativeAltitudeUpdates(to: queue) { [weak self] data, error in
+        altimeter.startRelativeAltitudeUpdates(to: queue) { @Sendable [weak self] data, error in
             if let error {
                 Task { @MainActor in
                     AppLogger.tracking.error("気圧計取得エラー: \(error.localizedDescription, privacy: .public)")

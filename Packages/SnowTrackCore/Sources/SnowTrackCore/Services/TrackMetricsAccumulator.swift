@@ -19,6 +19,7 @@ public struct TrackMetricsAccumulator: Sendable {
     private var totalDistance: Double = 0
     private var verticalDrop: Double = 0
     private var maxSpeedKmh: Double = 0
+    private var consecutiveJumpRejects: Int = 0
 
     public init(
         maxHorizontalAccuracyMeters: Double = 30.0,
@@ -72,7 +73,19 @@ public struct TrackMetricsAccumulator: Sendable {
         )
         let impliedMetersPerSecond = stepDistance / dt
         // GPSジャンプ：この点を捨て、直前の正常点を基準として保持する
-        guard impliedMetersPerSecond * 3.6 <= maxRealisticSpeedKmh else { return }
+        guard impliedMetersPerSecond * 3.6 <= maxRealisticSpeedKmh else {
+            // 3点連続で「ジャンプ」になるのは基準点（lastSample）側が外れ値だったとみなし、距離を足さずに再シードする
+            consecutiveJumpRejects += 1
+            if consecutiveJumpRejects >= 3 {
+                consecutiveJumpRejects = 0
+                lastSample = sample
+                distanceAnchor = sample
+                altitudeAnchor = sample.hasUsableAltitude(maxVerticalAccuracyMeters: maxVerticalAccuracyMeters)
+                    ? sample.altitudeMeters : nil
+            }
+            return
+        }
+        consecutiveJumpRejects = 0
 
         // 最高速度：Doppler速度スパイクおよび低精度速度を除外
         if sample.speedMetersPerSecond >= 0 {
@@ -84,9 +97,8 @@ public struct TrackMetricsAccumulator: Sendable {
         }
 
         // 距離：静止中は加算せず、低速移動はアンカーからの累積で拾う
-        let isStationary = prev.speedMetersPerSecond >= 0
-            && prev.speedMetersPerSecond < stationarySpeedMetersPerSecond
-            && sample.speedMetersPerSecond >= 0
+        // 速度無効（負値）も静止扱い。アンカー方式なので、移動再開時にアンカーからの直線距離として回収される
+        let isStationary = prev.speedMetersPerSecond < stationarySpeedMetersPerSecond
             && sample.speedMetersPerSecond < stationarySpeedMetersPerSecond
         if !isStationary, let anchor = distanceAnchor {
             let fromAnchor = ResortMatcher.haversineDistanceMeters(
